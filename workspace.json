@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "projects": {
+    "portal": "apps/portal",
+    "portal-e2e": "apps/portal-e2e",
+    "ui": "libs/ui",
+    "ui-e2e": "apps/ui-e2e"
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "styled-components",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "styled-components"
+      },
+      "library": {
+        "style": "styled-components",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "portal"
+}
