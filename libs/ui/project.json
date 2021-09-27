@@ -49,6 +49,9 @@
           "quiet": true
         }
       }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version"
     }
   }
 }
