@@ -17,7 +17,7 @@ deploy:
       chartPath: helm/phc-portal
       artifactOverrides:
         phc-base.imageKey: gcr.io/project-pluto-324014/phc-portal
-      namespace: "{{.SKAFFOLD_NAMESPACE}}"
+      # namespace: "{{.SKAFFOLD_NAMESPACE}}"
       # Docs say to put this value in an envar,
       # but what does that mean in this context? I see no reference to env and I assume
       # it's not simply .env as with node.
