@@ -9,7 +9,10 @@
       "cleanUp": false,
       "portForward": true,
       "internalConsoleOptions": "neverOpen",
-      "imageRegistry": "gcr.io/annular-aria-324718"
+      "imageRegistry": "gcr.io/project-pluto-324014",
+      "env": {
+        "SKAFFOLD_NAMESPACE": "richtillman"
+      }
     }
   ]
 }
