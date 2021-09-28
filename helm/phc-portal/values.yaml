@@ -1,0 +1,53 @@
+phc-base:
+  fullnameOverride: phc-portal
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+    prometheus.io/path: "/prometheus"
+  replicaCount: 1
+  image:
+    repository: us-docker.pkg.dev/project-pluto-324014/docker/phc-portal
+    tag: 7af3944
+    pullPolicy: Always
+  autoscaling:
+    enabled: false
+  ports:
+    - name: http
+      containerPort: 8080
+      protocol: TCP
+    - name: grpc
+      containerPort: 8081
+      protocol: TCP
+  service:
+    type: ClusterIP
+    ports:
+      - port: 8080
+        targetPort: http
+        protocol: TCP
+        name: http
+      - port: 8081
+        targetPort: grpc
+        protocol: TCP
+        name: grpc
+  env:
+    - name: CONSUL_HOST
+      value: consul-server.infra.svc.cluster.local
+    - name: SKAFFOLD_NAMESPACE
+  startupProbe:
+    httpGet:
+      port: http
+      path: /
+    failureThreshold: 30
+    periodSeconds: 10
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+    failureThreshold: 3
+    periodSeconds: 10
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+    initialDelaySeconds: 5
+    periodSeconds: 5
