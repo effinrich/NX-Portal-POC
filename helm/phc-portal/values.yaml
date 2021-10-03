@@ -10,7 +10,7 @@ phc-base:
     tag: 7af3944
     pullPolicy: Always
   autoscaling:
-    enabled: false
+    enabled: true
   ports:
     - name: http
       containerPort: 8080
