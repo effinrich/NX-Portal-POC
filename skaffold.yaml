@@ -1,34 +1,61 @@
 apiVersion: skaffold/v2beta23
 kind: Config
+metadata:
+  name: skaffold-phc-portal
 build:
   artifacts:
   - image: gcr.io/project-pluto-324014/phc-portal
+    sync:
+      infer:
+      - '**/*.ts'
+      - '**/*.tsx'
+      - '**/*.js'
+      - '**/*.jsx'
+      - '**/*.css'
     docker:
-      cacheFrom:
-      # googleCloudBuild replaces cache references to the artifact image with
-      # the tagged image reference, useful for caching from the previous build.
-      - gcr.io/project-pluto-324014/phc-portal
+      dockerfile: Dockerfile
   googleCloudBuild:
     projectId: project-pluto-324014
 deploy:
-  helm:
-    releases:
-    - name: phc-portal
-      chartPath: helm/phc-portal
-      artifactOverrides:
-        phc-base.imageKey: gcr.io/project-pluto-324014/phc-portal
-      # namespace: "{{.SKAFFOLD_NAMESPACE}}"
-      # Docs say to put this value in an envar,
-      # but what does that mean in this context? I see no reference to env and I assume
-      # it's not simply .env as with node.
-      createNamespace: true
-      valuesFiles:
-      - "helm/phc-portal/values.yaml"
-      setValues:
-          phc-base:
-            skaffold: true
-            imageConfig:
-              pullPolicy: IfNotPresent
+  kubectl:
+    manifests:
+    - k8s/deployment.yaml
+portForward:
+- resourceType: deployment
+  resourceName: phc-portal
+  port: 8080
+
+# apiVersion: skaffold/v2beta23
+# kind: Config
+# build:
+#   artifacts:
+#   - image: gcr.io/project-pluto-324014/phc-portal
+#     docker:
+#       cacheFrom:
+#       # googleCloudBuild replaces cache references to the artifact image with
+#       # the tagged image reference, useful for caching from the previous build.
+#       - gcr.io/project-pluto-324014/phc-portal
+#   googleCloudBuild:
+#     projectId: project-pluto-324014
+# deploy:
+#   helm:
+#     releases:
+#     - name: phc-portal
+#       chartPath: helm/phc-portal
+#       artifactOverrides:
+#         phc-base.imageKey: gcr.io/project-pluto-324014/phc-portal
+#       # namespace: "{{.SKAFFOLD_NAMESPACE}}"
+#       # Docs say to put this value in an envar,
+#       # but what does that mean in this context? I see no reference to env and I assume
+#       # it's not simply .env as with node.
+#       createNamespace: true
+#       valuesFiles:
+#       - "helm/phc-portal/Values.yaml"
+#       setValues:
+#           phc-base:
+#             skaffold: true
+#             imageConfig:
+#               pullPolicy: IfNotPresent
 
 # deploy:
 #   kubectl:

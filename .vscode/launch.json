@@ -11,7 +11,8 @@
       "internalConsoleOptions": "neverOpen",
       "imageRegistry": "gcr.io/project-pluto-324014",
       "env": {
-        "SKAFFOLD_NAMESPACE": "richtillman"
+        "SKAFFOLD_NAMESPACE": "default",
+        "HELM_EXPERIMENTAL_OCI": 1
       }
     }
   ]

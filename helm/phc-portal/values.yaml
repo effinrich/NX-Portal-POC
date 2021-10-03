@@ -33,6 +33,9 @@ phc-base:
     - name: CONSUL_HOST
       value: consul-server.infra.svc.cluster.local
     - name: SKAFFOLD_NAMESPACE
+      value: rtillman
+    - name: HELM_EXPERIMENTAL_OCI
+      value: 1
   startupProbe:
     httpGet:
       port: http
