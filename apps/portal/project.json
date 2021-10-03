@@ -46,7 +46,8 @@
       "executor": "@nrwl/web:dev-server",
       "options": {
         "buildTarget": "portal:build",
-        "hmr": true
+        "hmr": true,
+        "proxyConfig": "apps/portal/proxy.conf.json"
       },
       "configurations": {
         "production": {
