@@ -7,7 +7,8 @@
       "executor": "@nrwl/cypress:cypress",
       "options": {
         "cypressConfig": "apps/ui-e2e/cypress.json",
-        "devServerTarget": "ui:storybook"
+        "devServerTarget": "ui:storybook",
+        "tsConfig": "apps/ui-e2e/tsconfig.json"
       },
       "configurations": {
         "ci": {
