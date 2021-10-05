@@ -105,7 +105,9 @@
   },
   "config": {
     "commitizen": {
-      "path": "cz-conventional-changelog"
+      "path": "cz-conventional-changelog",
+      "maxHeaderWidth": 500,
+      "maxLineWidth": 500
     }
   },
   "commitlint": {
