@@ -33,7 +33,7 @@ deploy:
       # it's not simply .env as with node.
       createNamespace: true
       valuesFiles:
-      - "helm/phc-portal/values.yaml"
+      - "helm/phc-portal/Values.yaml"
       setValues:
           phc-base:
             skaffold: true

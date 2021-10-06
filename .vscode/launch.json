@@ -9,7 +9,7 @@
       "cleanUp": false,
       "portForward": true,
       "internalConsoleOptions": "neverOpen",
-      "imageRegistry": "gcr.io/project-pluto-324014",
+      "imageRegistry": "gcr.io/project-pluto-324014/phc-portal",
       "env": {
         "HELM_EXPERIMENTAL_OCI": "1",
         "SKAFFOLD_NAMESPACE": "rtillman"
