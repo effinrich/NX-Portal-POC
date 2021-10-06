@@ -8,8 +8,13 @@
   },
   "files.exclude": {},
   "explorerExclude.backup": {},
+  "vs-kubernetes": {
+    "vs-kubernetes.minikube-path": "/Users/$USER/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
+  },
   "terminal.integrated.env.osx": {
     "HELM_EXPERIMENTAL_OCI": "1",
-    "SKAFFOLD_NAMESPACE": "rtillman"
+    "SKAFFOLD_NAMESPACE": "rtillman",
+    "DOCKER_CONFIG": "~/.docker",
+    "HELM_REGISTRY_CONFIG": "$DOCKER_CONFIG/config.json"
   }
 }

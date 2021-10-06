@@ -36,6 +36,10 @@ phc-base:
       value: rtillman
     - name: HELM_EXPERIMENTAL_OCI
       value: 1
+    - name: DOCKER_CONFIG
+      value: ~/.docker
+    - name: HELM_REGISTRY_CONFIG
+      value: ${DOCKER_CONFIG}/config.json
   startupProbe:
     httpGet:
       port: http
