@@ -1,6 +1,6 @@
 repository:
-  name: ${YOUR_REPO_NAME}
-  description: ${YOUR_REPO_DESCRIPTION}
+  name: phc-portal
+  description: Repo for the PHC Portal
   private: true
   has_issues: true
   has_projects: false
