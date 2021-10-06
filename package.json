@@ -1,6 +1,6 @@
 {
   "name": "phc-portal",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "start": "nx serve --port 3001",
@@ -10,7 +10,7 @@
     "build": "nx build",
     "build:portal": "nx run portal:build",
     "test": "nx test",
-    "storybook-ui": "nx run ui:storybook",
+    "storybook": "nx run ui:storybook",
     "build-storybook": "nx run ui:build-storybook",
     "cz": "cz",
     "prepare": "husky install",
