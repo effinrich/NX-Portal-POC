@@ -16,5 +16,18 @@
     "SKAFFOLD_NAMESPACE": "rtillman",
     "DOCKER_CONFIG": "~/.docker",
     "HELM_REGISTRY_CONFIG": "$DOCKER_CONFIG/config.json"
-  }
+  },
+  "eslint.alwaysShowStatus": true,
+  "eslint.debug": true,
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "prettier.arrowParens": "avoid",
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "prettier.typescriptEnable": ["typescript", "typescriptreact"],
+  "prettier.javascriptEnable": [
+    "javascript",
+    "javascriptreact"
+  ],
+  "jestrunner.enableYarnPnpSupport": true
 }

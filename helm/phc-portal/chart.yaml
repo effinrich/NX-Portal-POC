@@ -4,4 +4,4 @@ version: 0.1.0
 dependencies:
   - name: phc-base
     version: 0.1.9
-    repository: "oci://us-central1-docker.pkg.dev/project-pluto-324014/helm"
+    repository: 'oci://us-central1-docker.pkg.dev/project-pluto-324014/helm'

@@ -1,8 +1,58 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:jsx-a11y/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["@nrwl/nx", "jsx-a11y", "react-hooks", "simple-import-sort"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-unused-vars": "error",
+    "import/no-duplicates": "error",
+    "simple-import-sort/exports": "error",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          // Packages. `react` related packages come first.
+          // Things that start with a letter (or digit or underscore), or `@` followed by a letter.
+          ["^react", "^@?\\w"],
+          // Side effect imports.
+          ["^\\u0000"],
+          // Packages.
+          // Internal packages.
+          ["^(components)(/.*|$)"],
+          // Absolute imports and Relative imports.
+          // [`^(${folders.join("|")})(/.*|$)`, "^\\."],
+          // Parent imports. Put `..` last.
+          ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+          // Other relative imports. Put same-folder imports and `.` last.
+          ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+          // Anything that starts with a dot.
+          ["^\\."]
+        ]
+      }
+    ]
+  },
   "overrides": [
+    {
+      "files": ["**/*.stories.*"],
+      "rules": {
+        "import/no-anonymous-default-export": "off"
+      }
+    },
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {

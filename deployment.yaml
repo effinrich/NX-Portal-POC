@@ -15,18 +15,18 @@ spec:
         app: phc-portal
     spec:
       containers:
-      - name: phc-portal
-        image: gcr.io/project-pluto-324014/phc-portal
-        imagePullPolicy: Always
-        resources:
-          requests:
-            memory: "32Mi"
-            cpu: "100m"
-          limits:
-            memory: "128Mi"
-            cpu: "250m"
-        ports:
-        - containerPort: 80
+        - name: phc-portal
+          image: gcr.io/project-pluto-324014/phc-portal
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: '32Mi'
+              cpu: '100m'
+            limits:
+              memory: '128Mi'
+              cpu: '250m'
+          ports:
+            - containerPort: 80
       restartPolicy: Always
 
 ---

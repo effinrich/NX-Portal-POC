@@ -1,9 +1,9 @@
 phc-base:
   fullnameOverride: phc-portal
   podAnnotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "8080"
-    prometheus.io/path: "/prometheus"
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '8080'
+    prometheus.io/path: '/prometheus'
   replicaCount: 1
   image:
     repository: us-docker.pkg.dev/project-pluto-324014/docker/phc-portal
