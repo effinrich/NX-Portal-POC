@@ -6,7 +6,7 @@
       "request": "launch",
       "skaffoldConfig": "${workspaceFolder}/skaffold.yaml",
       "watch": true,
-      "cleanUp": false,
+      "cleanUp": true,
       "portForward": true,
       "internalConsoleOptions": "neverOpen",
       "imageRegistry": "gcr.io/project-pluto-324014/phc-portal",

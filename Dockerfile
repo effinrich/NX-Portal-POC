@@ -1,23 +1,65 @@
-# pull official base image
-FROM node:15-alpine
+#
+# Step 0: Base
+#
+FROM node:14.15.4-buster-slim as base
 
-# set working directory
-WORKDIR /app
+RUN apt-get update && apt-get install --no-install-recommends --yes openssl
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+ENV TZ=America/Los_Angeles
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# install app dependencies
-COPY package.json ./
-COPY yarn.lock ./
-RUN yarn
-RUN yarn add react-scripts@4.0.3 -g
+WORKDIR /apps
 
-# add app
-COPY . ./
+#
+# Step 1: Builder
+#
+FROM base as builder
 
-# start app
-CMD ["yarn", "start"]
+COPY package.json tsconfig*.json yarn.lock nx.json workspace.json ./
+COPY apps/portal ./apps/portal
+
+RUN yarn install --pure-lockfile
+
+COPY libs ./libs
+
+RUN yarn nx build portal --prod
+
+#
+# Step 2: Runner
+#
+FROM base as runner
+
+COPY --from=builder /apps/portal/ ./dist
+COPY --from=builder /node_modules ./node_modules
+
+EXPOSE 4000
+
+CMD [ "node", "dist/main" ]
+
+
+# # pull official base image
+# FROM node:15-alpine
+
+# # set working directory
+# WORKDIR /apps
+
+# # add `/apps/node_modules/.bin` to $PATH
+# ENV PATH /apps/node_modules/.bin:$PATH
+
+# # install apps dependencies
+# COPY package.json ./
+# COPY yarn.lock ./
+# RUN yarn
+# # RUN yarn add react-scripts@4.0.3 -g
+
+# # add apps
+# COPY . ./
+
+# # start apps
+# CMD ["yarn", "start"]
+
+
+
 
 
 # FROM node:15-alpine as builder

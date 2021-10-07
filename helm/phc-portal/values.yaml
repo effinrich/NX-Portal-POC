@@ -7,7 +7,7 @@ phc-base:
   replicaCount: 1
   image:
     repository: us-docker.pkg.dev/project-pluto-324014/docker/phc-portal
-    tag: 7af3944
+    tag: 0.1.8
     pullPolicy: Always
   autoscaling:
     enabled: true
@@ -32,14 +32,14 @@ phc-base:
   env:
     - name: CONSUL_HOST
       value: consul-server.infra.svc.cluster.local
-    - name: SKAFFOLD_NAMESPACE
-      value: rtillman
-    - name: HELM_EXPERIMENTAL_OCI
-      value: 1
-    - name: DOCKER_CONFIG
-      value: ~/.docker
-    - name: HELM_REGISTRY_CONFIG
-      value: ${DOCKER_CONFIG}/config.json
+    # - name: SKAFFOLD_NAMESPACE
+    #   value: rtillman
+    # - name: HELM_EXPERIMENTAL_OCI
+    #   value: 1
+    # - name: DOCKER_CONFIG
+    #   value: ~/.docker
+    # - name: HELM_REGISTRY_CONFIG
+    #   value: ${DOCKER_CONFIG}/config.json
   startupProbe:
     httpGet:
       port: http

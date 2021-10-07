@@ -23,7 +23,7 @@ deploy:
   helm:
     releases:
       - name: phc-portal
-        chartPath: helm/phc-portal
+        chartPath: helm/phc-portal/charts
         artifactOverrides:
           phc-base.imageKey: gcr.io/project-pluto-324014/phc-portal
         namespace: 'rtillman'

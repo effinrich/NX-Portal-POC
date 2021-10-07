@@ -76,7 +76,7 @@
       "options": {
         "file": "Dockerfile",
         "push": true,
-        "tags": ["phc-portal/api:latest", "phc-portal/api:v1"]
+        "tags": ["phc-portal/api:latest", "phc-portal/api:0.1.8"]
       }
     },
     "version": {
