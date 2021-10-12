@@ -3,15 +3,9 @@ kind: Config
 build:
   artifacts:
     - image: gcr.io/project-pluto-324014/phc-portal
-      sync:
-        infer:
-          - '**/*.ts'
-          - '**/*.tsx'
-          - '**/*.js'
-          - '**/*.jsx'
-          - '**/*.css'
       docker:
         dockerfile: Dockerfile
+        noCache: true
         cacheFrom:
           # googleCloudBuild replaces cache references to the artifact image with
           # the tagged image reference, useful for caching from the previous build.
@@ -19,11 +13,12 @@ build:
   googleCloudBuild:
     projectId: project-pluto-324014
     timeout: 1000s
+    concurrency: 0
 deploy:
   helm:
     releases:
       - name: phc-portal
-        chartPath: helm/phc-portal/charts
+        chartPath: helm/phc-portal
         artifactOverrides:
           phc-base.imageKey: gcr.io/project-pluto-324014/phc-portal
         namespace: 'rtillman'
@@ -39,6 +34,12 @@ deploy:
             skaffold: true
             imageConfig:
               pullPolicy: IfNotPresent
+portForward:
+  - resourceType: service
+    resourceName: phc-portal
+    namespace: 'rtillman'
+    port: 8080
+    localPort: 8081
 # deploy:
 #   kubectl:
 #     manifests:
