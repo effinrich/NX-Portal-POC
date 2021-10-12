@@ -3,9 +3,7 @@
   "projects": {
     "portal": "apps/portal",
     "portal-e2e": "apps/portal-e2e",
-    "server": "apps/server",
-    "ui": "libs/ui",
-    "ui-e2e": "apps/ui-e2e"
+    "server": "apps/server"
   },
   "cli": {
     "defaultCollection": "@nrwl/react"
