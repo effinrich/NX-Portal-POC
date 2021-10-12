@@ -1,91 +1,111 @@
-#
-# Step 0: Base
-#
-FROM node:14.15.4-buster-slim as base
+# FROM node:14-alpine
+# ENV NODE_ENV=production
 
-RUN apt-get update && apt-get install --no-install-recommends --yes openssl
+# RUN yarn add -g nx
 
-ENV TZ=America/Los_Angeles
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+# WORKDIR /usr/src/app
 
-WORKDIR /apps
+# COPY ["package.json", "yarn.lock", "./"]
+# RUN yarn build
+# RUN yarn --production --silent && mv node_modules ../
+# COPY . .
 
-#
-# Step 1: Builder
-#
-FROM base as builder
+# EXPOSE 4200
+# EXPOSE 8080
 
-COPY package.json tsconfig*.json yarn.lock nx.json workspace.json ./
-COPY apps/portal ./apps/portal
+# RUN chown -R node /usr/src/app
 
-RUN yarn install --pure-lockfile
-
-COPY libs ./libs
-
-RUN yarn nx build portal --prod
-
-#
-# Step 2: Runner
-#
-FROM base as runner
-
-COPY --from=builder /apps/portal/ ./dist
-COPY --from=builder /node_modules ./node_modules
-
-EXPOSE 4000
-
-CMD [ "node", "dist/main" ]
-
-
-# # pull official base image
-# FROM node:15-alpine
-
-# # set working directory
-# WORKDIR /apps
-
-# # add `/apps/node_modules/.bin` to $PATH
-# ENV PATH /apps/node_modules/.bin:$PATH
-
-# # install apps dependencies
-# COPY package.json ./
-# COPY yarn.lock ./
-# RUN yarn
-# # RUN yarn add react-scripts@4.0.3 -g
-
-# # add apps
-# COPY . ./
-
-# # start apps
+# USER node
 # CMD ["yarn", "start"]
 
-
-
-
-
-# FROM node:15-alpine as builder
+# FROM node:15-alpine
 
 # # set some ENV vars
-# ENV HOME /root
-# ENV TERM=xterm-256color
-# ENV PROJECT_ROOT /opt/app
+# # ENV PROJECT_ROOT /opt/app
 
-# WORKDIR $PROJECT_ROOT
-
+# WORKDIR /app
 
 # RUN npm install -g nx
 
 # # use changes to package.json to force Docker not to use the cache
 # # when we change our application's nodejs dependencies:
-# COPY package.json yarn.lock $PROJECT_ROOT/
-# # RUN NODE_ENV=development yarn --pure-lockfile
-# RUN yarn --pure-lockfile
-
-# # Copy working files
-# COPY . $PROJECT_ROOT/
+# # COPY package.json yarn.lock $PROJECT_ROOT/
+# COPY package.json yarn.lock ./
+# RUN yarn install --production
 
 # # Build App
-# RUN yarn build && yarn build-storybook
+# RUN yarn build
 
-# EXPOSE 3000
+# # Copy working files
+# COPY ./dist/ ./
+
+# EXPOSE 4200
+# EXPOSE 8080
 
 # CMD ["yarn", "start"]
+
+# FROM node:14-alpine as build
+
+# COPY . .
+
+# RUN yarn install
+
+# RUN yarn nx build portal --prod
+
+# FROM nginx:1.19.9-alpine
+
+# COPY --from=build /dist/apps/portal/ /usr/share/nginx/html/
+
+# CMD [ "node", "dist/apps/portal/main.js" ]
+
+# --- -base- ---
+# FROM node:14-alpine as build
+
+# COPY . .
+
+# RUN yarn global add nx
+
+# RUN yarn install
+
+# RUN yarn nx build portal --prod
+
+# FROM nginx:1.19.9-alpine
+
+# COPY --from=build /dist/apps/portal/ /usr/share/nginx/html/
+
+# --- --- ---
+# CMD ls -las /root/app && tail -f /dev/null
+
+# Use below nginx version
+FROM nginx:1.15.2-alpine
+
+# Copy the build folder of the react app
+
+COPY ./dist/apps/portal /var/www
+
+# Copy the ngnix configrations
+COPY ./apps/portal/nginx.conf /etc/nginx/nginx.conf
+
+# Expose it on port 80
+EXPOSE 8080
+
+ENTRYPOINT ["nginx","-g","daemon off;"]
+
+# build environment
+# FROM node:14-alpine as react-build
+# # WORKDIR /app
+# COPY . ./
+# RUN yarn global add nx
+# RUN yarn
+# RUN yarn nx build portal --prod
+
+# # server environment
+# FROM nginx:1.19.9-alpine
+# COPY nginx.conf /etc/nginx/conf.d/configfile.template
+
+# COPY --from=react-build /dist/apps/portal/ /usr/share/nginx/html/
+
+# ENV PORT 8080
+# ENV HOST 0.0.0.0
+# EXPOSE 8080
+# CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
