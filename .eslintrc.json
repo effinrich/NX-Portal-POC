@@ -1,23 +1,10 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
-  "extends": [
-    "plugin:jsx-a11y/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:prettier/recommended"
-  ],
-  "plugins": ["@nrwl/nx", "jsx-a11y", "react-hooks", "simple-import-sort"],
   "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 12,
     "sourceType": "module"
   },
+  "plugins": ["@nrwl/nx", "simple-import-sort"],
   "rules": {
     "no-unused-vars": "error",
     "import/no-duplicates": "error",
@@ -48,9 +35,12 @@
   },
   "overrides": [
     {
-      "files": ["**/*.stories.*"],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "plugins": ["import"],
       "rules": {
-        "import/no-anonymous-default-export": "off"
+        "import/first": "error",
+        "import/newline-after-import": "error",
+        "import/no-duplicates": "error"
       }
     },
     {

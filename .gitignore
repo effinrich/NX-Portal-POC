@@ -140,3 +140,5 @@ minikube-darwin-amd64
 kubectl.sha256
 skaffold
 tasks.json
+.yarn
+.env.local
