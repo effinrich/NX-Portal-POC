@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Redirect, Route, Switch } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import {
   Alert,
@@ -10,11 +9,10 @@ import {
   CloseButton,
   Container
 } from '@chakra-ui/react'
-import { Nav, ProtectedRoute, PublicRoute } from '@phc/portal/components'
 import styled from 'styled-components'
 
+import { Nav } from '../../components'
 import RouteHandler from '../../helpers/Router/RouteHander'
-// import { Dashboard, Users } from '@phc/portal/features'
 import Routes from '../../views'
 
 const StyledApp = styled.div``
@@ -42,11 +40,6 @@ export function App() {
         </Center>
       </Container>
       <RouteHandler routes={Routes} />
-      {/* <Switch>
-        <PublicRoute exact path="/login" component={Login} />
-        <ProtectedRoute path="/dashboard" component={Dashboard} exact />
-        <ProtectedRoute path="/users" component={Users} />
-      </Switch> */}
     </StyledApp>
   )
 }
