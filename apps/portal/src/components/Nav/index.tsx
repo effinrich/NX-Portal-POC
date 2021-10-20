@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 
+import { AuthButton } from '../AuthButton'
+
 export function Nav() {
   const { isAuthenticated, user, loginWithRedirect, logout } = useAuth0<{
     name: string
@@ -34,27 +36,7 @@ export function Nav() {
           </Link>
         </div>
       </div>
-
-      {isAuthenticated ? (
-        <div>
-          <span id="hello">Hello, {user?.name}!</span>{' '}
-          <button
-            className="btn btn-outline-secondary"
-            id="logout"
-            onClick={() => logout({ returnTo: window.location.origin })}
-          >
-            logout
-          </button>
-        </div>
-      ) : (
-        <button
-          className="btn btn-outline-success"
-          id="login"
-          onClick={() => loginWithRedirect()}
-        >
-          login
-        </button>
-      )}
+      <AuthButton />
     </nav>
   )
 }

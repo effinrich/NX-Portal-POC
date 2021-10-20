@@ -1,13 +1,18 @@
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
+import { Spinner } from '@chakra-ui/react'
+import { Loader } from '@phc/shared-ui'
 
 export const accessTypes = { user: 'USER', public: 'PUBLIC' }
 
 const RoutesWithSubRoutes = route => {
-  console.log('route = ', route.access)
   const ComponentWithAuth =
     route.access === accessTypes.user
-      ? withAuthenticationRequired(route.Component, {})
+      ? withAuthenticationRequired(route.Component, {
+          onRedirecting: () => (
+            <Spinner emptyColor="gray.200" color="blue.500" size="xl" />
+          )
+        })
       : route.Component
 
   return route.routes ? (
