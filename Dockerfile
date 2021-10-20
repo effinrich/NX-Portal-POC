@@ -30,3 +30,15 @@ COPY ./nginx.conf /etc/nginx/nginx.conf
 EXPOSE 8080
 
 ENTRYPOINT ["nginx","-g","daemon off;"]
+
+// FROM node:14-alpine as build
+
+// COPY . .
+
+// RUN npm install
+
+// RUN npm run build <project>
+
+// FROM nginx:1.19.9-alpine
+
+// COPY --from=build /build/apps/<project>/ /usr/share/nginx/html/
