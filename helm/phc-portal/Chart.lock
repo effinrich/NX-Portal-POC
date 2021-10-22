@@ -1,6 +1,0 @@
-dependencies:
-- name: phc-base
-  repository: oci://us-central1-docker.pkg.dev/project-pluto-324014/helm
-  version: 0.1.8
-digest: sha256:aff7a34194d059e9ac730679612dd6bcefd4ad328bb074efac4240d6fdbbab30
-generated: "2021-10-08T05:50:37.919742-07:00"
