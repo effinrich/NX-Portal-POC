@@ -1,21 +1,47 @@
 {
   "configurations": [
     {
-      "name": "Kubernetes: Run/Debug",
-      "type": "cloudcode.kubernetes",
+      "name": "Cloud Run: Run/Debug Locally",
+      "type": "cloudcode.cloudrun",
       "request": "launch",
-      "skaffoldConfig": "${workspaceFolder}/skaffold.yaml",
-      "watch": true,
-      "cleanUp": true,
-      "portForward": true,
-      "internalConsoleOptions": "neverOpen",
-      "imageRegistry": "gcr.io/project-pluto-324014/phc-portal",
-      "env": {
-        "HELM_EXPERIMENTAL_OCI": "1",
-        "SKAFFOLD_NAMESPACE": "rtillman",
-        "DOCKER_CONFIG": "~/.docker",
-        "HELM_REGISTRY_CONFIG": "${DOCKER_CONFIG}/config.json"
-      }
+      "autoStop": false,
+      "build": {
+        "docker": {
+          "path": "Dockerfile"
+        }
+      },
+      "image": "${workspaceFolderBasename}",
+      "service": {
+        "name": "${workspaceFolderBasename}",
+        "containerPort": 8080,
+        "resources": {
+          "limits": {
+            "memory": "256Mi"
+          }
+        }
+      },
+      "target": {
+        "minikube": {}
+      },
+      "watch": true
     }
+
+    // {
+    //   "name": "Kubernetes: Run/Debug",
+    //   "type": "cloudcode.kubernetes",
+    //   "request": "launch",
+    //   "skaffoldConfig": "${workspaceFolder}/skaffold.yaml",
+    //   "watch": true,
+    //   "cleanUp": true,
+    //   "portForward": true,
+    //   "internalConsoleOptions": "neverOpen",
+    //   "imageRegistry": "gcr.io/project-pluto-324014/phc-portal",
+    //   "env": {
+    //     "HELM_EXPERIMENTAL_OCI": "1",
+    //     "SKAFFOLD_NAMESPACE": "rtillman",
+    //     "DOCKER_CONFIG": "~/.docker",
+    //     "HELM_REGISTRY_CONFIG": "${DOCKER_CONFIG}/config.json"
+    //   }
+    // }
   ]
 }
