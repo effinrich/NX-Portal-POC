@@ -1,26 +1,41 @@
-# Use below nginx version - we want stable channel, which is 1.20 as of Oct 21, 2021
-FROM nginx:stable-alpine
+# FROM nginx:stable-alpine
 
-RUN apk --no-cache add nodejs yarn \
-        --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+# RUN apk --no-cache add nodejs yarn \
+#         --repository=http:#dl-cdn.alpinelinux.org/alpine/edge/community
 
-# Fix this
-COPY . .
+# # Fix this
+# COPY . .
 
-RUN yarn install
+# RUN yarn install
 
-RUN yarn test
+# RUN yarn test
 
+# RUN yarn build
+
+# EXPOSE 8080:80
+
+# ENTRYPOINT ["nginx","-g","daemon off;"]
+
+
+FROM node:14 as build-deps
+
+# Install http apt transport (for yarn)
+RUN apt-get update \
+  && apt-get install -qqy apt-transport-https
+
+# Add the yarn repo
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+WORKDIR /usr/src/app
+
+COPY package.json yarn.lock ./
+RUN yarn
+COPY . ./
+# RUN yarn test
 RUN yarn build
 
-
-# Copy the build folder of the react app
-#COPY dist/apps/portal /var/www
-
-# Copy the ngnix configrations
-#COPY nginx.conf /etc/nginx/nginx.conf
-
-# Expose it on port 8080:80
+FROM nginx:stable-alpine
+COPY --from=build-deps /usr/src/app/dist/apps/portal /usr/share/nginx/html
 EXPOSE 8080:80
-
-ENTRYPOINT ["nginx","-g","daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
