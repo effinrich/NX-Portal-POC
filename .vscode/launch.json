@@ -25,23 +25,5 @@
       },
       "watch": true
     }
-
-    // {
-    //   "name": "Kubernetes: Run/Debug",
-    //   "type": "cloudcode.kubernetes",
-    //   "request": "launch",
-    //   "skaffoldConfig": "${workspaceFolder}/skaffold.yaml",
-    //   "watch": true,
-    //   "cleanUp": true,
-    //   "portForward": true,
-    //   "internalConsoleOptions": "neverOpen",
-    //   "imageRegistry": "gcr.io/project-pluto-324014/phc-portal",
-    //   "env": {
-    //     "HELM_EXPERIMENTAL_OCI": "1",
-    //     "SKAFFOLD_NAMESPACE": "rtillman",
-    //     "DOCKER_CONFIG": "~/.docker",
-    //     "HELM_REGISTRY_CONFIG": "${DOCKER_CONFIG}/config.json"
-    //   }
-    // }
   ]
 }
