@@ -5,6 +5,9 @@ on:
       - main
   pull_request:
 
+env:
+  NX_CLOUD_DISTRIBUTED_EXECUTION: true
+
 jobs:
   main:
     runs-on: ubuntu-latest
@@ -20,8 +23,10 @@ jobs:
         with:
           node-version: '14'
       - run: npm install
+      - run: npx nx-cloud start-ci-run
       - run: npx nx affected --target=build --parallel --max-parallel=3
       - run: npx nx affected --target=test --parallel --max-parallel=2
+      - run: npx nx-cloud stop-all-agents
   pr:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
@@ -36,8 +41,10 @@ jobs:
         with:
           node-version: '14'
       - run: npm install
+      - run: npx nx-cloud start-ci-run
       - run: npx nx affected --target=build --parallel --max-parallel=3
       - run: npx nx affected --target=test --parallel --max-parallel=2
+      - run: npx nx-cloud stop-all-agents
       - name: Deploy to Cloud Run
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v0.3.0
@@ -45,3 +52,19 @@ jobs:
           service: phc-portal-151@project-pluto-324014.iam.gserviceaccount.com
           image: gcr.io/project-pluto-324014/phc-portal
           credentials: ${{ secrets.GCP_SA_KEY }}
+  agents:
+    runs-on: ubuntu-latest
+    name: Agent 1
+    timeout-minutes: 60
+    strategy:
+      matrix:
+        agent: [ 1, 2, 3 ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+      - run: npm install
+      - name: Start Nx Agent ${{ matrix.agent }}
+        run: npx nx-cloud start-agent
+
