@@ -45,15 +45,6 @@ jobs:
       - run: npx nx affected --target=build --parallel --max-parallel=3
       - run: npx nx affected --target=test --parallel --max-parallel=2
       - run: npx nx-cloud stop-all-agents
-      - name: Deploy to Cloud Run
-        id: deploy
-        uses: google-github-actions/deploy-cloudrun@v0.3.0
-        with:
-          service: phc-portal-151@project-pluto-324014.iam.gserviceaccount.com
-          image: gcr.io/project-pluto-324014/phc-portal
-          credentials: ${{ secrets.GCP_SA_KEY }}
-      - name: Use Output
-        run: curl "${{ steps.deploy.outputs.url }}"
   agents:
     runs-on: ubuntu-latest
     name: Agent 1
