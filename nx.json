@@ -1,4 +1,5 @@
 {
+  "npmScope": "phc-portal",
   "affected": {
     "defaultBase": "main"
   },
