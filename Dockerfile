@@ -20,22 +20,24 @@
 FROM node:14 as build-deps
 
 # Install http apt transport (for yarn)
-RUN apt-get update \
-  && apt-get install -qqy apt-transport-https
+# RUN apt-get update \
+# && apt-get install -qqy apt-transport-https
 
 # Add the yarn repo
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+# RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+# RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.# list
 
 WORKDIR /usr/src/app
 
 COPY package.json yarn.lock ./
-RUN yarn
 COPY . ./
+RUN yarn
 # RUN yarn test
 RUN yarn build
 
-FROM nginx:stable-alpine
-COPY --from=build-deps /usr/src/app/dist/apps/portal /usr/share/nginx/html
+# FROM nginx:stable-alpine
+# COPY --from=build-deps /usr/src/app/dist /usr/share/nginx/html
 EXPOSE 8080:80
-CMD ["nginx", "-g", "daemon off;"]
+
+# CMD ["nginx","-g","daemon off;"]
+ENTRYPOINT ["nginx","-g","daemon off;"]
