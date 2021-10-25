@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import {
   Alert,
@@ -7,7 +8,8 @@ import {
   AlertTitle,
   Center,
   CloseButton,
-  Container
+  Container,
+  Heading
 } from '@chakra-ui/react'
 import styled from 'styled-components'
 
@@ -19,6 +21,13 @@ const StyledApp = styled.div``
 
 export function App() {
   const { isLoading, error } = useAuth0()
+  const [apiMessage, setApiMessage] = useState('')
+
+  useEffect(() => {
+    fetch('/api')
+      .then(res => res.json())
+      .then(res => setApiMessage(res.message))
+  }, [])
 
   if (isLoading) {
     return <div>loading</div>
@@ -28,6 +37,7 @@ export function App() {
     <StyledApp>
       <Nav />
       <Container>
+        <Heading>{apiMessage}</Heading>
         <Center pt={12}>
           {error && (
             <Alert status="error">
