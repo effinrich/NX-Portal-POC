@@ -23,10 +23,10 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@phc/portal/components": ["apps/portal/src/components/index.ts"],
-      "@phc/portal/features": ["libs/portal/features/src/index.ts"],
-      "@phc/shared-ui": ["libs/shared/ui/src/index.ts"],
-      "@phc/shared-utils": ["libs/shared/utils/src/index.ts"]
+      "@phc-portal/portal/components": ["apps/portal/src/components/index.ts"],
+      "@phc-portal/portal/features": ["libs/portal/features/src/index.ts"],
+      "@phc-portal/shared-ui": ["libs/shared/ui/src/index.ts"],
+      "@phc-portal/shared-utils": ["libs/shared/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

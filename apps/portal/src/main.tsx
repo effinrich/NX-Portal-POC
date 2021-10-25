@@ -13,7 +13,7 @@ import {
   extendTheme
 } from '@chakra-ui/react'
 import loadable from '@loadable/component'
-// import { Loader } from '@phc/shared-ui'
+// import { Loader } from '@phc-portal/shared-ui'
 import { createBrowserHistory } from 'history'
 
 import { Button } from './theme'

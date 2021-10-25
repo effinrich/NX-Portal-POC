@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import { Spinner } from '@chakra-ui/react'
-import { Loader } from '@phc/shared-ui'
+import { Loader } from '@phc-portal/shared-ui'
 
 export const accessTypes = { user: 'USER', public: 'PUBLIC' }
 
