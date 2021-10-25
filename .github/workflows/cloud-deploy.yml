@@ -7,7 +7,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.RUN_PROJECT }}
-  SERVICE_NAME: phc-portal-151
+  SERVICE_NAME: phc-portal
 
 jobs:
   setup-build-deploy:
@@ -21,10 +21,8 @@ jobs:
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@master
       with:
-        version: '286.0.0'
-        service_account_email: ${{ secrets.RUN_SA_EMAIL }}
-        service_account_key: ${{ secrets.RUN_SA_KEY }}
-        project_id: ${{ secrets.RUN_PROJECT }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
 
     # Build and push image to Google Container Registry
     - name: Build
@@ -32,28 +30,3 @@ jobs:
         gcloud builds submit \
           --quiet \
           --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA"
-  main:
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'pull_request' }}
-    steps:
-      - name: Deploy to Cloud Run
-        id: deploy
-        uses: google-github-actions/deploy-cloudrun@v0.3.0
-        with:
-          service: phc-portal-151@project-pluto-324014.iam.gserviceaccount.com
-          image: gcr.io/project-pluto-324014/phc-portal
-          credentials: ${{ secrets.GCP_SA_KEY }}
-      - name: Use Output
-        run: curl "${{ steps.deploy.outputs.url }}"
-  pr:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to Cloud Run
-        id: deploy
-        uses: google-github-actions/deploy-cloudrun@v0.3.0
-        with:
-          service: phc-portal-151@project-pluto-324014.iam.gserviceaccount.com
-          image: gcr.io/project-pluto-324014/phc-portal
-          credentials: ${{ secrets.GCP_SA_KEY }}
-      - name: Use Output
-        run: curl "${{ steps.deploy.outputs.url }}"

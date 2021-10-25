@@ -19,15 +19,21 @@ import Routes from '../../views'
 
 const StyledApp = styled.div``
 
+// interface IApi extends Users, ApiResponse {}
+
 export function App() {
   const { isLoading, error } = useAuth0()
-  const [apiMessage, setApiMessage] = useState('')
+  const [apiMessage, setApiMessage] = useState()
 
   useEffect(() => {
-    fetch('/api')
-      .then(res => res.json())
-      .then(res => setApiMessage(res.message))
-  }, [])
+    const fetchApi = async () => {
+      const response = await fetch('/api')
+      const message = await response.json()
+      setApiMessage(message.message)
+    }
+
+    fetchApi()
+  }, [setApiMessage])
 
   if (isLoading) {
     return <div>loading</div>
