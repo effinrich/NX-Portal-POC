@@ -20,6 +20,9 @@ RUN yarn build
 
 # production environment
 FROM nginx:stable-alpine
+COPY --from=build /app/.htpasswd /usr/share/nginx/.htpasswd
+COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf
+
 COPY --from=build /app/dist/apps/portal /usr/share/nginx/html
 
 EXPOSE 8080:80

@@ -9,17 +9,14 @@ phc-base:
 
   # service.yaml
   service:
-#    annotations:
-#      service.alpha.kubernetes.io/app-protocols: '{"mdp":"HTTP2"}'
-#      cloud.google.com/neg: '{"ingress": true, "exposed_ports": {"443":{}}}'
-#      cloud.google.com/backend-config: '{"default": "mdp"}'
+    annotations:
+      cloud.google.com/neg: '{"ingress": true, "exposed_ports": {"443":{}}}'
     type: ClusterIP
-    port: 80 # ddss
+    port: 80
     ports:
       - port: 443
         targetPort: 80
         protocol: TCP
-#        name: mdp
 
   # deployment.yaml
   replicaCount: 1
@@ -48,17 +45,21 @@ phc-base:
     enabled: false
 
   certificate:
-    create: false
+    create: true
+    commonName: "portal.pluto.thepublichealthco.com"
+    secretName: esp-ssl
+    issuer: selfsigned-dev
+    issuerKind: ClusterIssuer
 
   # ingress.yaml
-#  ingress:
-#    enabled: true
-#    annotations:
-#      kubernetes.io/ingress.class: "gce"
-#      kubernetes.io/ingress.allow-http: "false"
-#    tls:
-#    - hosts:
-#      - portal.pluto.thepublichealthco.com
-#    backend:
-#      serviceName: mdp
-#      servicePort: 443
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: "gce"
+      kubernetes.io/ingress.allow-http: "false"
+    tls:
+    - hosts:
+      - portal.pluto.thepublichealthco.com
+    backend:
+      serviceName: phc-portal
+      servicePort: 443
