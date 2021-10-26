@@ -80,7 +80,7 @@
     "docker": {
       "executor": "@nx-tools/nx-docker:build",
       "options": {
-        "file": "apps/portal/Dockerfile",
+        "file": "./Dockerfile",
         "push": true,
         "tags": ["phc-portal:latest", "phc-portal:v1"]
       }
