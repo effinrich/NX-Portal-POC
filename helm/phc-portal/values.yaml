@@ -26,16 +26,22 @@ phc-base:
     prometheus.io/path: "/prometheus"
   image:
     repository: us-docker.pkg.dev/project-pluto-324014/docker/phc-portal
-    tag: bb149e0-a996d236-4a5c-4c6f-8b75-d30bfded49df
+    tag: 89e869a-6db0e190-01b2-41a5-8d77-0424fc46f734
     pullPolicy: Always
-#  readinessProbe:
-#    exec:
-#      command: ["/bin/grpc_health_probe", "-addr", ":8081"]
-#    initialDelaySeconds: 5
-#  livenessProbe:
-#    exec:
-#      command: ["/bin/grpc_health_probe", "-addr", ":8081"]
-#    initialDelaySeconds: 10
+  readinessProbe:
+    httpGet:
+      path: /
+      port: 80
+      httpHeaders:
+      - name: Authorization
+        value: Basic cGhjLWRlbW8tdXNlcjpwaGMuaGVhbHRoIHJ1bGVzIQ==
+  livenessProbe:
+    httpGet:
+      path: /
+      port: 80
+      httpHeaders:
+      - name: Authorization
+        value: Basic cGhjLWRlbW8tdXNlcjpwaGMuaGVhbHRoIHJ1bGVzIQ==
   autoscaling:
     enabled: false
   ports:
