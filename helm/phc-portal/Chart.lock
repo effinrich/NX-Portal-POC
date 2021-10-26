@@ -1,0 +1,6 @@
+dependencies:
+- name: phc-base
+  repository: file://../phc-base
+  version: 0.1.20
+digest: sha256:50e7d4b1164f74f51c42bd62842dd3ecbc5db7a70d1ccd7df6eacdb1f62914af
+generated: "2021-10-26T11:27:45.012405-07:00"
