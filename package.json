@@ -7,8 +7,10 @@
     "start-server": "nx serve server",
     "build-server": "nx build server",
     "run-many": "nx run-many --target=serve --projects=portal,server --parallel",
+    "build-many": "nx run-many --target=build --projects=portal,server --parallel",
     "build": "nx build  --prod",
-    "build:portal": "nx run portal:build --prod",
+    "deploy:portal": "nx deploy portal",
+    "deploy:server": "nx deploy server",
     "test": "nx test --watch",
     "cz": "cz",
     "prepare": "husky install",
@@ -55,7 +57,7 @@
     "regenerator-runtime": "0.13.7",
     "remove": "^0.1.5",
     "styled-components": "5.3.3",
-    "tslib": "^2.0.0"
+    "tslib": "^2.3.1"
   },
   "devDependencies": {
     "@babel/core": "7.12.13",

@@ -3,6 +3,16 @@
   "sourceRoot": "apps/portal/src",
   "projectType": "application",
   "targets": {
+    "deploy": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "nx build portal",
+          "docker build -f ./apps/portal/Dockerfile . -t portal"
+        ],
+        "parallel": false
+      }
+    },
     "build": {
       "executor": "@nrwl/web:build",
       "outputs": ["{options.outputPath}"],
@@ -17,7 +27,8 @@
         "assets": ["apps/portal/src/favicon.ico", "apps/portal/src/assets"],
         "styles": [],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "webpackConfig": "@nrwl/react/plugins/webpack",
+        "generatePackageJson": true
       },
       "configurations": {
         "production": {

@@ -3,6 +3,16 @@
   "sourceRoot": "apps/server/src",
   "projectType": "application",
   "targets": {
+    "deploy": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "nx build server",
+          "docker build -f ./apps/server/Dockerfile . -t server"
+        ],
+        "parallel": false
+      }
+    },
     "build": {
       "executor": "@nrwl/node:build",
       "outputs": ["{options.outputPath}"],
