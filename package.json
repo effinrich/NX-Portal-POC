@@ -6,6 +6,7 @@
     "start": "nx serve",
     "start-server": "nx serve server",
     "build-server": "nx build server",
+    "run-many": "nx run-many --target=serve --projects=portal,server --parallel",
     "build": "nx build  --prod",
     "build:portal": "nx run portal:build --prod",
     "test": "nx test --watch",
