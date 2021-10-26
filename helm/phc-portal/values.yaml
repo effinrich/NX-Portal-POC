@@ -1,0 +1,64 @@
+phc-base:
+  # helpers.tpl
+  fullnameOverride: phc-portal
+
+  # serviceaccount.yaml
+#  serviceAccount:
+#    annotations:
+#      iam.gke.io/gcp-service-account: mdp-666@project-pluto-324014.iam.gserviceaccount.com
+
+  # service.yaml
+  service:
+#    annotations:
+#      service.alpha.kubernetes.io/app-protocols: '{"mdp":"HTTP2"}'
+#      cloud.google.com/neg: '{"ingress": true, "exposed_ports": {"443":{}}}'
+#      cloud.google.com/backend-config: '{"default": "mdp"}'
+    type: ClusterIP
+    port: 80 # ddss
+    ports:
+      - port: 443
+        targetPort: 80
+        protocol: TCP
+#        name: mdp
+
+  # deployment.yaml
+  replicaCount: 1
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+    prometheus.io/path: "/prometheus"
+  image:
+    repository: us-docker.pkg.dev/project-pluto-324014/docker/phc-portal
+    tag: bb149e0-a996d236-4a5c-4c6f-8b75-d30bfded49df
+    pullPolicy: Always
+#  readinessProbe:
+#    exec:
+#      command: ["/bin/grpc_health_probe", "-addr", ":8081"]
+#    initialDelaySeconds: 5
+#  livenessProbe:
+#    exec:
+#      command: ["/bin/grpc_health_probe", "-addr", ":8081"]
+#    initialDelaySeconds: 10
+  autoscaling:
+    enabled: false
+  ports:
+    - containerPort: 80
+
+  esp:
+    enabled: false
+
+  certificate:
+    create: false
+
+  # ingress.yaml
+#  ingress:
+#    enabled: true
+#    annotations:
+#      kubernetes.io/ingress.class: "gce"
+#      kubernetes.io/ingress.allow-http: "false"
+#    tls:
+#    - hosts:
+#      - portal.pluto.thepublichealthco.com
+#    backend:
+#      serviceName: mdp
+#      servicePort: 443

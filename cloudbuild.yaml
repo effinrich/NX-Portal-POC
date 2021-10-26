@@ -1,0 +1,10 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+  - 'build'
+  - '--tag=us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$SHORT_SHA-$BUILD_ID'
+  - '.'
+  waitFor: ['-']
+
+images:
+- 'us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$SHORT_SHA-$BUILD_ID'
