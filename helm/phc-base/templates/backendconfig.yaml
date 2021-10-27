@@ -1,11 +1,11 @@
-{{- if .Values.esp.enabled }}
+{{- if .Values.backendconfig.enabled }}
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
   name: {{ include "phc-base.fullname" . }}
 spec:
   healthCheck:
-    type: HTTP2
+    type: HTTPS
     requestPath: /healthz
-    port: {{ .Values.esp.port }}
+    port: {{ .Values.backendconfig.port }}
 {{- end }}

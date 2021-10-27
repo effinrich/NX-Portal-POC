@@ -10,14 +10,14 @@ phc-base:
   # service.yaml
   service:
     annotations:
-      service.alpha.kubernetes.io/app-protocols: '{"phc-portal":"HTTP2"}'
+      cloud.googe.com/app-protocols: '{"phc-portal":"HTTPS"}'
       cloud.google.com/neg: '{"ingress": true, "exposed_ports": {"443":{}}}'
       cloud.google.com/backend-config: '{"default": "phc-portal"}'
     type: ClusterIP
     port: 80
     ports:
       - port: 443
-        targetPort: 9000
+        targetPort: 80
         protocol: TCP
         name: phc-portal
 
@@ -29,7 +29,7 @@ phc-base:
     prometheus.io/path: "/prometheus"
   image:
     repository: us-docker.pkg.dev/project-pluto-324014/docker/phc-portal
-    tag: 89e869a-6db0e190-01b2-41a5-8d77-0424fc46f734
+    tag: 90f2cc1-f66976c3-617f-4226-8101-677e31fb4cf9
     pullPolicy: Always
   readinessProbe:
     httpGet:
@@ -51,10 +51,12 @@ phc-base:
     - containerPort: 80
 
   esp:
+    enabled: false
+
+  # backendconfig.yaml
+  backendconfig:
     enabled: true
-    port: 9000
-    service: portal.pluto.thepublichealthco.com
-    targetPort: 80
+    port: 443
 
   certificate:
     create: true
