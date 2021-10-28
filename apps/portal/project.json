@@ -3,16 +3,6 @@
   "sourceRoot": "apps/portal/src",
   "projectType": "application",
   "targets": {
-    "deploy": {
-      "builder": "@nrwl/workspace:run-commands",
-      "options": {
-        "commands": [
-          "nx build portal",
-          "docker build -f ./apps/portal/Dockerfile . -t portal"
-        ],
-        "parallel": false
-      }
-    },
     "build": {
       "executor": "@nrwl/web:build",
       "outputs": ["{options.outputPath}"],
@@ -28,7 +18,8 @@
         "styles": [],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack",
-        "generatePackageJson": true
+        "generatePackageJson": true,
+        "publicHost": "https://portal.pluto.thepublichealthco.com/"
       },
       "configurations": {
         "production": {
@@ -48,8 +39,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
             }
           ]
         }
@@ -60,14 +51,40 @@
       "options": {
         "buildTarget": "portal:build",
         "hmr": true,
-        "port": 8080,
-        "proxyConfig": "apps/portal/proxy.conf.json"
+        "proxyConfig": "apps/portal/proxy.conf.json",
+        "open": true
       },
       "configurations": {
         "production": {
           "buildTarget": "portal:build:production",
           "hmr": false
         }
+      }
+    },
+    "serveAppAndApi": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "nx run api:serve"
+          },
+          {
+            "command": "nx run portal:serve"
+          }
+        ]
+      }
+    },
+    "buildAppAndApiProd": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "nx run api:build:production"
+          },
+          {
+            "command": "nx run portal:build:production"
+          }
+        ]
       }
     },
     "lint": {
@@ -87,15 +104,7 @@
     },
     "version": {
       "executor": "@jscutlery/semver:version"
-    },
-    "docker": {
-      "executor": "@nx-tools/nx-docker:build",
-      "options": {
-        "file": "./Dockerfile",
-        "push": true,
-        "tags": ["phc-portal:latest", "phc-portal:v1"]
-      }
     }
   },
-  "tags": []
+  "tags": ["scope:portal", "type:app"]
 }

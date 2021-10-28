@@ -17,18 +17,12 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/shared-ui-e2e/**/*.{js,ts}"
-        ]
+        "lintFilePatterns": ["apps/shared-ui-e2e/**/*.{js,ts}"]
       }
     }
   },
-  "tags": [],
-  "implicitDependencies": [
-    "shared-ui"
-  ]
+  "tags": ["scope:shared", "type:ui"],
+  "implicitDependencies": ["shared-ui"]
 }
