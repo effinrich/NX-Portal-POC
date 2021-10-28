@@ -5,7 +5,7 @@ metadata:
   name: {{ include "phc-base.fullname" . }}
 spec:
   healthCheck:
-    type: HTTPS
+    type: HTTP
     requestPath: /healthz
     port: {{ .Values.backendconfig.port }}
 {{- end }}

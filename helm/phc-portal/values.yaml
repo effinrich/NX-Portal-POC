@@ -11,7 +11,7 @@ phc-base:
   service:
     annotations:
       cloud.googe.com/app-protocols: '{"phc-portal":"HTTPS"}'
-      cloud.google.com/neg: '{"ingress": true, "exposed_ports": {"443":{}}}'
+      cloud.google.com/neg: '{"ingress": true}'
       cloud.google.com/backend-config: '{"default": "phc-portal"}'
     type: ClusterIP
     port: 80
@@ -29,7 +29,7 @@ phc-base:
     prometheus.io/path: "/prometheus"
   image:
     repository: us-docker.pkg.dev/project-pluto-324014/docker/phc-portal
-    tag: 90f2cc1-f66976c3-617f-4226-8101-677e31fb4cf9
+    tag: 980a3ec-e2bcb3cf-c735-4626-bfa7-2cc8bcd58766
     pullPolicy: Always
   readinessProbe:
     httpGet:
@@ -56,7 +56,7 @@ phc-base:
   # backendconfig.yaml
   backendconfig:
     enabled: true
-    port: 443
+    port: 80
 
   certificate:
     create: true

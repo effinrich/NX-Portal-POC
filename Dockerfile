@@ -19,12 +19,11 @@ COPY . ./
 RUN yarn build
 
 # production environment
-FROM nginx:stable-alpine
-COPY --from=build /app/.htpasswd /usr/share/nginx/.htpasswd
-COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf
+FROM node:14-bullseye
 
-COPY --from=build /app/dist/apps/portal /usr/share/nginx/html
+WORKDIR /app
+COPY --from=build /app/dist /app/dist
+COPY --from=build /app/package.json /app/
+RUN yarn install --prod=true
 
-EXPOSE 8080:80
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["yarn", "start"]
