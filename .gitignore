@@ -142,3 +142,9 @@ tasks.json
 settings.json
 .yarn
 .env.local
+
+!/apps/api/.eslintrc.json
+!/apps/api/package.json
+!/apps/api/tsconfig.app.json
+!/apps/api/tsconfig.json
+!/apps/api/tsconfig.spec.json
