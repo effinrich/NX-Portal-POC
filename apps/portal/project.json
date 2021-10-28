@@ -61,32 +61,6 @@
         }
       }
     },
-    "serveAppAndApi": {
-      "builder": "@nrwl/workspace:run-commands",
-      "options": {
-        "commands": [
-          {
-            "command": "nx run api:serve"
-          },
-          {
-            "command": "nx run portal:serve"
-          }
-        ]
-      }
-    },
-    "buildAppAndApiProd": {
-      "builder": "@nrwl/workspace:run-commands",
-      "options": {
-        "commands": [
-          {
-            "command": "nx run api:build:production"
-          },
-          {
-            "command": "nx run portal:build:production"
-          }
-        ]
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
