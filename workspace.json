@@ -4,7 +4,7 @@
     "portal": "apps/portal",
     "portal-e2e": "apps/portal-e2e",
     "portal-features": "libs/portal/features",
-    "server": "apps/server",
+    "api": "apps/api",
     "shared-ui": "libs/shared/ui",
     "shared-ui-e2e": "apps/shared-ui-e2e",
     "shared-utils": "libs/shared/utils"

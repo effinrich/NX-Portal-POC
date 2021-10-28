@@ -4,13 +4,11 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "start-server": "nx serve server",
-    "build-server": "nx build server",
-    "run-many": "nx run-many --target=serve --projects=portal,server --parallel",
-    "build-many": "nx run-many --target=build --projects=portal,server --parallel",
+    "start-api": "nx serve api",
+    "build-api": "nx build api",
     "build": "nx build  --prod",
-    "deploy:portal": "nx deploy portal",
-    "deploy:server": "nx deploy server",
+    "serveAppAndApi": "nx serveAppAndApi",
+    "buildAppAndApiProd": "nx buildAppAndApiProd",
     "test": "nx test --watch",
     "cz": "cz",
     "prepare": "husky install",
@@ -31,7 +29,6 @@
     "dep-graph": "nx dep-graph --watch",
     "help": "nx help"
   },
-  "proxy": "http://localhost:3333",
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^1.8.0",
@@ -83,7 +80,6 @@
     "@nrwl/tao": "13.0.2",
     "@nrwl/web": "13.0.2",
     "@nrwl/workspace": "13.0.2",
-    "@nx-tools/nx-docker": "^1.0.5",
     "@storybook/addon-essentials": "~6.3.0",
     "@storybook/builder-webpack5": "~6.3.0",
     "@storybook/manager-webpack5": "~6.3.0",
