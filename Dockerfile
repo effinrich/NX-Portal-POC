@@ -19,7 +19,7 @@ COPY . ./
 RUN yarn build
 
 # production environment
-FROM node:14-bullseye
+FROM node:14-alpine
 
 WORKDIR /app
 COPY --from=build /app/dist /app/dist
