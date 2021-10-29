@@ -23,5 +23,8 @@ steps:
   - 'push'
   - 'us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$(cat _TAG)'
 
+options:
+  machineType: 'N1_HIGHCPU_8'
+
 images:
 - 'us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:latest'
