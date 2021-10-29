@@ -3,11 +3,13 @@ steps:
   args: ['sh', '-c', 'date +%s_$SHORT_SHA > _TAG']
 
 - name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
   args:
-  - 'build'
-  - '--tag=us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$(cat _TAG)'
-  - '--tag=us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:latest'
-  - '.'
+  - '-c'
+  - |
+    set -e  # Fail if any command below fails
+    set -x  # Print commands
+    docker build -t us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$(cat _TAG) -t us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:latest .
 - name: 'gcr.io/cloud-builders/docker'
   args:
   - 'push'
