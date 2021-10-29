@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import * as ReactDOM from 'react-dom'
-import { ErrorBoundary } from 'react-error-boundary'
+// import { ErrorBoundary } from 'react-error-boundary'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { AppState, Auth0Provider } from '@auth0/auth0-react'
 import {
@@ -16,6 +16,7 @@ import loadable from '@loadable/component'
 // import { Loader } from '@phc-portal/shared-ui'
 import { createBrowserHistory } from 'history'
 
+import { environment } from './environments/environment'
 import { Button } from './theme'
 
 const App = loadable(() => import('./views/App'))
@@ -44,6 +45,12 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
 //   }
 // })
 
+const AUTH0_DOMAIN = process.env.NX_AUTH0_DOMAIN || environment.AUTH0_DOMAIN
+const AUTH0_CLIENT_ID =
+  process.env.NX_AUTH0_CLIENT_ID || environment.AUTH0_CLIENT_ID
+const AUTH0_AUDIENCE =
+  process.env.NX_AUTH0_AUDIENCE || environment.AUTH0_AUDIENCE
+
 ReactDOM.render(
   <StrictMode>
     {/* <ErrorBoundary
@@ -54,10 +61,10 @@ ReactDOM.render(
       }}
     > */}
     <Auth0Provider
-      domain={`${process.env.NX_AUTH0_DOMAIN}`}
-      clientId={`${process.env.NX_AUTH0_CLIENT_ID}`}
+      domain={`${AUTH0_DOMAIN}`}
+      clientId={`${AUTH0_CLIENT_ID}`}
       redirectUri={window.location.origin}
-      audience={process.env.NX_AUTH0_AUDIENCE}
+      audience={AUTH0_AUDIENCE}
       onRedirectCallback={onRedirectCallback}
     >
       <Router>
