@@ -14,10 +14,10 @@ phc-base:
       cloud.google.com/neg: '{"ingress": true}'
       cloud.google.com/backend-config: '{"default": "phc-portal"}'
     type: ClusterIP
-    port: 80
+    port: 3333
     ports:
       - port: 443
-        targetPort: 80
+        targetPort: 3333
         protocol: TCP
         name: phc-portal
 
@@ -29,26 +29,20 @@ phc-base:
     prometheus.io/path: "/prometheus"
   image:
     repository: us-docker.pkg.dev/project-pluto-324014/docker/phc-portal
-    tag: 980a3ec-e2bcb3cf-c735-4626-bfa7-2cc8bcd58766
+    tag: latest
     pullPolicy: Always
   readinessProbe:
     httpGet:
       path: /
-      port: 80
-      httpHeaders:
-      - name: Authorization
-        value: Basic cGhjLWRlbW8tdXNlcjpwaGMuaGVhbHRoIHJ1bGVzIQ==
+      port: 3333
   livenessProbe:
     httpGet:
       path: /
-      port: 80
-      httpHeaders:
-      - name: Authorization
-        value: Basic cGhjLWRlbW8tdXNlcjpwaGMuaGVhbHRoIHJ1bGVzIQ==
+      port: 3333
   autoscaling:
     enabled: false
   ports:
-    - containerPort: 80
+    - containerPort: 3333
 
   esp:
     enabled: false
@@ -56,7 +50,9 @@ phc-base:
   # backendconfig.yaml
   backendconfig:
     enabled: true
-    port: 80
+    type: HTTP
+    requestPath: /
+    port: 3333
 
   certificate:
     create: true
