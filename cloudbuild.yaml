@@ -13,5 +13,3 @@ steps:
 images:
 - 'us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$(cat _TAG)'
 - 'us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:latest'
-
-date +%s
