@@ -1,10 +1,17 @@
 steps:
+- name: 'alpine'
+  args: ['sh', '-c', 'date +%s_$SHORT_SHA > _TAG']
+
 - name: 'gcr.io/cloud-builders/docker'
   args:
   - 'build'
-  - '--tag=us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$SHORT_SHA-$BUILD_ID'
+  - '--tag=us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$(cat _TAG)'
+  - '--tag=us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:latest'
   - '.'
   waitFor: ['-']
 
 images:
-- 'us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$SHORT_SHA-$BUILD_ID'
+- 'us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$(cat _TAG)'
+- 'us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:latest'
+
+date +%s
