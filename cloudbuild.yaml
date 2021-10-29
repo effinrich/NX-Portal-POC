@@ -4,12 +4,20 @@ steps:
 
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
+  args: ['-c', 'docker pull gcr.io/$PROJECT_ID/phc-portal:980a3ec-e2bcb3cf-c735-4626-bfa7-2cc8bcd58766 || exit 0']
+
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
   args:
   - '-c'
   - |
     set -e  # Fail if any command below fails
     set -x  # Print commands
-    docker build -t us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$(cat _TAG) -t us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:latest .
+    docker build \
+    -t us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$(cat _TAG) \
+    -t us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:latest \
+    --cache-from us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:980a3ec-e2bcb3cf-c735-4626-bfa7-2cc8bcd58766 \
+    .
 - name: 'gcr.io/cloud-builders/docker'
   args:
   - 'push'
