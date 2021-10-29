@@ -65,6 +65,8 @@ ReactDOM.render(
       clientId={`${AUTH0_CLIENT_ID}`}
       redirectUri={window.location.origin}
       audience={AUTH0_AUDIENCE}
+      useRefreshTokens={true}
+      cacheLocation="localstorage"
       onRedirectCallback={onRedirectCallback}
     >
       <Router>

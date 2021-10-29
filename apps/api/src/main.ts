@@ -31,4 +31,5 @@ const api = app.listen(port, () => {
     `App running at http://localhost:${port} and API listening at http://localhost:${port}/api`
   )
 })
+
 api.on('error', console.error)
