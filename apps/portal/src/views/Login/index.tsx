@@ -1,16 +1,19 @@
+import { Box, Container } from '@chakra-ui/react'
 import styled from 'styled-components'
 
 /* eslint-disable-next-line */
 export interface LoginProps {}
 
 const StyledLogin = styled.div`
-  color: pink;
+  color: black;
 `
 
-export function Login(props: LoginProps) {
+export const Login = (props: LoginProps) => {
   return (
     <StyledLogin>
-      <h1>Welcome to Login!</h1>
+      <Container>
+        <Box lineHeight="tall">Blah, blah</Box>
+      </Container>
     </StyledLogin>
   )
 }

@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { useAuth0 } from '@auth0/auth0-react'
 
 import { AuthButton } from '../AuthButton'
 
 export function Nav() {
-  const { isAuthenticated, user, loginWithRedirect, logout } = useAuth0<{
-    name: string
-  }>()
   const history = useHistory()
   const [pathname, setPathname] = useState(() => history.location.pathname)
 

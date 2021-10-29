@@ -4,8 +4,7 @@ import { Spinner } from '@chakra-ui/react'
 
 import RoutesWithSubRoutes from './RoutesWithSubRoutes'
 
-const RouteHandler = ({ routes }) => {
-  console.log('routes = ', routes)
+export const RouteHandler = ({ routes }) => {
   return (
     <Suspense
       fallback={<Spinner emptyColor="gray.200" color="blue.500" size="xl" />}
@@ -19,5 +18,3 @@ const RouteHandler = ({ routes }) => {
     </Suspense>
   )
 }
-
-export default RouteHandler

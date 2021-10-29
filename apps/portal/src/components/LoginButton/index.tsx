@@ -10,7 +10,7 @@ const LoginButton = () => {
       variant="outline"
       onClick={() => loginWithRedirect({ screen_hint: 'login' })}
     >
-      Login
+      Login into your PHC Account
     </Button>
   )
 }
