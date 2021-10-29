@@ -8,8 +8,10 @@ steps:
   - '--tag=us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$(cat _TAG)'
   - '--tag=us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:latest'
   - '.'
-  waitFor: ['-']
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+  - 'push'
+  - 'us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$(cat _TAG)'
 
 images:
-- 'us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:$(cat _TAG)'
 - 'us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal:latest'
