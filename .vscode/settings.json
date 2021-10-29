@@ -1,5 +1,4 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
@@ -20,7 +19,7 @@
   "terminal.integrated.env.osx": {
     "HELM_EXPERIMENTAL_OCI": "1",
     "SKAFFOLD_NAMESPACE": "rtillman",
-    "DOCKER_CONFIG": "~/.docker",
+    // "DOCKER_CONFIG": "~/.docker",
     "HELM_REGISTRY_CONFIG": "$DOCKER_CONFIG/config.json"
   },
   "jestrunner.enableYarnPnpSupport": true,
@@ -32,5 +31,8 @@
   },
   "[nginx]": {
     "editor.defaultFormatter": "ahmadalli.vscode-nginx-conf"
+  },
+  "files.associations": {
+    "*.md": "mdx"
   }
 }
