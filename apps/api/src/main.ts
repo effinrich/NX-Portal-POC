@@ -27,6 +27,8 @@ app.get('/api', (req, res) => {
 
 const port = process.env.port || 3333
 const api = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`)
+  console.log(
+    `App running at http://localhost:${port} and API listening at http://localhost:${port}/api`
+  )
 })
 api.on('error', console.error)
