@@ -61,6 +61,10 @@ phc-base:
     issuer: selfsigned-dev
     issuerKind: ClusterIssuer
 
+  managedCertificate:
+    domains:
+    - portal.pluto.thepublichealthco.com
+
   # ingress.yaml
   ingress:
     enabled: true

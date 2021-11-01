@@ -73,12 +73,23 @@ Create the name of the certificate to use
 {{- end }}
 
 {{/*
-Create the name of the certificate secret to use
+Create the name of the certificate secret to use. Return nil if create is false and no name provided.
 */}}
 {{- define "phc-base.certificateSecretName" -}}
 {{- if .Values.certificate.secretName }}
 {{- .Values.certificate.secretName | trunc 63 | trimSuffix "-" }}
-{{- else }}
+{{- else if .Values.certificate.create -}}
 {{- printf "%s-tls" (include "phc-base.fullname" .) }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create the name of the managed certificate to use
+*/}}
+{{- define "phc-base.managedCertificateName" -}}
+{{- if .Values.managedCertificate.create }}
+{{- default (include "phc-base.fullname" .) .Values.managedCertificate.name }}
+{{- else }}
+{{- .Values.managedCertificate.name }}
 {{- end }}
 {{- end }}
