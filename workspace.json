@@ -1,10 +1,10 @@
 {
   "version": 2,
   "projects": {
+    "api": "apps/api",
     "portal": "apps/portal",
     "portal-e2e": "apps/portal-e2e",
     "portal-features": "libs/portal/features",
-    "api": "apps/api",
     "shared-ui": "libs/shared/ui",
     "shared-ui-e2e": "apps/shared-ui-e2e",
     "shared-utils": "libs/shared/utils"

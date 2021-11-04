@@ -4,7 +4,7 @@ import {
   installPackagesTask,
   generateFiles,
   joinPathFragments,
-  readProjectConfiguration,
+  readProjectConfiguration
 } from '@nrwl/devkit'
 import { libraryGenerator } from '@nrwl/workspace'
 

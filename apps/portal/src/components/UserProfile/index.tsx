@@ -17,6 +17,7 @@ import { CardHeader } from '../CardHeader'
 import { UserAvatar } from '../UserAvatar'
 
 export const UserProfile = ({ user }) => {
+  console.log(user)
   return (
     <Box as="section" py="12" bg={useColorModeValue('gray.100', 'gray.800')}>
       <Card>
