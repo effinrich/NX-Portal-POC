@@ -10,8 +10,7 @@
     "**/*.spec.tsx",
     "**/*.spec.js",
     "**/*.spec.jsx",
-    "**/*.d.ts",
-    "src/views/Profile/index.spec.tsx.hold"
+    "**/*.d.ts"
   ],
   "files": [
     "../../node_modules/@nrwl/react/typings/cssmodule.d.ts",

@@ -10,7 +10,7 @@ const user = {
 
 describe('Profile', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Profile user={user} />)
+    const { baseElement } = render(<Profile />)
     expect(baseElement).toBeTruthy()
   })
 })
