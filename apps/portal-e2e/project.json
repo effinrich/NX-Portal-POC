@@ -24,6 +24,6 @@
       }
     }
   },
-  "tags": [],
+  "tags": ["scope:portal", "type:app"],
   "implicitDependencies": ["portal"]
 }

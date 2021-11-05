@@ -3,27 +3,9 @@
   "projects": {
     "portal": "apps/portal",
     "portal-e2e": "apps/portal-e2e",
-    "ui": "libs/ui",
-    "ui-e2e": "apps/ui-e2e"
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/react"
-  },
-  "generators": {
-    "@nrwl/react": {
-      "application": {
-        "style": "styled-components",
-        "linter": "eslint",
-        "babel": true
-      },
-      "component": {
-        "style": "styled-components"
-      },
-      "library": {
-        "style": "styled-components",
-        "linter": "eslint"
-      }
-    }
-  },
-  "defaultProject": "portal"
+    "portal-features": "libs/portal/features",
+    "shared-ui": "libs/shared/ui",
+    "shared-ui-e2e": "apps/shared-ui-e2e",
+    "shared-utils": "libs/shared/utils"
+  }
 }

@@ -1,0 +1,38 @@
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "workbench.colorCustomizations": {
+    "statusBar.noFolderBackground": "#222225",
+    "statusBar.debuggingBackground": "#511f1f",
+    "editor.lineHighlightBackground": "#1073cf2d",
+    "editorBracketMatch.border": "#575B5F",
+    "editor.lineHighlightBorder": "#9fced11f"
+  },
+  "vs-kubernetes": {
+    "vs-kubernetes.minikube-path": "/Users/$USER/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
+  },
+  "terminal.integrated.env.osx": {
+    "HELM_EXPERIMENTAL_OCI": "1",
+    "SKAFFOLD_NAMESPACE": "rtillman",
+    // "DOCKER_CONFIG": "~/.docker",
+    "HELM_REGISTRY_CONFIG": "$DOCKER_CONFIG/config.json"
+  },
+  "jestrunner.enableYarnPnpSupport": true,
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[nginx]": {
+    "editor.defaultFormatter": "ahmadalli.vscode-nginx-conf"
+  },
+  "files.associations": {
+    "*.md": "mdx"
+  }
+}

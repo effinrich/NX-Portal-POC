@@ -2,3 +2,8 @@
 
 /dist
 /coverage
+/helm
+
+node_modules/
+
+*.yaml

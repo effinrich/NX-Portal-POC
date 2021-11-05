@@ -1,0 +1,76 @@
+phc-base:
+  # helpers.tpl
+  fullnameOverride: phc-portal
+
+  # service.yaml
+  service:
+    annotations:
+      cloud.googe.com/app-protocols: '{"phc-portal":"HTTPS"}'
+      cloud.google.com/neg: '{"ingress": true}'
+      cloud.google.com/backend-config: '{"default": "phc-portal"}'
+    type: ClusterIP
+    port: 443
+    ports:
+      - port: 443
+        targetPort: 3333
+        protocol: TCP
+        name: phc-portal
+
+  # deployment.yaml
+  replicaCount: 1
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+    prometheus.io/path: "/prometheus"
+  image:
+    repository: us-docker.pkg.dev/project-pluto-324014/docker/phc-portal
+    tag: latest
+    pullPolicy: Always
+  readinessProbe:
+    httpGet:
+      path: /
+      port: 3333
+  livenessProbe:
+    httpGet:
+      path: /
+      port: 3333
+  autoscaling:
+    enabled: false
+  ports:
+    - containerPort: 3333
+
+  esp:
+    enabled: false
+
+  # backendconfig.yaml
+  backendconfig:
+    enabled: true
+    type: HTTP
+    requestPath: /
+    port: 3333
+
+  certificate:
+    create: true
+    commonName: "portal.pluto.thepublichealthco.com"
+    secretName: esp-ssl
+    issuer: selfsigned-dev
+    issuerKind: ClusterIssuer
+
+  managedCertificate:
+    create: true
+    domains:
+    - portal.pluto.thepublichealthco.com
+
+  # ingress.yaml
+  ingress:
+    enabled: true
+    useManagedCertificate: true
+    annotations:
+      kubernetes.io/ingress.class: "gce"
+      kubernetes.io/ingress.allow-http: "false"
+      kubernetes.io/ingress.global-static-ip-name: portal-pluto-thepublichealthco-com-lb001
+    hosts:
+    - host: portal.pluto.thepublichealthco.com
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific

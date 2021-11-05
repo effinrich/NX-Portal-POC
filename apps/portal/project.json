@@ -6,16 +6,20 @@
     "build": {
       "executor": "@nrwl/web:build",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/portal",
         "index": "apps/portal/src/index.html",
+        "baseHref": "/",
         "main": "apps/portal/src/main.tsx",
         "polyfills": "apps/portal/src/polyfills.ts",
         "tsConfig": "apps/portal/tsconfig.app.json",
         "assets": ["apps/portal/src/favicon.ico", "apps/portal/src/assets"],
         "styles": [],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "webpackConfig": "@nrwl/react/plugins/webpack",
+        "generatePackageJson": true,
+        "publicHost": "https://portal.pluto.thepublichealthco.com/"
       },
       "configurations": {
         "production": {
@@ -27,7 +31,7 @@
           ],
           "optimization": true,
           "outputHashing": "all",
-          "sourceMap": false,
+          "sourceMap": true,
           "extractCss": true,
           "namedChunks": false,
           "extractLicenses": true,
@@ -35,8 +39,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
             }
           ]
         }
@@ -46,7 +50,9 @@
       "executor": "@nrwl/web:dev-server",
       "options": {
         "buildTarget": "portal:build",
-        "hmr": true
+        "hmr": true,
+        "proxyConfig": "apps/portal/proxy.conf.json",
+        "open": true
       },
       "configurations": {
         "production": {
@@ -69,7 +75,10 @@
         "jestConfig": "apps/portal/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version"
     }
   },
-  "tags": []
+  "tags": ["scope:portal", "type:app"]
 }

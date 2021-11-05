@@ -1,0 +1,16 @@
+{
+  "version": "0.0.0",
+  "name": "phc-portal",
+  "dependencies": {
+    "@google-cloud/compute": { "version": "2.6.0" },
+    "core-js": { "version": "3.18.0" },
+    "express": { "version": "4.17.1" },
+    "mime": { "version": "2.4.4" },
+    "react-dom": { "version": "17.0.2" },
+    "react-is": { "version": "17.0.2" },
+    "react": { "version": "17.0.2" },
+    "regenerator-runtime": { "version": "0.13.7" },
+    "styled-components": { "version": "5.2.1" },
+    "tslib": { "version": "2.3.1" }
+  }
+}

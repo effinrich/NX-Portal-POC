@@ -1,0 +1,11 @@
+steps:
+  - name: "gcr.io/kaniko-project/executor:latest"
+    args:
+      - --dockerfile=Dockerfile
+      - --destination=us-docker.pkg.dev/$PROJECT_ID/docker/phc-portal
+      - --snapshotMode=redo
+      - --use-new-run=true
+      - --cache=true
+
+options:
+  machineType: "N1_HIGHCPU_8"
