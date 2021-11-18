@@ -9,13 +9,17 @@ import {
   AlertIcon,
   AlertTitle,
   Box,
-  CloseButton
+  Center,
+  CloseButton,
+  Image,
+  VStack
 } from '@chakra-ui/react'
 // import loadable from '@loadable/component'
 import fetch from 'cross-fetch'
 import styled from 'styled-components'
 
-import { Loader, LoginButton, ProtectedRoute } from '../../components'
+import logo from '../../assets/logo.png'
+import { Card, Loader, LoginButton, ProtectedRoute } from '../../components'
 
 import { SideBar } from './partials/SideBar'
 
@@ -178,6 +182,9 @@ export function App() {
           <Suspense fallback={<Loader />}>
             <Switch>
               {/* <Route exact path="/login" component={Login} /> */}
+              <ProtectedRoute exact path="/">
+                <Redirect to="/home" />
+              </ProtectedRoute>
               <ProtectedRoute path="/home" component={Home} />
               <ProtectedRoute path="/profile" component={Profile} />
               <ProtectedRoute path="/map-viewer" component={MapViewer} />
@@ -188,7 +195,26 @@ export function App() {
           </Suspense>
         </SideBar>
       ) : (
-        <LoginButton />
+        <Card
+          mt={100}
+          maxW={400}
+          minH={200}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          flexDirection={['row']}
+        >
+          <VStack spacing={4} align="stretch">
+            <Box pb={6}>
+              <Center>
+                <Image src={logo} maxW="200" />
+              </Center>
+            </Box>
+            <Box>
+              <LoginButton />
+            </Box>
+          </VStack>
+        </Card>
       )}
     </StyledApp>
   )

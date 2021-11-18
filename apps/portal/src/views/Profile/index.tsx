@@ -27,7 +27,7 @@ type Profile = {
 
 const Profile = (props: ProfileProps) => {
   const [profile] = useLocalStorage<Profile>(
-    '@@auth0spajs@@::O4WHfTk59tlLSzX3seoBR4uFosfIZUwu::project_pluto_324014::openid profile email offline_access'
+    '@@auth0spajs@@::O4WHfTk59tlLSzX3seoBR4uFosfIZUwu::project_pluto_324014::openid profile email read:users offline_access'
   )
 
   return (

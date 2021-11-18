@@ -6,8 +6,10 @@ export const LoginButton = () => {
 
   return (
     <Button
-      colorScheme="black"
-      variant="outline"
+      bg="black"
+      color="white"
+      variant="solid"
+      _hover={{ color: 'black', backgroundColor: 'gray.300' }}
       onClick={() => loginWithRedirect({ screen_hint: 'login' })}
     >
       Login into your PHC Account

@@ -1,7 +1,7 @@
 import * as ReactDOM from 'react-dom'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Provider } from 'react-redux'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { AppState, Auth0Provider } from '@auth0/auth0-react'
 import {
   Alert,
@@ -63,13 +63,13 @@ ReactDOM.render(
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Provider store={store}>
         <ChakraProvider>
-          <BrowserRouter>
+          <Router>
             {/* <Loader> */}
 
             <App />
 
             {/* </Loader> */}
-          </BrowserRouter>
+          </Router>
         </ChakraProvider>
       </Provider>
     </ErrorBoundary>
