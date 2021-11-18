@@ -1,0 +1,10 @@
+import { render } from '@testing-library/react'
+
+import  MapViewer  from '.'
+
+describe('MapViewer', () => {
+  it('should render successfully', () => {
+    const { baseElement } = render(<MapViewer />)
+    expect(baseElement).toBeTruthy()
+  })
+})

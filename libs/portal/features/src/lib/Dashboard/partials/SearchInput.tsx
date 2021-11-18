@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { BsSearch } from 'react-icons/bs'
 import {
   Input,

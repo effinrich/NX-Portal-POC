@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
-import { AuthButton } from '../AuthButton'
+// import { AuthButton } from '../AuthButton'
 
 export function Nav() {
   const history = useHistory()
@@ -32,7 +32,7 @@ export function Nav() {
           </Link>
         </div>
       </div>
-      <AuthButton />
+      {/* <AuthButton /> */}
     </nav>
   )
 }

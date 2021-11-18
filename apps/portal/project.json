@@ -13,7 +13,7 @@
         "baseHref": "/",
         "main": "apps/portal/src/main.tsx",
         "polyfills": "apps/portal/src/polyfills.ts",
-        "tsConfig": "apps/portal/tsconfig.app.json",
+        "tsConfig": "apps/portal/tsconfig.json",
         "assets": ["apps/portal/src/favicon.ico", "apps/portal/src/assets"],
         "styles": [],
         "scripts": [],
@@ -51,7 +51,6 @@
       "options": {
         "buildTarget": "portal:build",
         "hmr": true,
-        "proxyConfig": "apps/portal/proxy.conf.json",
         "open": true
       },
       "configurations": {
@@ -76,9 +75,41 @@
         "passWithNoTests": true
       }
     },
+    "storybook": {
+      "executor": "@nrwl/storybook:storybook",
+      "options": {
+        "uiFramework": "@storybook/react",
+        "port": 4400,
+        "config": {
+          "configFolder": "apps/portal/.storybook"
+        }
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nrwl/storybook:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "uiFramework": "@storybook/react",
+        "outputPath": "dist/storybook/portal",
+        "config": {
+          "configFolder": "apps/portal/.storybook"
+        }
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
     "version": {
       "executor": "@jscutlery/semver:version"
     }
   },
-  "tags": ["scope:portal", "type:app"]
+  "tags": ["scope:portal", "type:app"],
+  "implicitDependencies": []
 }

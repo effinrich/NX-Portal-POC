@@ -25,21 +25,16 @@ type Profile = {
   body: Body
 }
 
-export const Profile = (props: ProfileProps) => {
+const Profile = (props: ProfileProps) => {
   const [profile] = useLocalStorage<Profile>(
-    '@@auth0spajs@@::O4WHfTk59tlLSzX3seoBR4uFosfIZUwu::https://dev--rjghji3.us.auth0.com/api/v2/::openid profile email offline_access'
+    '@@auth0spajs@@::O4WHfTk59tlLSzX3seoBR4uFosfIZUwu::project_pluto_324014::openid profile email offline_access'
   )
 
   return (
     <StyledProfile>
-      <UserProfile user={profile.body.decodedToken.user} />
+      <UserProfile user={profile?.body.decodedToken.user} />
     </StyledProfile>
   )
 }
 
-export default {
-  path: '/profile',
-  exact: true,
-  Component: Profile,
-  access: 'USER'
-}
+export default Profile

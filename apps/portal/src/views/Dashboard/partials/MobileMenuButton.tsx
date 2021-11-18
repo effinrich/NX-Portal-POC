@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { HiMenu, HiX } from 'react-icons/hi'
 import { Box } from '@chakra-ui/react'
 

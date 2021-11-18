@@ -5,23 +5,23 @@ phc-base:
   # service.yaml
   service:
     annotations:
-      cloud.googe.com/app-protocols: '{"phc-portal":"HTTPS"}'
+      cloud.google.com/app-protocols: '{"phc-portal":"HTTP"}'
       cloud.google.com/neg: '{"ingress": true}'
       cloud.google.com/backend-config: '{"default": "phc-portal"}'
     type: ClusterIP
     port: 443
     ports:
       - port: 443
-        targetPort: 3333
+        targetPort: 80
         protocol: TCP
         name: phc-portal
 
   # deployment.yaml
   replicaCount: 1
-  podAnnotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "8080"
-    prometheus.io/path: "/prometheus"
+  # podAnnotations:
+  #   prometheus.io/scrape: "true"
+  #   prometheus.io/port: "8080"
+  #   prometheus.io/path: "/prometheus"
   image:
     repository: us-docker.pkg.dev/project-pluto-324014/docker/phc-portal
     tag: latest
@@ -29,15 +29,15 @@ phc-base:
   readinessProbe:
     httpGet:
       path: /
-      port: 3333
+      port: 80
   livenessProbe:
     httpGet:
       path: /
-      port: 3333
+      port: 80
   autoscaling:
     enabled: false
   ports:
-    - containerPort: 3333
+    - containerPort: 80
 
   esp:
     enabled: false
@@ -59,7 +59,7 @@ phc-base:
   managedCertificate:
     create: true
     domains:
-    - portal.pluto.thepublichealthco.com
+      - portal.pluto.thepublichealthco.com
 
   # ingress.yaml
   ingress:
@@ -70,7 +70,7 @@ phc-base:
       kubernetes.io/ingress.allow-http: "false"
       kubernetes.io/ingress.global-static-ip-name: portal-pluto-thepublichealthco-com-lb001
     hosts:
-    - host: portal.pluto.thepublichealthco.com
-      paths:
-      - path: /*
-        pathType: ImplementationSpecific
+      - host: portal.pluto.thepublichealthco.com
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific

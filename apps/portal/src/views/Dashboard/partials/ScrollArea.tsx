@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { Box, BoxProps, useColorModeValue as mode } from '@chakra-ui/react'
 
 export const ScrollArea = (props: BoxProps) => (

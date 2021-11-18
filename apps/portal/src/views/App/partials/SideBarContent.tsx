@@ -1,10 +1,10 @@
-import React, { ReactNode, ReactText } from 'react'
+import { ReactNode, ReactText } from 'react'
 import { IconType } from 'react-icons'
 import {
   FiCompass,
   FiHome,
   FiSettings,
-  FiTrendingUp,
+  // FiTrendingUp,
   FiUser
 } from 'react-icons/fi'
 import {
@@ -27,8 +27,8 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome },
-  { name: 'Trending', icon: FiTrendingUp },
-  { name: 'Explore', icon: FiCompass },
+  // { name: 'Trending', icon: FiTrendingUp },
+  // { name: 'Map Viewer', icon: FiCompass },
   { name: 'Users', icon: FiUser },
   { name: 'Settings', icon: FiSettings }
 ]
@@ -49,7 +49,13 @@ const SideBarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex
+        h="20"
+        alignItems="center"
+        mx="8"
+        justifyContent="space-between"
+        mb={6}
+      >
         <Box>
           <Image src={logo} maxW="105" height="auto" ml="8" mt="2" />
         </Box>

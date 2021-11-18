@@ -1,0 +1,234 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from 'react'
+import { useLocalStorage } from 'react-use'
+import { useAuth0 } from '@auth0/auth0-react'
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Box,
+  Center,
+  CloseButton,
+  Container,
+  Flex
+} from '@chakra-ui/react'
+import fetch from 'cross-fetch'
+import styled from 'styled-components'
+
+import {
+  AuthButton,
+  Card,
+  GoogleMapComponent,
+  Nav,
+  RouteHandler
+} from '../../components'
+import Routes from '../../views'
+
+import { SideBar } from './partials/SideBar'
+
+const StyledApp = styled.div``
+
+// interface IApi extends Users, ApiResponse {}
+type DecodedToken = {
+  user: Record<string, unknown>
+}
+
+type Body = {
+  decodedToken: DecodedToken
+  access_token
+}
+
+type Profile = {
+  body: Body
+}
+interface Post {
+  id: number
+  name: string
+}
+
+export interface IMapData {
+  result: Record<string, unknown>
+  coords: {
+    lat: number
+    lng: number
+  }
+}
+export interface ICoords {
+  lat: number
+  lng: number
+}
+
+const formatCoords = n => {
+  if (n) {
+    const l = n.toString().length - 3
+    const v = n / Math.pow(10, l)
+
+    return v
+  }
+}
+
+export function App() {
+  const {
+    user,
+    isLoading,
+    error,
+    isAuthenticated,
+    getAccessTokenSilently,
+    logout
+  } = useAuth0()
+  const [userMetaData, setUserMetadata] = useState(null)
+  const [coords, setCoords] = useState<ICoords>()
+  const [mapData, setMapData] = useState({
+    result: {
+      modelBuf: {
+        centroids: {
+          geometry: {
+            coords: {}
+          }
+        }
+      }
+    }
+  })
+
+  const [profile] = useLocalStorage<Profile>(
+    '@@auth0spajs@@::O4WHfTk59tlLSzX3seoBR4uFosfIZUwu::project_pluto_324014::openid profile email offline_access'
+  )
+
+  if (!isAuthenticated) {
+    logout({
+      returnTo: window.location.origin
+    })
+  }
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const authToken = `Bearer ${profile?.body.access_token}`
+    const url = 'https://rest.pluto.thepublichealthco.com/jwt/model_bufs'
+
+    const fetchMapData = async () => {
+      const res = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+          search_criteria: {
+            search_condition: [
+              {
+                field_condition: [
+                  {
+                    field: 'id',
+                    operation: 'EQUALS',
+                    value: {
+                      string_value: '123'
+                    }
+                  }
+                ]
+              }
+            ],
+            sorting_criteria: [
+              {
+                attribute: 'id',
+                order: 'DESCENDING'
+              }
+            ]
+          }
+        }),
+        headers: {
+          Authorization: authToken,
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        }
+      })
+
+      const data = await res.json()
+      setMapData(data)
+
+      const lat = data.result?.modelBuf.centroids.geometry.coords[0]
+      const lng = data.result?.modelBuf.centroids.geometry.coords[1]
+
+      setCoords({
+        lat: formatCoords(lat),
+        lng: formatCoords(lng)
+      })
+
+      return data
+    }
+
+    fetchMapData()
+  }, [profile, setMapData, setCoords])
+
+  useEffect(() => {
+    const getUserMetadata = async () => {
+      const domain = process.env.NX_AUTH0_DOMAIN
+
+      try {
+        const accessToken = await getAccessTokenSilently({
+          audience: `https://${domain}/api/v2/`,
+          scope: 'read:current_user'
+        })
+
+        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user?.sub}`
+
+        const metadataResponse = await fetch(userDetailsByIdUrl, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        })
+
+        const { user_metadata } = await metadataResponse.json()
+
+        setUserMetadata(user_metadata)
+      } catch (e) {
+        console.log(e?.message)
+      }
+    }
+
+    getUserMetadata()
+  }, [getAccessTokenSilently, user?.sub])
+
+  if (isLoading) {
+    return <div>loading</div>
+  }
+
+  // console.log(coords)
+  return (
+    <StyledApp>
+      {isAuthenticated ? (
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        <SideBar profile={profile! && profile.body.decodedToken.user}>
+          <Box p="4">
+            {/* <Heading pb={3}>Message from API</Heading>
+            <Text fontSize={18}>{apiMessage}</Text> */}
+            {error && (
+              <Alert status="error">
+                <AlertIcon />
+                <AlertTitle mr={2}>Auth Error</AlertTitle>
+                <AlertDescription>{error.message}</AlertDescription>
+                <CloseButton position="absolute" right="8px" top="8px" />
+              </Alert>
+            )}
+          </Box>
+          <Flex w="100%" flexDirection={['column', 'row']}>
+            <Box p={2} w={['100%', '50%']}>
+              <Card></Card>
+            </Box>
+
+            <Box p={2} w={['100%', '50%']}>
+              <Card>
+                <GoogleMapComponent center={coords} />
+              </Card>
+            </Box>
+          </Flex>
+          <RouteHandler routes={Routes} />
+        </SideBar>
+      ) : (
+        <Container mt={200}>
+          <Center>
+            <AuthButton />
+          </Center>
+        </Container>
+      )}
+    </StyledApp>
+  )
+}
+
+export default App

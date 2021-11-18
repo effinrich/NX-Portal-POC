@@ -1,4 +1,7 @@
 const rootMain = require('../../../.storybook/main')
+const path = require('path')
+
+const toPath = _path => path.join(process.cwd(), _path)
 
 module.exports = {
   ...rootMain,
@@ -6,10 +9,13 @@ module.exports = {
   core: { ...rootMain.core, builder: 'webpack5' },
   stories: [
     ...rootMain.stories,
-    '../src/app/**/*.stories.mdx',
-    '../src/app/**/*.stories.@(js|jsx|ts|tsx)'
+    '../src/components/**/*.stories.mdx',
+    '../src/components/**/*.stories.@(js|jsx|ts|tsx)'
   ],
   addons: [...rootMain.addons, '@nrwl/react/plugins/storybook'],
+  typescript: {
+    reactDocgen: false
+  },
   webpackFinal: async (config, { configType }) => {
     // apply any global webpack configs that might have been specified in .storybook/main.js
     if (rootMain.webpackFinal) {
@@ -18,6 +24,18 @@ module.exports = {
 
     // add your own webpack tweaks if needed
 
-    return config
+    // return config
+
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve.alias,
+          '@emotion/core': toPath('node_modules/@emotion/react'),
+          'emotion-theming': toPath('node_modules/@emotion/react')
+        }
+      }
+    }
   }
 }

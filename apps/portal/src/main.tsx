@@ -1,7 +1,7 @@
-import { StrictMode } from 'react'
 import * as ReactDOM from 'react-dom'
-// import { ErrorBoundary } from 'react-error-boundary'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { ErrorBoundary } from 'react-error-boundary'
+import { Provider } from 'react-redux'
+import { BrowserRouter, Route } from 'react-router-dom'
 import { AppState, Auth0Provider } from '@auth0/auth0-react'
 import {
   Alert,
@@ -13,10 +13,10 @@ import {
   extendTheme
 } from '@chakra-ui/react'
 import loadable from '@loadable/component'
-// import { Loader } from '@phc-portal/shared-ui'
 import { createBrowserHistory } from 'history'
 
-import { environment } from './environments/environment'
+import { store } from './store'
+// import { environment } from './environments/environment'
 import { Button } from './theme'
 
 const App = loadable(() => import('./views/App'))
@@ -25,7 +25,7 @@ export const history = createBrowserHistory()
 
 const onRedirectCallback = (appState: AppState) => {
   // Use the router's history module to replace the url
-  history.replace((appState && appState.returnTo) || window.location.pathname)
+  history.replace(appState && appState?.returnTo)
 }
 
 const ErrorFallback = ({ error, resetErrorBoundary }) => {
@@ -45,39 +45,35 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
 //   }
 // })
 
-const AUTH0_DOMAIN = process.env.NX_AUTH0_DOMAIN || environment.AUTH0_DOMAIN
-const AUTH0_CLIENT_ID =
-  process.env.NX_AUTH0_CLIENT_ID || environment.AUTH0_CLIENT_ID
-const AUTH0_AUDIENCE =
-  process.env.NX_AUTH0_AUDIENCE || environment.AUTH0_AUDIENCE
+const AUTH0_DOMAIN = process.env.NX_AUTH0_DOMAIN
+const AUTH0_CLIENT_ID = process.env.NX_AUTH0_CLIENT_ID
+const AUTH0_AUDIENCE = process.env.NX_AUTH0_AUDIENCE
 
 ReactDOM.render(
-  <StrictMode>
-    {/* <ErrorBoundary
-      FallbackComponent={ErrorFallback}
-      // onReset={() => setExplode(false)}
-      onReset={() => {
-        // reset the state of your app so the error doesn't happen again
-      }}
-    > */}
-    <Auth0Provider
-      domain={`${AUTH0_DOMAIN}`}
-      clientId={`${AUTH0_CLIENT_ID}`}
-      redirectUri={window.location.origin}
-      audience={AUTH0_AUDIENCE}
-      useRefreshTokens={true}
-      cacheLocation="localstorage"
-      onRedirectCallback={onRedirectCallback}
-    >
-      <Router>
+  <Auth0Provider
+    domain={`${AUTH0_DOMAIN}`}
+    clientId={`${AUTH0_CLIENT_ID}`}
+    redirectUri={typeof window !== 'undefined' && window.location.origin}
+    audience={AUTH0_AUDIENCE}
+    scope="read:users"
+    useRefreshTokens={true}
+    cacheLocation="localstorage"
+    onRedirectCallback={onRedirectCallback}
+  >
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <Provider store={store}>
         <ChakraProvider>
-          {/* <Loader> */}
-          <App />
-          {/* </Loader> */}
+          <BrowserRouter>
+            {/* <Loader> */}
+
+            <App />
+
+            {/* </Loader> */}
+          </BrowserRouter>
         </ChakraProvider>
-      </Router>
-    </Auth0Provider>
-    {/* </ErrorBoundary> */}
-  </StrictMode>,
+      </Provider>
+    </ErrorBoundary>
+  </Auth0Provider>,
+
   document.getElementById('root')
 )

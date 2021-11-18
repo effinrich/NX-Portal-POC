@@ -1,4 +1,4 @@
-const SvgLogo = props => {
+export const SvgLogo = props => {
   return (
     <svg
       // width={151}

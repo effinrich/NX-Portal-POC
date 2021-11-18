@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { HiChevronRight } from 'react-icons/hi'
 import {
   Box,

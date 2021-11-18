@@ -1,14 +1,13 @@
 import { Suspense } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import { Spinner } from '@chakra-ui/react'
+
+import Loader from '../Loader'
 
 import RoutesWithSubRoutes from './RoutesWithSubRoutes'
 
 export const RouteHandler = ({ routes }) => {
   return (
-    <Suspense
-      fallback={<Spinner emptyColor="gray.200" color="blue.500" size="xl" />}
-    >
+    <Suspense fallback={<Loader />}>
       <Switch>
         {routes.map((route, id) => (
           <RoutesWithSubRoutes {...route} key={id} />

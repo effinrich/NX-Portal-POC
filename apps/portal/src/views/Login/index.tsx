@@ -1,5 +1,9 @@
-import { Box, Container } from '@chakra-ui/react'
+import { Redirect } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
+import { Flex } from '@chakra-ui/react'
 import styled from 'styled-components'
+
+import { Card, LoginButton } from '../../components'
 
 /* eslint-disable-next-line */
 export interface LoginProps {}
@@ -8,19 +12,25 @@ const StyledLogin = styled.div`
   color: black;
 `
 
-export const Login = (props: LoginProps) => {
+const Login = (props: LoginProps) => {
+  const { isAuthenticated } = useAuth0()
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />
+  }
   return (
     <StyledLogin>
-      <Container>
-        <Box lineHeight="tall">Blah, blah</Box>
-      </Container>
+      <Card
+        maxW={400}
+        minH={200}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <LoginButton />
+      </Card>
     </StyledLogin>
   )
 }
 
-export default {
-  path: '/login',
-  exact: true,
-  Component: Login,
-  access: 'PUBLIC'
-}
+export default Login

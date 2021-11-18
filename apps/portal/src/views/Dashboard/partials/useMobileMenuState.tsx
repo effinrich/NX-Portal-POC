@@ -1,11 +1,11 @@
-import * as React from 'react'
+import { useEffect } from 'react'
 import { useBoolean, useBreakpointValue } from '@chakra-ui/react'
 
 export const useMobileMenuState = () => {
   const [isOpen, actions] = useBoolean()
   const isMobile = useBreakpointValue({ base: true, lg: false })
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isMobile === false) {
       actions.off()
     }

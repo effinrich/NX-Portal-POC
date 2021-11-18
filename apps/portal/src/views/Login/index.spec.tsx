@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 
-import { Login } from '.'
+import Login from '.'
 
 describe('Login', () => {
   it('should render successfully', () => {

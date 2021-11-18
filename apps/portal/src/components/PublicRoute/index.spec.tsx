@@ -1,15 +1,15 @@
 import { MemoryRouter } from 'react-router-dom'
 import { render } from '@testing-library/react'
 
-import '../../utils/__mocks__/matchMedia'
+import '../../helpers/__mocks__/matchMedia'
 
-import { PublicRoute } from '.'
+import { PublicRoute } from './index'
 
 describe('PublicRoute', () => {
   it('should render successfully', () => {
     const { baseElement } = render(
       <MemoryRouter>
-        <PublicRoute children={undefined} isAuthenticated={undefined} />
+        <PublicRoute component={undefined} isAuthenticated={undefined} />
       </MemoryRouter>
     )
     expect(baseElement).toBeTruthy()

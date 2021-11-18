@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 
-import { Profile } from '.'
+import  Profile  from '.'
 
 const user = {
   name: 'Rich Tillman',

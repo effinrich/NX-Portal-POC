@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {
   BsFillBookmarksFill,
   BsFillInboxFill,
@@ -24,7 +23,7 @@ import { SidebarLink } from './partials/SidebarLink'
 import { useMobileMenuState } from './partials/useMobileMenuState'
 import { UserInfo } from './partials/UserInfo'
 
-export function Dashboard() {
+const Dashboard = () => {
   const { isOpen, toggle } = useMobileMenuState()
 
   return (
@@ -157,9 +156,4 @@ export function Dashboard() {
   )
 }
 
-export default {
-  path: '/dashboard',
-  exact: true,
-  Component: Dashboard,
-  access: 'USER'
-}
+export default Dashboard

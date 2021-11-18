@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
-import { Spinner } from '@chakra-ui/react'
-import { Loader } from '@phc-portal/shared-ui'
+
+import Loader from '../Loader'
 
 export const accessTypes = { user: 'USER', public: 'PUBLIC' }
 
@@ -9,9 +9,7 @@ const RoutesWithSubRoutes = route => {
   const ComponentWithAuth =
     route.access === accessTypes.user
       ? withAuthenticationRequired(route.Component, {
-          onRedirecting: () => (
-            <Spinner emptyColor="gray.200" color="blue.500" size="xl" />
-          )
+          onRedirecting: () => <Loader />
         })
       : route.Component
 

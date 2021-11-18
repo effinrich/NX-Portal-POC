@@ -12,7 +12,8 @@ module.exports = {
   // extended assertions to Jest
   setupFilesAfterEnv: [
     '@testing-library/react/cleanup-after-each',
-    '@testing-library/jest-dom/extend-expect'
+    '@testing-library/jest-dom/extend-expect',
+    '<rootDir>/setupTests.js'
   ],
   // Test spec file resolution pattern
   // Matches parent folder `__tests__` and filename

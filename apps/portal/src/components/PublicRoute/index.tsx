@@ -1,17 +1,17 @@
 import { Redirect, Route } from 'react-router-dom'
 
 export interface PublicRouteProps {
-  children: Record<string, unknown>
+  component: Record<string, unknown>
   isAuthenticated: boolean
 }
 
-export const PublicRoute = ({ children, isAuthenticated, ...rest }) => {
+export const PublicRoute = ({ component, isAuthenticated, ...rest }) => {
   return (
     <Route
       {...rest}
       render={({ location }) =>
         !isAuthenticated ? (
-          children
+          component
         ) : (
           <Redirect
             to={{
@@ -24,3 +24,5 @@ export const PublicRoute = ({ children, isAuthenticated, ...rest }) => {
     />
   )
 }
+
+export default PublicRoute

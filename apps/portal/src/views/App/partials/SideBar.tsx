@@ -12,10 +12,12 @@ import SideBarContent from './SideBarContent'
 
 export const SideBar = ({
   children,
-  profile
+  profile,
+  isAuthenticated
 }: {
   children: ReactNode
   profile: Record<string, unknown>
+  isAuthenticated: boolean
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 

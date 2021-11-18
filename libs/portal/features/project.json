@@ -2,7 +2,7 @@
   "root": "libs/portal/features",
   "sourceRoot": "libs/portal/features/src",
   "projectType": "library",
-  "tags": ["scope:portal", "type:feature"],
+  "tags": ["scope:portal-features"],
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",

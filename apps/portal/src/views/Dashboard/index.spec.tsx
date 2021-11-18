@@ -1,9 +1,9 @@
 import { MemoryRouter } from 'react-router-dom'
 import { render } from '@testing-library/react'
 
-import '../../utils/__mocks__/matchMedia'
+import '../../helpers/__mocks__/matchMedia'
 
-import { Dashboard } from '.'
+import Dashboard from '.'
 
 describe('Dashboard', () => {
   it('should render successfully', () => {

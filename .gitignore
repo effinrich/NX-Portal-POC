@@ -144,7 +144,12 @@ settings.json
 .env.local
 
 !**/.eslintrc.json
+!**/project.json
 !**/package.json
 !**/tsconfig.app.json
 !**/tsconfig.json
 !**/tsconfig.spec.json
+!**/tsconfig.lib.json
+!**/*.json
+!**/.*.json
+.nvmrc

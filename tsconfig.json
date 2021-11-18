@@ -1,0 +1,17 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/portal/"
+    },
+    {
+      "path": "./libs/portal/features"
+    },
+    {
+      "path": "./libs/shared/hooks"
+    },
+    {
+      "path": "./libs/shared/ui"
+    }
+  ]
+}

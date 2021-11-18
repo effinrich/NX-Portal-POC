@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { FiBell, FiChevronDown, FiMenu } from 'react-icons/fi'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import {
   Avatar,
@@ -29,6 +30,7 @@ interface MobileProps extends FlexProps {
 const MobileNav = ({ onOpen, profile, ...rest }: MobileProps) => {
   const { logout } = useAuth0()
   const history = useHistory()
+
   const handleProfileClick = () => history.push('/profile')
 
   return (
@@ -77,7 +79,10 @@ const MobileNav = ({ onOpen, profile, ...rest }: MobileProps) => {
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">{profile && profile.name}</Text>
+                  {/* // eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
+                  <Text fontSize="sm">
+                    {typeof profile?.name === 'string' ? profile.name : ''}
+                  </Text>
                   <Text fontSize="xs" color="gray.600">
                     Admin
                   </Text>

@@ -56,12 +56,34 @@
             "allow": [],
             "depConstraints": [
               {
+                "sourceTag": "type:app",
+                "onlyDependOnLibsWithTags": [
+                  "type:feature",
+                  "type:ui",
+                  "type:hooks",
+                  "type:app"
+                ]
+              },
+              {
                 "sourceTag": "scope:portal",
-                "onlyDependOnLibsWithTags": ["scope:shared", "scope:portal"]
+                "onlyDependOnLibsWithTags": ["scope:shared"]
               },
               {
                 "sourceTag": "scope:shared",
+                "onlyDependOnLibsWithTags": ["*"]
+              },
+              {
+                "sourceTag": "scope:portal-features",
                 "onlyDependOnLibsWithTags": ["scope:shared"]
+              },
+              {
+                "sourceTag": "type:hooks",
+                "onlyDependOnLibsWithTags": [
+                  "type:feature",
+                  "type:ui",
+                  "type:hooks",
+                  "type:app"
+                ]
               }
             ]
           }

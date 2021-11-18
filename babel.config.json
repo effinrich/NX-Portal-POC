@@ -3,5 +3,6 @@
   "plugins": [
     ["styled-components", { "pure": true, "ssr": true }],
     "@babel/plugin-syntax-dynamic-import"
-  ]
+  ],
+  "presets": ["@babel/preset-flow"]
 }
