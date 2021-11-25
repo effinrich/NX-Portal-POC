@@ -15,8 +15,8 @@ import {
 import loadable from '@loadable/component'
 import { createBrowserHistory } from 'history'
 
+import { environment } from './environments/environment'
 import { store } from './store'
-// import { environment } from './environments/environment'
 import { Button } from './theme'
 
 const App = loadable(() => import('./views/App'))
@@ -46,8 +46,14 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
 // })
 
 const AUTH0_DOMAIN = process.env.NX_AUTH0_DOMAIN
+  ? process.env.NX_AUTH0_DOMAIN
+  : environment.AUTH0_DOMAIN
 const AUTH0_CLIENT_ID = process.env.NX_AUTH0_CLIENT_ID
+  ? process.env.NX_AUTH0_CLIENT_ID
+  : environment.AUTH0_CLIENT_ID
 const AUTH0_AUDIENCE = process.env.NX_AUTH0_AUDIENCE
+  ? process.env.NX_AUTH0_AUDIENCE
+  : environment.AUTH0_AUDIENCE
 
 ReactDOM.render(
   <Auth0Provider

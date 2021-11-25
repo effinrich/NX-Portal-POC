@@ -17,8 +17,9 @@ import {
   // useLoadScript
 } from '@react-google-maps/api'
 
+import { environment } from '../../environments/environment'
 import { googleLibs } from '../../helpers'
-import { Loader } from '../Loader'
+// import { Loader } from '../Loader'
 
 const containerStyle = {
   width: '100%',
@@ -123,7 +124,11 @@ export const GoogleMapComponent = ({
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     <Suspense fallback={null}>
       <LoadScript
-        googleMapsApiKey={process.env.NX_MAPS_API_KEY}
+        googleMapsApiKey={
+          process.env.NX_MAPS_API_KEY
+            ? process.env.NX_MAPS_API_KEY
+            : environment.MAPS_API_KEY
+        }
         id="google-map-script"
         channel="beta"
         version="3"
