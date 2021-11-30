@@ -21,6 +21,7 @@ export const UserProfile = ({ user }) => {
   const colorMode = useColorModeValue('gray.100', 'gray.800')
 
   if (!user) return <Loader />
+
   return (
     <Box as="section" bg={colorMode}>
       <Card>

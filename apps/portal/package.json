@@ -2,5 +2,8 @@
   "name": "phc-portal",
   "version": "0.0.1",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "rewire": "^5.0.0"
+  }
 }

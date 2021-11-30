@@ -1,25 +1,18 @@
-import React, {
-  memo,
-  Suspense,
-  useCallback,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
+import { memo, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { FaLocationArrow } from 'react-icons/fa'
-import { Input } from '@chakra-ui/react'
+// import { Input } from '@chakra-ui/react'
 import {
   GoogleMap,
   InfoWindow,
-  LoadScript,
-  Marker
+  Marker,
+  useJsApiLoader
   // StandaloneSearchBox,
   // useLoadScript
 } from '@react-google-maps/api'
 
 import { environment } from '../../environments/environment'
-import { googleLibs } from '../../helpers'
-// import { Loader } from '../Loader'
+import { libraries } from '../../helpers'
+import { Loader } from '../Loader'
 
 const containerStyle = {
   width: '100%',
@@ -67,7 +60,21 @@ export const GoogleMapComponent = ({
   onDragEnd,
   center = { lat: -34.397, lng: 150.644 }
 }: GoogleMapProps) => {
+  const { isLoaded, loadError } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: process.env.NX_MAPS_API_KEY
+      ? process.env.NX_MAPS_API_KEY
+      : environment.MAPS_API_KEY,
+    channel: 'beta',
+    version: '3',
+    mapIds: ['89273f1950655e83'],
+    libraries
+  })
+
   const [location, setLocation] = useState({ lat: lat, lng: lng })
+  const [options] = useState({
+    mapId: '89273f1950655e83'
+  })
 
   const [isOpen, setIsOpen] = useState(true)
   const markerRef = useRef(null)
@@ -117,40 +124,26 @@ export const GoogleMapComponent = ({
     [setMap]
   )
 
-  // if (loadError) {
-  //   return <div>Map cannot be loaded right now, sorry.</div>
-  // }
+  const onClick = (...args) => {
+    console.log('onClick args: ', args)
+  }
+
+  if (loadError) {
+    return <div>{loadError}</div>
+  }
+
   return (
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    <Suspense fallback={null}>
-      <LoadScript
-        googleMapsApiKey={
-          process.env.NX_MAPS_API_KEY
-            ? process.env.NX_MAPS_API_KEY
-            : environment.MAPS_API_KEY
-        }
-        id="google-map-script"
-        channel="beta"
-        version="3"
-        mapIds={['89273f1950655e83']}
-        libraries={googleLibs}
-      >
+    <Suspense fallback={<Loader />}>
+      {isLoaded && (
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
           zoom={12}
           onLoad={onLoad}
           onUnmount={onUnmount}
-          options={{
-            // tilt: 0,
-            // heading: 0,
-            // zoom: 12,
-            // // disable interactions due to animation loop and moveCamera
-            // disableDefaultUI: true,
-            // gestureHandling: 'none',
-            // keyboardShortcuts: false,
-            mapId: '89273f1950655e83'
-          }}
+          onClick={onClick}
+          options={options}
         >
           <Marker
             position={center}
@@ -168,7 +161,7 @@ export const GoogleMapComponent = ({
             )}
           </Marker>
         </GoogleMap>
-      </LoadScript>
+      )}
     </Suspense>
   )
 }

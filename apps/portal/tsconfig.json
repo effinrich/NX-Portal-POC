@@ -6,8 +6,10 @@
     "composite": true,
     "types": ["node", "jest"],
     "allowJs": true,
+    "checkJs": true,
     "allowSyntheticDefaultImports": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "strict": false
   },
   "references": []
 }

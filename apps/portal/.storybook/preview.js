@@ -6,10 +6,11 @@ import {
   extendTheme,
   Flex,
   IconButton,
-  theme,
+  // theme,
   useColorMode,
   useColorModeValue
 } from '@chakra-ui/react'
+import { DocsContainer, DocsPage } from '@storybook/addon-docs'
 import { StoryContext } from '@storybook/react'
 import { withPerformance } from 'storybook-addon-performance'
 
@@ -69,6 +70,14 @@ const withChakra = (StoryFn: Function, context: StoryContext) => {
       </ChakraProvider>
     </Router>
   )
+}
+
+export const parameters = {
+  docs: {
+    inlineStories: false,
+    container: DocsContainer,
+    page: DocsPage
+  }
 }
 
 export const decorators = [withChakra, withPerformance]

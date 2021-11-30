@@ -1,3 +1,5 @@
+import React from 'react'
+
 require('jest-fetch-mock').enableMocks()
 const JSDOM = require('jsdom').JSDOM
 
@@ -20,5 +22,7 @@ Object.defineProperty(global.self, 'crypto', {
     getRandomValues: arr => crypto.randomBytes(arr.length)
   }
 })
+
+React.useLayoutEffect = React.useEffect
 
 global.crypto.subtle = {} // this gets around the 'auth0-spa-js must run on a secure origin' error

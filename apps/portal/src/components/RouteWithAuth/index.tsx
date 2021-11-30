@@ -6,7 +6,6 @@ import Loader from '../Loader'
 export const accessTypes = { user: 'USER', public: 'PUBLIC' }
 
 export const RouteWithAuth = route => {
-  console.log('ROUTE = ', route)
   return route.access === accessTypes.user
     ? withAuthenticationRequired(route.Component, {
         onRedirecting: () => <Loader />

@@ -1,5 +1,6 @@
 import * as ReactDOM from 'react-dom'
 import { ErrorBoundary } from 'react-error-boundary'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { AppState, Auth0Provider } from '@auth0/auth0-react'
@@ -17,7 +18,7 @@ import { createBrowserHistory } from 'history'
 
 import { environment } from './environments/environment'
 import { store } from './store'
-import { Button } from './theme'
+import { theme } from './theme'
 
 const App = loadable(() => import('./views/App'))
 
@@ -45,6 +46,8 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
 //   }
 // })
 
+const queryClient = new QueryClient()
+
 const AUTH0_DOMAIN = process.env.NX_AUTH0_DOMAIN
   ? process.env.NX_AUTH0_DOMAIN
   : environment.AUTH0_DOMAIN
@@ -56,30 +59,32 @@ const AUTH0_AUDIENCE = process.env.NX_AUTH0_AUDIENCE
   : environment.AUTH0_AUDIENCE
 
 ReactDOM.render(
-  <Auth0Provider
-    domain={`${AUTH0_DOMAIN}`}
-    clientId={`${AUTH0_CLIENT_ID}`}
-    redirectUri={typeof window !== 'undefined' && window.location.origin}
-    audience={AUTH0_AUDIENCE}
-    scope="read:users"
-    useRefreshTokens={true}
-    cacheLocation="localstorage"
-    onRedirectCallback={onRedirectCallback}
-  >
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <Provider store={store}>
-        <ChakraProvider>
-          <Router>
-            {/* <Loader> */}
+  <QueryClientProvider client={queryClient}>
+    <Auth0Provider
+      domain={`${AUTH0_DOMAIN}`}
+      clientId={`${AUTH0_CLIENT_ID}`}
+      redirectUri={typeof window !== 'undefined' && window.location.origin}
+      audience={AUTH0_AUDIENCE}
+      scope="read:users"
+      useRefreshTokens={true}
+      cacheLocation="localstorage"
+      onRedirectCallback={onRedirectCallback}
+    >
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Provider store={store}>
+          <ChakraProvider theme={theme}>
+            <Router>
+              {/* <Loader> */}
 
-            <App />
+              <App />
 
-            {/* </Loader> */}
-          </Router>
-        </ChakraProvider>
-      </Provider>
-    </ErrorBoundary>
-  </Auth0Provider>,
+              {/* </Loader> */}
+            </Router>
+          </ChakraProvider>
+        </Provider>
+      </ErrorBoundary>
+    </Auth0Provider>
+  </QueryClientProvider>,
 
   document.getElementById('root')
 )

@@ -9,12 +9,18 @@ module.exports = {
   core: { ...rootMain.core, builder: 'webpack5' },
   stories: [
     ...rootMain.stories,
-    '../src/components/**/*.stories.mdx',
-    '../src/components/**/*.stories.@(js|jsx|ts|tsx)'
+    '../src/components/**/*.stories.@(js|jsx|ts|tsx|mdx)'
   ],
   addons: [...rootMain.addons, '@nrwl/react/plugins/storybook'],
   typescript: {
-    reactDocgen: false
+    check: false,
+    checkOptions: {},
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      shouldExtractLiteralValuesFromEnum: true,
+      propFilter: prop =>
+        prop.parent ? !/node_modules/.test(prop.parent.fileName) : true
+    }
   },
   webpackFinal: async (config, { configType }) => {
     // apply any global webpack configs that might have been specified in .storybook/main.js

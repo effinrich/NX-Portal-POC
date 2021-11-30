@@ -4,8 +4,15 @@
   "parserOptions": {
     "sourceType": "module"
   },
-  // "extends": ["plugin:react-hooks/recommended"],
+  "extends": [
+    "plugin:mdx/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
   "plugins": ["@nrwl/nx", "simple-import-sort", "react-hooks"],
+  "settings": {
+    "mdx/code-blocks": true
+  },
   "rules": {
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
     "react-hooks/exhaustive-deps": [
@@ -96,12 +103,38 @@
     {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "rules": {
+        // disabled because it conflicts with jsx-a11y/alt-text
+        "jsx-a11y/img-redundant-alt": "off",
+        // changed to match the default tsconfig
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/prefer-interface": "off",
+        "@typescript-eslint/no-empty-interface": [
+          "error",
+          {
+            "allowSingleExtends": true
+          }
+        ],
+        "@typescript-eslint/no-angle-bracket-type-assertion": "off",
+        "@typescript-eslint/ban-ts-comment": "off"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nrwl/nx/javascript"],
-      "rules": {}
+      "rules": {
+        // this should just be fixed
+        "@typescript-eslint/no-unused-vars": "off",
+        // opinion: this is reasonable to disable
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/ban-ts-comment": "off"
+      }
     }
   ]
 }

@@ -1,5 +1,5 @@
 /* global  */
-import React, { Component } from 'react'
+import { Component, createRef } from 'react'
 import { GoogleMapsOverlay } from '@deck.gl/google-maps'
 
 const HOST = 'https://maps.googleapis.com/maps/api/js'
@@ -63,7 +63,7 @@ class DeckOverlayWrapper extends Component {
       isOverlayConfigured: false
     }
     this.DeckOverlay = new GoogleMapsOverlay({ layers: [] })
-    this.containerRef = React.createRef()
+    this.containerRef = createRef()
   }
 
   componentDidMount() {
