@@ -1,12 +1,5 @@
-import { ReactNode, ReactText } from 'react'
-import IconType from 'react-icons'
-import {
-  FiCompass,
-  FiHome,
-  FiSettings,
-  // FiTrendingUp,
-  FiUser
-} from 'react-icons/fi'
+import { IconType } from 'react-icons'
+import { FiHome, FiSettings, FiUser } from 'react-icons/fi'
 import {
   Box,
   BoxProps,
@@ -15,7 +8,6 @@ import {
   Image,
   useColorModeValue
 } from '@chakra-ui/react'
-import styled from 'styled-components'
 
 import logo from '../../../assets/logo.png'
 
@@ -42,32 +34,44 @@ const SideBarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
       transition="3s ease"
-      bg={useColorModeValue('white', 'gray.900')}
+      bg={['none', useColorModeValue('white', 'gray.900')]}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
       w={{ base: 'full', md: 60 }}
-      pos="fixed"
+      pos={['relative', 'fixed']}
       h="full"
       {...rest}
     >
       <Flex
-        h="20"
+        h={['10', '20']}
         alignItems="center"
         mx="8"
-        justifyContent="space-between"
-        mb={6}
+        justifyContent={{ base: 'flex-end', md: 'space-between' }}
+        mb={[0, 6]}
       >
-        <Box>
+        <Box display={{ base: 'none', md: 'block' }}>
           <Image src={logo} maxW="105" height="auto" ml="8" mt="2" />
         </Box>
 
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+        {/* <CloseButton
+          display={{ base: 'flex', md: 'none' }}
+          onClick={onClose}
+          mt={4}
+        /> */}
       </Flex>
-      {LinkItems.map(link => (
-        <NavItem to={link.path} key={link.name} icon={link.icon}>
-          {link.name}
-        </NavItem>
-      ))}
+
+      <Box>
+        {LinkItems.map(link => (
+          <NavItem
+            to={link.path}
+            key={link.name}
+            icon={link.icon}
+            onClick={onClose}
+          >
+            {link.name}
+          </NavItem>
+        ))}
+      </Box>
     </Box>
   )
 }

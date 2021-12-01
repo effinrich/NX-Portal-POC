@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { FiBell, FiChevronDown, FiMenu } from 'react-icons/fi'
 import { useHistory } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -45,76 +44,79 @@ const MobileNav = ({ onOpen, user, ...rest }: MobileProps) => {
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
       {...rest}
     >
-      <IconButton
-        display={{ base: 'flex', md: 'none' }}
-        onClick={onOpen}
-        variant="outline"
-        aria-label="open menu"
-        icon={<FiMenu />}
-      />
-
-      <Box display={{ base: 'flex', md: 'none' }}>
-        <Image src={logo} maxW="100" style={{ margin: '0, auto' }} />
+      <Box w="50px" display={{ md: 'none' }}>
+        <IconButton
+          onClick={onOpen}
+          variant="outline"
+          aria-label="open menu"
+          icon={<FiMenu />}
+        />
       </Box>
 
-      <HStack spacing={{ base: '0', md: '6' }}>
-        <IconButton
-          size="lg"
-          variant="ghost"
-          aria-label="open menu"
-          icon={<FiBell />}
-        />
-        <Flex alignItems={'center'}>
-          <Menu>
-            <MenuButton
-              py={2}
-              transition="all 0.3s"
-              _focus={{ boxShadow: 'none' }}
-            >
-              <HStack>
-                {user ? (
-                  <>
-                    <Avatar size={'sm'} src={`${user.picture}`} />
-                    <VStack
-                      display={{ base: 'none', md: 'flex' }}
-                      alignItems="flex-start"
-                      spacing="1px"
-                      ml="2"
-                    >
-                      {/* // eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-                      <Text fontSize="sm">{user.name}</Text>
-                      <Text fontSize="xs" color="gray.600">
-                        Admin
-                      </Text>
-                    </VStack>
-                  </>
-                ) : (
-                  <Loader size="sm" />
-                )}
+      <Box w="100px" display={{ base: 'flex', md: 'none' }}>
+        <Image src={logo} />
+      </Box>
 
-                <Box display={{ base: 'none', md: 'flex' }}>
-                  <FiChevronDown />
-                </Box>
-              </HStack>
-            </MenuButton>
-            <MenuList bg={'white'} borderColor={'gray.200'}>
-              <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
-              {/* <MenuItem>Settings</MenuItem> */}
-              {/* <MenuItem>Billing</MenuItem> */}
-              <MenuDivider />
-              <MenuItem
-                onClick={() =>
-                  logout({
-                    returnTo: window.location.origin
-                  })
-                }
+      <Box w={['80px', 'inherit']}>
+        <HStack spacing={{ base: '0', md: '6' }}>
+          <IconButton
+            size="lg"
+            variant="ghost"
+            aria-label="open menu"
+            icon={<FiBell />}
+          />
+          <Flex alignItems={'center'}>
+            <Menu>
+              <MenuButton
+                py={2}
+                transition="all 0.3s"
+                _focus={{ boxShadow: 'none' }}
               >
-                Sign out
-              </MenuItem>
-            </MenuList>
-          </Menu>
-        </Flex>
-      </HStack>
+                <HStack>
+                  {user ? (
+                    <>
+                      <Avatar size={'sm'} src={`${user.picture}`} />
+                      <VStack
+                        display={{ base: 'none', md: 'flex' }}
+                        alignItems="flex-start"
+                        spacing="1px"
+                        ml="2"
+                      >
+                        {/* // eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
+                        <Text fontSize="sm">{user.name}</Text>
+                        <Text fontSize="xs" color="gray.600">
+                          Admin
+                        </Text>
+                      </VStack>
+                    </>
+                  ) : (
+                    <Loader size="sm" />
+                  )}
+
+                  <Box display={{ base: 'none', md: 'flex' }}>
+                    <FiChevronDown />
+                  </Box>
+                </HStack>
+              </MenuButton>
+              <MenuList bg={'white'} borderColor={'gray.200'}>
+                <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
+                {/* <MenuItem>Settings</MenuItem> */}
+                {/* <MenuItem>Billing</MenuItem> */}
+                <MenuDivider />
+                <MenuItem
+                  onClick={() =>
+                    logout({
+                      returnTo: window.location.origin
+                    })
+                  }
+                >
+                  Sign out
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </Flex>
+        </HStack>
+      </Box>
     </Flex>
   )
 }

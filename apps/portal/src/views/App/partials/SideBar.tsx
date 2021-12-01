@@ -1,8 +1,13 @@
 import { ReactNode } from 'react'
 import {
   Box,
+  Button,
   Drawer,
+  DrawerBody,
+  DrawerCloseButton,
   DrawerContent,
+  DrawerFooter,
+  DrawerOverlay,
   useColorModeValue,
   useDisclosure
 } from '@chakra-ui/react'
@@ -12,8 +17,7 @@ import SideBarContent from './SideBarContent'
 
 export const SideBar = ({
   children,
-  user,
-  isAuthenticated
+  user
 }: {
   children: ReactNode
   user: Record<string, unknown>
@@ -34,13 +38,23 @@ export const SideBar = ({
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="full"
+        isFullHeight
+        size="xs"
       >
+        <DrawerOverlay />
         <DrawerContent>
-          <SideBarContent onClose={onClose} />
+          <DrawerBody p={0}>
+            <SideBarContent onClose={onClose} />
+          </DrawerBody>
+          <DrawerCloseButton />
+          <DrawerFooter borderTopWidth="1px">
+            {/* <Button variant="outline" mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme="blue">Submit</Button> */}
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
-      {/* mobilenav */}
       <MobileNav onOpen={onOpen} user={user} />
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
