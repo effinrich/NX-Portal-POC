@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
+import { Switch } from 'react-router-dom'
 import { useLocalStorage } from 'react-use'
 import { useAuth0 } from '@auth0/auth0-react'
 import {
@@ -77,7 +77,7 @@ const formatCoords = n => {
 }
 
 export function App() {
-  const { isLoading, error, isAuthenticated } = useAuth0()
+  const { isLoading, error, isAuthenticated, user } = useAuth0()
 
   // const location = useLocation()
   const [coords, setCoords] = useState<ICoords>()
@@ -149,57 +149,6 @@ export function App() {
         })
       }
 
-      // console.log('jsonResponse = ', jsonResponse)
-
-      //   const res = await fetch(url, {
-      //     method: 'POST',
-      //     body: JSON.stringify({
-      //       search_criteria: {
-      //         search_condition: [
-      //           {
-      //             field_condition: [
-      //               {
-      //                 field: 'forecasted_cases',
-      //                 operation: 'NUM_RANGE',
-      //                 value: {
-      //                   range_value: {
-      //                     min_inclusive: true,
-      //                     max: 200
-      //                   }
-      //                 }
-      //               }
-      //             ]
-      //           }
-      //         ],
-      //         sorting_criteria: [
-      //           {
-      //             attribute: 'id',
-      //             order: 'DESCENDING'
-      //           }
-      //         ]
-      //       }
-      //     }),
-      //     headers: {
-      //       Authorization: authToken,
-      //       'Content-Type': 'application/json; charset=utf-8'
-      //     }
-      //   })
-      //   console.log(res.body)
-      //   // const jsonRes = res.body(object => {
-      //   //   return console.log(object)
-      //   // })
-
-      // const data = await res.json()
-      // setMapData(data)
-
-      // const lat = data.result?.modelBuf.centroids.geometry.coords[0]
-      // const lng = data.result?.modelBuf.centroids.geometry.coords[1]
-
-      // setCoords({
-      //   lat: formatCoords(lat),
-      //   lng: formatCoords(lng)
-      // })
-
       // return data
       fetchPipeData()
     }
@@ -214,7 +163,7 @@ export function App() {
       {isAuthenticated ? (
         <SideBar
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          profile={profile! && profile?.body.decodedToken.user}
+          user={user}
           isAuthenticated
         >
           <Box p="4">
@@ -230,10 +179,10 @@ export function App() {
           <Suspense fallback={<Loader />}>
             <Switch>
               {/* <Route exact path="/login" component={Login} /> */}
-              <ProtectedRoute exact path="/">
-                <Redirect to="/home" />
-              </ProtectedRoute>
-              <ProtectedRoute path="/home" component={Home} />
+              {/* <ProtectedRoute exact path="/">
+                <Redirect to="/" />
+              </ProtectedRoute> */}
+              <ProtectedRoute path="/" component={Home} exact />
               <ProtectedRoute path="/profile" component={Profile} />
               <ProtectedRoute path="/map-viewer" component={MapViewer} />
               <ProtectedRoute path="/users" component={Users} />

@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FiBell, FiChevronDown, FiMenu } from 'react-icons/fi'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import {
   Avatar,
@@ -21,13 +21,13 @@ import {
 } from '@chakra-ui/react'
 
 import logo from '../../../assets/logo.png'
+import { Loader } from '../../../components'
 
 interface MobileProps extends FlexProps {
   onOpen: () => void
-  profile: Record<string, unknown>
+  user: Record<string, unknown>
 }
-
-const MobileNav = ({ onOpen, profile, ...rest }: MobileProps) => {
+const MobileNav = ({ onOpen, user, ...rest }: MobileProps) => {
   const { logout } = useAuth0()
   const history = useHistory()
 
@@ -72,21 +72,26 @@ const MobileNav = ({ onOpen, profile, ...rest }: MobileProps) => {
               _focus={{ boxShadow: 'none' }}
             >
               <HStack>
-                <Avatar size={'sm'} src={`${profile && profile.picture}`} />
-                <VStack
-                  display={{ base: 'none', md: 'flex' }}
-                  alignItems="flex-start"
-                  spacing="1px"
-                  ml="2"
-                >
-                  {/* // eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-                  <Text fontSize="sm">
-                    {typeof profile?.name === 'string' ? profile.name : ''}
-                  </Text>
-                  <Text fontSize="xs" color="gray.600">
-                    Admin
-                  </Text>
-                </VStack>
+                {user ? (
+                  <>
+                    <Avatar size={'sm'} src={`${user.picture}`} />
+                    <VStack
+                      display={{ base: 'none', md: 'flex' }}
+                      alignItems="flex-start"
+                      spacing="1px"
+                      ml="2"
+                    >
+                      {/* // eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
+                      <Text fontSize="sm">{user.name}</Text>
+                      <Text fontSize="xs" color="gray.600">
+                        Admin
+                      </Text>
+                    </VStack>
+                  </>
+                ) : (
+                  <Loader size="sm" />
+                )}
+
                 <Box display={{ base: 'none', md: 'flex' }}>
                   <FiChevronDown />
                 </Box>

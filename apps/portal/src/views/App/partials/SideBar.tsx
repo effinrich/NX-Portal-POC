@@ -12,11 +12,11 @@ import SideBarContent from './SideBarContent'
 
 export const SideBar = ({
   children,
-  profile,
+  user,
   isAuthenticated
 }: {
   children: ReactNode
-  profile: Record<string, unknown>
+  user: Record<string, unknown>
   isAuthenticated: boolean
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -41,7 +41,7 @@ export const SideBar = ({
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
-      <MobileNav onOpen={onOpen} profile={profile} />
+      <MobileNav onOpen={onOpen} user={user} />
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>

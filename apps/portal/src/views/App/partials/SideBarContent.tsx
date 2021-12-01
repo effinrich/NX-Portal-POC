@@ -1,5 +1,5 @@
 import { ReactNode, ReactText } from 'react'
-import { IconType } from 'react-icons'
+import IconType from 'react-icons'
 import {
   FiCompass,
   FiHome,
@@ -23,14 +23,15 @@ import NavItem from './NavItem'
 
 interface LinkItemProps {
   name: string
+  path: string
   icon: IconType
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Home', icon: FiHome },
+  { name: 'Home', icon: FiHome, path: '/' },
   // { name: 'Trending', icon: FiTrendingUp },
   // { name: 'Map Viewer', icon: FiCompass },
-  { name: 'Users', icon: FiUser },
-  { name: 'Settings', icon: FiSettings }
+  { name: 'Users', icon: FiUser, path: '/users' },
+  { name: 'Settings', icon: FiSettings, path: '/settings' }
 ]
 
 interface SidebarProps extends BoxProps {
@@ -63,11 +64,7 @@ const SideBarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map(link => (
-        <NavItem
-          to={`/${link.name.toLowerCase()}`}
-          key={link.name}
-          icon={link.icon}
-        >
+        <NavItem to={link.path} key={link.name} icon={link.icon}>
           {link.name}
         </NavItem>
       ))}

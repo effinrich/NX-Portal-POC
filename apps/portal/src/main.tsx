@@ -1,7 +1,6 @@
 import * as ReactDOM from 'react-dom'
 import { ErrorBoundary } from 'react-error-boundary'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { AppState, Auth0Provider } from '@auth0/auth0-react'
 import {
@@ -17,7 +16,6 @@ import loadable from '@loadable/component'
 import { createBrowserHistory } from 'history'
 
 import { environment } from './environments/environment'
-import { store } from './store'
 import { theme } from './theme'
 
 const App = loadable(() => import('./views/App'))
@@ -71,17 +69,15 @@ ReactDOM.render(
       onRedirectCallback={onRedirectCallback}
     >
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Provider store={store}>
-          <ChakraProvider theme={theme}>
-            <Router>
-              {/* <Loader> */}
+        <ChakraProvider theme={theme}>
+          <Router>
+            {/* <Loader> */}
 
-              <App />
+            <App />
 
-              {/* </Loader> */}
-            </Router>
-          </ChakraProvider>
-        </Provider>
+            {/* </Loader> */}
+          </Router>
+        </ChakraProvider>
       </ErrorBoundary>
     </Auth0Provider>
   </QueryClientProvider>,
