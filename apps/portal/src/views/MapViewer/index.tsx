@@ -122,7 +122,7 @@ const MapViewer = (props: MapViewProps) => {
   }, [profile, setMapData, setCoords])
 
   if (isLoading) {
-    return <Loader />
+    return <Loader size="xl" />
   }
 
   return (

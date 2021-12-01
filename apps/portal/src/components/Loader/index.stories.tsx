@@ -9,5 +9,7 @@ export default {
 
 const Template: Story<LoaderProps> = args => <Loader {...args} />
 
-export const Primary = Template.bind({})
-Primary.args = {}
+export const Default = Template.bind({})
+Default.args = {
+  size: 'md'
+}

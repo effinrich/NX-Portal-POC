@@ -134,7 +134,7 @@ export const GoogleMapComponent = ({
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<Loader size="xl" />}>
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={containerStyle}

@@ -155,7 +155,7 @@ export function App() {
   }, [profile, setMapData, setCoords, isAuthenticated])
 
   if (isLoading) {
-    return <Loader />
+    return <Loader size="xl" />
   }
 
   return (
@@ -176,7 +176,7 @@ export function App() {
               </Alert>
             )}
           </Box>
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<Loader size="xl" />}>
             <Switch>
               {/* <Route exact path="/login" component={Login} /> */}
               {/* <ProtectedRoute exact path="/">

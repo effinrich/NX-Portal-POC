@@ -44,5 +44,7 @@ RUN rm -rf *
 # Copy static assets from builder stage
 COPY --from=builder /app/dist/apps/portal .
 
+EXPOSE 80
+
 # Entry point when Docker container has started
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

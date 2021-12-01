@@ -113,7 +113,7 @@ const Users = (props: UsersProps) => {
   )
 
   if (isLoading) {
-    return <Loader />
+    return <Loader size="xl" />
   }
 
   const filteredItems = data.data.filter(

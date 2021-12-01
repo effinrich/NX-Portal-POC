@@ -8,7 +8,7 @@ export const accessTypes = { user: 'USER', public: 'PUBLIC' }
 export const RouteWithAuth = route => {
   return route.access === accessTypes.user
     ? withAuthenticationRequired(route.Component, {
-        onRedirecting: () => <Loader />
+        onRedirecting: () => <Loader size="xl" />
       })
     : route.Component
 }

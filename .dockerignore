@@ -29,5 +29,6 @@ helm
 .storybook
 .husky
 .github
+.DS_Store
 
 README.md
