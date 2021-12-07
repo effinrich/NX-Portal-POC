@@ -1,5 +1,5 @@
 import { ReactText } from 'react'
-import IconType from 'react-icons'
+import { IconType } from 'react-icons'
 import { Link as RouterLink } from 'react-router-dom'
 import { Button, Flex, FlexProps, Icon, Link } from '@chakra-ui/react'
 

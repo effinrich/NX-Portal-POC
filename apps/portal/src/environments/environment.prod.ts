@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
   // Auth0 vars
-  AUTH0_DOMAIN: 'dev--rjghji3.us.auth0.com',
-  AUTH0_CLIENT_ID: 'O4WHfTk59tlLSzX3seoBR4uFosfIZUwu',
-  AUTH0_AUDIENCE: 'project_pluto_324014',
+  AUTH0_DOMAIN: 'thepublichealthco.us.auth0.com',
+  AUTH0_CLIENT_ID: 'zeI3UCoj1ezL2nXAGFl5VmuK3515nYDj',
+  AUTH0_AUDIENCE: 'rest.pluto.thepublichealthco.com',
 
   //Nx vars
   NX_CLOUD_AUTH_TOKEN:

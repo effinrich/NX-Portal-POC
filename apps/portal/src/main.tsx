@@ -16,7 +16,7 @@ import loadable from '@loadable/component'
 import { createBrowserHistory } from 'history'
 
 import { environment } from './environments/environment'
-import { theme } from './theme'
+// import { theme } from './theme'
 
 const App = loadable(() => import('./views/App'))
 
@@ -38,11 +38,22 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
   )
 }
 
-// const theme = extendTheme({
-//   components: {
-//     Button
-//   }
-// })
+const theme = extendTheme({
+  colors: {
+    brand: {
+      50: '#E5EFFF',
+      100: '#B8D3FF',
+      200: '#8AB7FF',
+      300: '#5C9BFF',
+      400: '#2E7EFF',
+      500: '#0062FF',
+      600: '#004ECC',
+      700: '#003B99',
+      800: '#002766',
+      900: '#001433'
+    }
+  }
+})
 
 const queryClient = new QueryClient()
 
@@ -63,7 +74,7 @@ ReactDOM.render(
       clientId={`${AUTH0_CLIENT_ID}`}
       redirectUri={typeof window !== 'undefined' && window.location.origin}
       audience={AUTH0_AUDIENCE}
-      scope="read:users"
+      scope="read:users,root:read"
       useRefreshTokens={true}
       cacheLocation="localstorage"
       onRedirectCallback={onRedirectCallback}

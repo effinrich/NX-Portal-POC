@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { Switch } from 'react-router-dom'
-import { useLocalStorage } from 'react-use'
 import { useAuth0 } from '@auth0/auth0-react'
 import {
   Alert,
@@ -23,6 +22,7 @@ import styled from 'styled-components'
 
 import logo from '../../assets/logo.png'
 import { Card, Loader, LoginButton, ProtectedRoute } from '../../components'
+import { environment } from '../../environments/environment'
 
 import { SideBar } from './partials/SideBar'
 
@@ -43,7 +43,6 @@ type DecodedToken = {
 
 type Body = {
   decodedToken: DecodedToken
-  access_token
 }
 
 type UserProfile = {
@@ -76,8 +75,13 @@ const formatCoords = n => {
   }
 }
 
+const AUTH0_AUDIENCE = process.env.NX_AUTH0_AUDIENCE
+  ? process.env.NX_AUTH0_AUDIENCE
+  : environment.AUTH0_AUDIENCE
+
 export function App() {
-  const { isLoading, error, isAuthenticated, user } = useAuth0()
+  const { isLoading, error, isAuthenticated, user, getAccessTokenSilently } =
+    useAuth0()
 
   // const location = useLocation()
   const [coords, setCoords] = useState<ICoords>()
@@ -93,10 +97,6 @@ export function App() {
     }
   })
 
-  const [profile] = useLocalStorage<UserProfile>(
-    '@@auth0spajs@@::O4WHfTk59tlLSzX3seoBR4uFosfIZUwu::project_pluto_324014::openid profile email read:users offline_access'
-  )
-
   // if (!isAuthenticated) {
   //   logout({
   //     returnTo: window.location.origin
@@ -106,8 +106,7 @@ export function App() {
   useEffect(() => {
     if (isAuthenticated) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const authToken = `Bearer ${profile?.body.access_token}`
-      const url = 'https://rest.pluto.thepublichealthco.com/jwt/model_bufs'
+      const url = 'https://rest.pluto.thepublichealthco.com/blocking/model_bufs'
 
       const jsonResponse = []
 
@@ -116,6 +115,11 @@ export function App() {
       }
 
       const fetchPipeData = async () => {
+        const authToken = await getAccessTokenSilently({
+          audience: `${AUTH0_AUDIENCE}`,
+          scope: 'read:users,root:read'
+        })
+
         await produce(modelBuf, async (draft: any) => {
           draft.result = await jsonpipe.flow(url, {
             delimiter: '\n', // String. The delimiter separating valid JSON objects; default is "\n\n"
@@ -140,7 +144,7 @@ export function App() {
             method: 'POST', // String. The type of request to make (e.g. "POST", "GET", "PUT"); default is "GET"
             headers: {
               // Object. An object of additional header key/value pairs to send along with request
-              Authorization: authToken
+              Authorization: `Bearer ${authToken}`
             },
             data: '', // String | FormData | File | Blob. What to be sent in the request body.
             disableContentType: false, // By default jsonpipe will set `Content-Type` to "application/x-www-form-urlencoded", you can set `disableContentType` to `true` to skip this behavior. Must set `true` if your `data` is not a string.
@@ -152,7 +156,7 @@ export function App() {
       // return data
       fetchPipeData()
     }
-  }, [profile, setMapData, setCoords, isAuthenticated])
+  }, [setMapData, setCoords, isAuthenticated, getAccessTokenSilently])
 
   if (isLoading) {
     return <Loader size="xl" />

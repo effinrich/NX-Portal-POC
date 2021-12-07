@@ -14,13 +14,10 @@ import {
 import { Card } from '../Card'
 import { CardContent } from '../CardContent'
 import { CardHeader } from '../CardHeader'
-import { Loader } from '../Loader'
 import { UserAvatar } from '../UserAvatar'
 
 export const UserProfile = ({ user }) => {
   const colorMode = useColorModeValue('gray.100', 'gray.800')
-
-  if (!user) return <Loader size="xl" />
 
   return (
     <Box as="section" bg={colorMode}>

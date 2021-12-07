@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useLocalStorage } from 'react-use'
 import { useAuth0 } from '@auth0/auth0-react'
 import styled from 'styled-components'
 
 import { GoogleMapComponent, Loader } from '../../components'
+import { environment } from '../../environments/environment'
 
 /* eslint-disable-next-line */
 export interface MapViewProps {}
@@ -17,7 +17,6 @@ type DecodedToken = {
 
 type Body = {
   decodedToken: DecodedToken
-  access_token: string
 }
 
 type Profile = {
@@ -47,8 +46,12 @@ const formatCoords = (n: number) => {
   return v
 }
 
+const AUTH0_AUDIENCE = process.env.NX_AUTH0_AUDIENCE
+  ? process.env.NX_AUTH0_AUDIENCE
+  : environment.AUTH0_AUDIENCE
+
 const MapViewer = (props: MapViewProps) => {
-  const { isLoading, error, isAuthenticated } = useAuth0()
+  const { isLoading, getAccessTokenSilently } = useAuth0()
   const [coords, setCoords] = useState<ICoords>()
   const [mapData, setMapData] = useState({
     result: {
@@ -62,16 +65,15 @@ const MapViewer = (props: MapViewProps) => {
     }
   })
 
-  const [profile] = useLocalStorage<Profile>(
-    '@@auth0spajs@@::O4WHfTk59tlLSzX3seoBR4uFosfIZUwu::project_pluto_324014::openid profile email offline_access'
-  )
-
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const authToken = `Bearer ${profile!.body.access_token!}`
-    const url = 'https://rest.pluto.thepublichealthco.com/jwt/model_bufs'
+    const url = 'https://rest.pluto.thepublichealthco.com/blocking/model_bufs'
 
     const fetchMapData = async () => {
+      const authToken = await getAccessTokenSilently({
+        audience: `${AUTH0_AUDIENCE}`,
+        scope: 'read:users,root:read'
+      })
       const res = await fetch(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -80,10 +82,10 @@ const MapViewer = (props: MapViewProps) => {
               {
                 field_condition: [
                   {
-                    field: 'id',
+                    field: 'location.region',
                     operation: 'EQUALS',
                     value: {
-                      string_value: '123'
+                      string_value: 'Brevard_Florida'
                     }
                   }
                 ]
@@ -91,14 +93,20 @@ const MapViewer = (props: MapViewProps) => {
             ],
             sorting_criteria: [
               {
-                attribute: 'id',
-                order: 'DESCENDING'
+                field_sort: {
+                  order: 'DESC',
+                  field_name: 'forecast_date'
+                }
               }
-            ]
+            ],
+            pagination: {
+              size: 10,
+              from: 90
+            }
           }
         }),
         headers: {
-          Authorization: authToken,
+          Authorization: `Bearer ${authToken}`,
           'Content-Type': 'application/json',
           Accept: 'application/json'
         }
@@ -119,7 +127,7 @@ const MapViewer = (props: MapViewProps) => {
     }
 
     fetchMapData()
-  }, [profile, setMapData, setCoords])
+  }, [setMapData, setCoords, getAccessTokenSilently])
 
   if (isLoading) {
     return <Loader size="xl" />

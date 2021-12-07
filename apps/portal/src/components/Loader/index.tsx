@@ -11,7 +11,7 @@ export interface LoaderProps {
 export const Loader = ({ size = 'md' }: LoaderProps) => {
   return (
     <Flex align="center" justify="center" flex="1" height="75vh">
-      <Spinner thickness="4px" speed="0.65s" size={size} />
+      <Spinner thickness="4px" speed="0.65s" size={size} colorScheme="brand" />
     </Flex>
   )
   // return <Suspense fallback={<Skeleton>{props.children}</Skeleton>}></Suspense>

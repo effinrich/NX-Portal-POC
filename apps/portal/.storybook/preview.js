@@ -60,9 +60,27 @@ const withChakra = (StoryFn: Function, context: StoryContext) => {
     document.documentElement.dir = dir
   }, [dir])
 
+  const theme = extendTheme({
+    direction: dir,
+    colors: {
+      brand: {
+        50: '#E5EFFF',
+        100: '#B8D3FF',
+        200: '#8AB7FF',
+        300: '#5C9BFF',
+        400: '#2E7EFF',
+        500: '#0062FF',
+        600: '#004ECC',
+        700: '#003B99',
+        800: '#002766',
+        900: '#001433'
+      }
+    }
+  })
+
   return (
     <Router>
-      <ChakraProvider theme={extendTheme({ direction: dir })}>
+      <ChakraProvider theme={theme}>
         <div dir={dir} id="story-wrapper" style={{ minHeight: '100vh' }}>
           <ColorModeToggleBar />
           <StoryFn />
