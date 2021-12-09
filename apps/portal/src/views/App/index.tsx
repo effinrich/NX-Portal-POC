@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { lazy, Suspense, useEffect, useState } from 'react'
+import { useMutation } from 'react-query'
 import { Switch } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import {
@@ -13,11 +15,7 @@ import {
   Image,
   VStack
 } from '@chakra-ui/react'
-// import axios from 'axios'
-// import loadable from '@loadable/component'
-// import fetch from 'cross-fetch'
-import produce from 'immer'
-import jsonpipe from 'jsonpipe'
+import { axiosApi } from '@phc/shared-utils'
 import styled from 'styled-components'
 
 import logo from '../../assets/logo.png'
@@ -66,7 +64,13 @@ export interface ICoords {
   lng: number
 }
 
-const formatCoords = n => {
+type Response = {
+  modelBuf: Record<string, unknown>
+  paginationResponse: Record<string, unknown>
+  data: string[]
+}
+
+const formatCoords = (n: number) => {
   if (n) {
     const l = n.toString().length - 3
     const v = n / Math.pow(10, l)
@@ -79,84 +83,74 @@ const AUTH0_AUDIENCE = process.env.NX_AUTH0_AUDIENCE
   ? process.env.NX_AUTH0_AUDIENCE
   : environment.AUTH0_AUDIENCE
 
+const payload = {
+  search_criteria: {
+    search_condition: [
+      {
+        field_condition: [
+          {
+            field: 'location.region',
+            operation: 'EQUALS',
+            value: {
+              string_value: 'Brevard_Florida'
+            }
+          }
+        ]
+      }
+    ],
+    sorting_criteria: [
+      {
+        field_sort: {
+          order: 'DESC',
+          field_name: 'forecast_date'
+        }
+      }
+    ],
+    pagination: {
+      size: 10,
+      from: 90
+    }
+  }
+}
+
 export function App() {
   const { isLoading, error, isAuthenticated, user, getAccessTokenSilently } =
     useAuth0()
 
-  // const location = useLocation()
   const [coords, setCoords] = useState<ICoords>()
-  const [mapData, setMapData] = useState({
-    result: {
-      modelBuf: {
-        centroids: {
-          geometry: {
-            coords: {}
-          }
-        }
-      }
-    }
-  })
+  const [mapData, setMapData] = useState({})
 
-  // if (!isAuthenticated) {
-  //   logout({
-  //     returnTo: window.location.origin
-  //   })
-  // }
+  const { mutate } = useMutation<Response, unknown, any>(newMapQuery => {
+    return axiosApi.post('/model_bufs', newMapQuery.payload, {
+      headers: {
+        Authorization: `Bearer ${newMapQuery.jwt}`
+      }
+    })
+  })
 
   useEffect(() => {
     if (isAuthenticated) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const url = 'https://rest.pluto.thepublichealthco.com/blocking/model_bufs'
-
-      const jsonResponse = []
-
-      const modelBuf = {
-        result: []
-      }
-
-      const fetchPipeData = async () => {
+      const createMapsResults = async () => {
         const authToken = await getAccessTokenSilently({
           audience: `${AUTH0_AUDIENCE}`,
           scope: 'read:users,root:read'
         })
 
-        await produce(modelBuf, async (draft: any) => {
-          draft.result = await jsonpipe.flow(url, {
-            delimiter: '\n', // String. The delimiter separating valid JSON objects; default is "\n\n"
-            onUploadProgress: progressEvent => {
-              console.log('progressEvent = ', progressEvent)
-            },
-
-            success: data => {
-              jsonResponse.push(data)
-              // console.log('success = ', jsonResponse)
-              // Do something with this JSON chunk
-            },
-            error: errorMsg => {
-              console.log('errorMsg = ', errorMsg)
-              // Something wrong happened, check the error message
-            },
-            complete: statusText => {
-              console.log('statusText = ', statusText)
-              // Called after success/error, with the XHR status text
-            },
-            timeout: 3000, // Number. Set a timeout (in milliseconds) for the request
-            method: 'POST', // String. The type of request to make (e.g. "POST", "GET", "PUT"); default is "GET"
-            headers: {
-              // Object. An object of additional header key/value pairs to send along with request
-              Authorization: `Bearer ${authToken}`
-            },
-            data: '', // String | FormData | File | Blob. What to be sent in the request body.
-            disableContentType: false, // By default jsonpipe will set `Content-Type` to "application/x-www-form-urlencoded", you can set `disableContentType` to `true` to skip this behavior. Must set `true` if your `data` is not a string.
-            withCredentials: false // Boolean. Send cookies when making cross-origin requests; default is true
-          })
-        })
+        mutate(
+          { payload, jwt: authToken },
+          {
+            onSuccess: result => {
+              setMapData(result.data)
+            }
+          }
+        )
       }
 
       // return data
-      fetchPipeData()
+      createMapsResults()
     }
-  }, [setMapData, setCoords, isAuthenticated, getAccessTokenSilently])
+  }, [getAccessTokenSilently, isAuthenticated, mutate])
 
   if (isLoading) {
     return <Loader size="xl" />

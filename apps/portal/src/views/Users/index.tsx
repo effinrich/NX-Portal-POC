@@ -10,10 +10,11 @@ import {
   InputGroup,
   InputRightElement
 } from '@chakra-ui/react'
+// import { axiosMock } from '@phc/shared-utils'
 import styled from 'styled-components'
 
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { axiosApi } from '../../../../../libs/shared/utils/src/lib/axiosApi'
+import { axiosMock } from '../../../../../libs/shared/utils/src/lib/axiosMock'
 import { Card, Loader } from '../../components'
 
 // import DataTable from './partials/DataTable'
@@ -45,7 +46,7 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
 const Users = (props: UsersProps) => {
   const fetchUsers = async () => {
     try {
-      return axiosApi.get('/users').then(res => res.data)
+      return axiosMock.get('/users').then(res => res.data)
     } catch (error) {
       return error
     }
