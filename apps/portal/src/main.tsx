@@ -16,7 +16,6 @@ import loadable from '@loadable/component'
 import { createBrowserHistory } from 'history'
 
 import { environment } from './environments/environment'
-// import { theme } from './theme'
 
 const App = loadable(() => import('./views/App'))
 
@@ -51,6 +50,16 @@ const theme = extendTheme({
       700: '#003B99',
       800: '#002766',
       900: '#001433'
+    }
+  },
+  shadows: {
+    even: '0 1px 2px 0px rgba(0, 0, 0, 0.1), 0 1px 2px 0px rgba(0, 0, 0, 0.06)'
+  },
+  styles: {
+    global: {
+      'html, body': {
+        bg: '#F2F2F2'
+      }
     }
   }
 })

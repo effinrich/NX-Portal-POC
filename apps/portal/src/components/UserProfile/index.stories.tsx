@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 
-import { UserProfile } from './index'
+import { UserProfile, UserProfileProps } from './index'
 
 const mockUser = {
   given_name: 'Rich',
@@ -21,9 +21,11 @@ export default {
   title: 'UserProfile'
 } as Meta
 
-const Template: Story = args => <UserProfile user={mockUser} {...args} />
+const Template: Story<UserProfileProps> = args => <UserProfile {...args} />
 
-export const Primary = Template.bind({})
-Primary.args = {
-  user: mockUser
+export const Default = Template.bind({})
+
+Default.args = {
+  user: mockUser,
+  onModalOpen: () => {}
 }

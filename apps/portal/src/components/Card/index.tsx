@@ -6,8 +6,10 @@ export const Card = (props: BoxProps) => (
     maxWidth={props.maxW}
     mx="auto"
     p={{ base: '4', md: '6' }}
-    rounded={{ sm: 'md' }}
-    shadow={{ md: 'base' }}
+    borderRadius={['xl', '2xl']}
+    borderWidth="1px"
+    borderColor="gray.200"
+    shadow="even"
     {...props}
   />
 )

@@ -11,7 +11,7 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 import { DocsContainer, DocsPage } from '@storybook/addon-docs'
-import { StoryContext } from '@storybook/react'
+import { addParameters, StoryContext } from '@storybook/react'
 import { withPerformance } from 'storybook-addon-performance'
 
 /**
@@ -60,10 +60,28 @@ const withChakra = (StoryFn: Function, context: StoryContext) => {
     document.documentElement.dir = dir
   }, [dir])
 
+  const theme = extendTheme({
+    direction: dir,
+    colors: {
+      brand: {
+        50: '#E5EFFF',
+        100: '#B8D3FF',
+        200: '#8AB7FF',
+        300: '#5C9BFF',
+        400: '#2E7EFF',
+        500: '#0062FF',
+        600: '#004ECC',
+        700: '#003B99',
+        800: '#002766',
+        900: '#001433'
+      }
+    }
+  })
+
   return (
     <Router>
-      <ChakraProvider theme={extendTheme({ direction: dir })}>
-        <div dir={dir} id="story-wrapper" style={{ minHeight: '100vh' }}>
+      <ChakraProvider theme={theme}>
+        <div dir={dir} id="story-wrapper">
           <ColorModeToggleBar />
           <StoryFn />
         </div>
@@ -72,12 +90,21 @@ const withChakra = (StoryFn: Function, context: StoryContext) => {
   )
 }
 
-export const parameters = {
+addParameters({
+  actions: { argTypesRegex: '^on.*' },
+  dependencies: {
+    // display only dependencies/dependents that have a story in storybook
+    // by default this is false
+    withStoriesOnly: true,
+
+    // completely hide a dependency/dependents block if it has no elements
+    // by default this is false
+    hideEmpty: true
+  },
   docs: {
-    inlineStories: false,
     container: DocsContainer,
     page: DocsPage
   }
-}
+})
 
 export const decorators = [withChakra, withPerformance]

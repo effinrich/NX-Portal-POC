@@ -1,8 +1,7 @@
 module.exports = {
   stories: [],
   addons: [
-    '@storybook/addon-docs',
-    '@storybook/addon-actions',
+    'storybook-formik/register',
     'storybook-addon-performance/register',
     '@storybook/addon-a11y',
     '@storybook/addon-links',
@@ -27,13 +26,7 @@ module.exports = {
   },
   typescript: {
     check: false,
-    checkOptions: {},
-    reactDocgen: 'react-docgen-typescript',
-    reactDocgenTypescriptOptions: {
-      shouldExtractLiteralValuesFromEnum: true,
-      propFilter: prop =>
-        prop.parent ? !/node_modules/.test(prop.parent.fileName) : true
-    }
+    checkOptions: {}
   },
   core: {
     builder: 'webpack5'

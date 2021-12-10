@@ -33,7 +33,7 @@ const NavItem = ({
         role="group"
         cursor="pointer"
         _hover={{
-          bg: '#191c28',
+          bg: 'brand.500',
           color: 'white'
         }}
         {...rest}

@@ -1,7 +1,6 @@
 import { ReactNode } from 'react'
 import {
   Box,
-  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -26,7 +25,7 @@ export const SideBar = ({
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box minH="100vh" bg={useColorModeValue('gray.50', 'gray.900')}>
       <SideBarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -47,16 +46,11 @@ export const SideBar = ({
             <SideBarContent onClose={onClose} />
           </DrawerBody>
           <DrawerCloseButton />
-          <DrawerFooter borderTopWidth="1px">
-            {/* <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue">Submit</Button> */}
-          </DrawerFooter>
+          <DrawerFooter borderTopWidth="1px"></DrawerFooter>
         </DrawerContent>
       </Drawer>
       <MobileNav onOpen={onOpen} user={user} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
+      <Box ml={{ base: 0, md: 60 }} p="4" bg="gray.50">
         {children}
       </Box>
     </Box>

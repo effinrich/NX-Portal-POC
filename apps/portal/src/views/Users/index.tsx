@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { useQuery } from 'react-query'
+import { withAuthenticationRequired } from '@auth0/auth0-react'
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Avatar,
@@ -185,4 +186,6 @@ const Users = (props: UsersProps) => {
   )
 }
 
-export default Users
+export default withAuthenticationRequired(Users, {
+  onRedirecting: () => <Loader size="xl" />
+})

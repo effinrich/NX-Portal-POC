@@ -16,8 +16,13 @@ import { CardContent } from '../CardContent'
 import { CardHeader } from '../CardHeader'
 import { UserAvatar } from '../UserAvatar'
 
-export const UserProfile = ({ user }) => {
-  const colorMode = useColorModeValue('gray.100', 'gray.800')
+export interface UserProfileProps {
+  user: any
+  onModalOpen: () => void
+}
+
+export const UserProfile = ({ user, onModalOpen }: UserProfileProps) => {
+  const colorMode = useColorModeValue('gray.50', 'gray.800')
 
   return (
     <Box as="section" bg={colorMode}>
@@ -34,6 +39,7 @@ export const UserProfile = ({ user }) => {
                 <Button
                   size="sm"
                   variant="outline"
+                  onClick={onModalOpen}
                   leftIcon={
                     <Icon as={GoPencil} color="gray.400" marginStart="-1" />
                   }

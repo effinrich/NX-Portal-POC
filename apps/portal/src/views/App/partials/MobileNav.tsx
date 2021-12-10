@@ -20,7 +20,7 @@ import {
 } from '@chakra-ui/react'
 
 import logo from '../../../assets/logo.png'
-import { Loader } from '../../../components'
+import { Autocomplete, Loader } from '../../../components'
 
 interface MobileProps extends FlexProps {
   onOpen: () => void
@@ -44,7 +44,7 @@ const MobileNav = ({ onOpen, user, ...rest }: MobileProps) => {
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
       {...rest}
     >
-      <Box w="50px" display={{ md: 'none' }}>
+      <Box w="50px" display={{ md: 'none' }} mr={4}>
         <IconButton
           onClick={onOpen}
           variant="outline"
@@ -52,10 +52,13 @@ const MobileNav = ({ onOpen, user, ...rest }: MobileProps) => {
           icon={<FiMenu />}
         />
       </Box>
-
-      <Box w="100px" display={{ base: 'flex', md: 'none' }}>
-        <Image src={logo} />
+      <Box w="100%">
+        <Autocomplete />
       </Box>
+
+      {/* <Box w="100px" display={{ base: 'flex', md: 'none' }}>
+        <Image src={logo} />
+      </Box> */}
 
       <Box w={['80px', 'inherit']}>
         <HStack spacing={{ base: '0', md: '6' }}>
@@ -72,7 +75,7 @@ const MobileNav = ({ onOpen, user, ...rest }: MobileProps) => {
                 transition="all 0.3s"
                 _focus={{ boxShadow: 'none' }}
               >
-                <HStack>
+                <HStack w={['inherit', '150px']}>
                   {user ? (
                     <>
                       <Avatar size={'sm'} src={`${user.picture}`} />

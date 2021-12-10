@@ -1,13 +1,6 @@
 import { IconType } from 'react-icons'
 import { FiHome, FiSettings, FiUser } from 'react-icons/fi'
-import {
-  Box,
-  BoxProps,
-  CloseButton,
-  Flex,
-  Image,
-  useColorModeValue
-} from '@chakra-ui/react'
+import { Box, BoxProps, Flex, Image, useColorModeValue } from '@chakra-ui/react'
 
 import logo from '../../../assets/logo.png'
 
@@ -52,12 +45,6 @@ const SideBarContent = ({ onClose, ...rest }: SidebarProps) => {
         <Box display={{ base: 'none', md: 'block' }}>
           <Image src={logo} maxW="105" height="auto" ml="8" mt="2" />
         </Box>
-
-        {/* <CloseButton
-          display={{ base: 'flex', md: 'none' }}
-          onClick={onClose}
-          mt={4}
-        /> */}
       </Flex>
 
       <Box>

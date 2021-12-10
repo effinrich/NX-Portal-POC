@@ -13,9 +13,10 @@ import {
   Center,
   CloseButton,
   Image,
+  useColorModeValue as mode,
   VStack
 } from '@chakra-ui/react'
-import { axiosApi } from '@phc/shared-utils'
+import { axios } from '@phc/shared-utils'
 import styled from 'styled-components'
 
 import logo from '../../assets/logo.png'
@@ -43,14 +44,14 @@ type Body = {
   decodedToken: DecodedToken
 }
 
-type UserProfile = {
-  body: Body
-}
+// type UserProfile = {
+//   body: Body
+// }
 
-interface Post {
-  id: number
-  name: string
-}
+// interface Post {
+//   id: number
+//   name: string
+// }
 
 export interface IMapData {
   result: Record<string, unknown>
@@ -68,15 +69,6 @@ type Response = {
   modelBuf: Record<string, unknown>
   paginationResponse: Record<string, unknown>
   data: string[]
-}
-
-const formatCoords = (n: number) => {
-  if (n) {
-    const l = n.toString().length - 3
-    const v = n / Math.pow(10, l)
-
-    return v
-  }
 }
 
 const AUTH0_AUDIENCE = process.env.NX_AUTH0_AUDIENCE
@@ -121,7 +113,7 @@ export function App() {
   const [mapData, setMapData] = useState({})
 
   const { mutate } = useMutation<Response, unknown, any>(newMapQuery => {
-    return axiosApi.post('/model_bufs', newMapQuery.payload, {
+    return axios.post('/model_bufs', newMapQuery.payload, {
       headers: {
         Authorization: `Bearer ${newMapQuery.jwt}`
       }
@@ -190,26 +182,34 @@ export function App() {
           </Suspense>
         </SideBar>
       ) : (
-        <Card
-          mt={100}
-          maxW={400}
-          minH={200}
+        <Box
+          w="100%"
+          minH="100vh"
+          bg={mode('brand.500', 'gray.900')}
           display="flex"
           alignItems="center"
           justifyContent="center"
-          flexDirection={['row']}
         >
-          <VStack spacing={4} align="stretch">
-            <Box pb={6}>
-              <Center>
-                <Image src={logo} maxW="200" />
-              </Center>
-            </Box>
-            <Box>
-              <LoginButton />
-            </Box>
-          </VStack>
-        </Card>
+          <Card
+            w="100%"
+            maxW={[300, 400]}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            flexDirection={['row']}
+          >
+            <VStack spacing={4} align="stretch">
+              <Box pb={6}>
+                <Center>
+                  <Image src={logo} maxW="200" />
+                </Center>
+              </Box>
+              <Box>
+                <LoginButton />
+              </Box>
+            </VStack>
+          </Card>
+        </Box>
       )}
     </StyledApp>
   )

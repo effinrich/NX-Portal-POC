@@ -11,7 +11,7 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 import { DocsContainer, DocsPage } from '@storybook/addon-docs'
-import { StoryContext } from '@storybook/react'
+import { addParameters, StoryContext } from '@storybook/react'
 import { withPerformance } from 'storybook-addon-performance'
 
 /**
@@ -81,7 +81,7 @@ const withChakra = (StoryFn: Function, context: StoryContext) => {
   return (
     <Router>
       <ChakraProvider theme={theme}>
-        <div dir={dir} id="story-wrapper" style={{ minHeight: '100vh' }}>
+        <div dir={dir} id="story-wrapper">
           <ColorModeToggleBar />
           <StoryFn />
         </div>
@@ -90,12 +90,21 @@ const withChakra = (StoryFn: Function, context: StoryContext) => {
   )
 }
 
-export const parameters = {
+addParameters({
+  actions: { argTypesRegex: '^on.*' },
+  dependencies: {
+    // display only dependencies/dependents that have a story in storybook
+    // by default this is false
+    withStoriesOnly: true,
+
+    // completely hide a dependency/dependents block if it has no elements
+    // by default this is false
+    hideEmpty: true
+  },
   docs: {
-    inlineStories: false,
     container: DocsContainer,
     page: DocsPage
   }
-}
+})
 
 export const decorators = [withChakra, withPerformance]

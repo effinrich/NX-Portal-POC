@@ -18,7 +18,7 @@ import { UserAvatar } from '../UserAvatar'
 
 export const UserProfile = ({ user }) => {
   return (
-    <Box as="section" py="12" bg={useColorModeValue('gray.100', 'gray.800')}>
+    <Box as="section" py="12" bg={useColorModeValue('gray.200', 'gray.800')}>
       <Card>
         <Stack
           direction={{ base: 'column', md: 'row' }}

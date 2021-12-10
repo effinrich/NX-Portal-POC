@@ -1,6 +1,7 @@
+import { withAuthenticationRequired } from '@auth0/auth0-react'
 import styled from 'styled-components'
 
-import { Card, GoogleMapComponent } from '../../components'
+import { Card, GoogleMapComponent, Loader } from '../../components'
 
 /* eslint-disable-next-line */
 export interface HomeProps {
@@ -32,4 +33,6 @@ const Home = (props: HomeProps) => {
   )
 }
 
-export default Home
+export default withAuthenticationRequired(Home, {
+  onRedirecting: () => <Loader size="xl" />
+})

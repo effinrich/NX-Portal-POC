@@ -1,7 +1,8 @@
-import { Box, Container } from '@chakra-ui/react'
+import { withAuthenticationRequired } from '@auth0/auth0-react'
+import { Box } from '@chakra-ui/react'
 import styled from 'styled-components'
 
-import { Card } from '../../components'
+import { Card, Loader, SettingsForm } from '../../components'
 /* eslint-disable-next-line */
 export interface SettingsProps {}
 
@@ -14,10 +15,12 @@ const Settings = (props: SettingsProps) => {
   return (
     <StyledSettings>
       <Card>
-        <Box lineHeight="tall">This is the Settings view</Box>
+        <SettingsForm />
       </Card>
     </StyledSettings>
   )
 }
 
-export default Settings
+export default withAuthenticationRequired(Settings, {
+  onRedirecting: () => <Loader size="xl" />
+})
