@@ -1,6 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": ["cloudbuild.yaml", "**/*"],
+  "ignorePatterns": ["**/*"],
   "parserOptions": {
     "sourceType": "module"
   },
@@ -60,17 +60,13 @@
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "@nrwl/nx/enforce-module-boundaries": [
-          "error",
+          "warn",
           {
             "enforceBuildableLibDependency": true,
-            "allow": [],
+            "allow": ["@phc/shared-utils"],
             "depConstraints": [
               {
-                "sourceTag": "scope:portal",
-                "onlyDependOnLibsWithTags": ["scope:shared"]
-              },
-              {
-                "sourceTag": "scope:shared",
+                "sourceTag": "*",
                 "onlyDependOnLibsWithTags": ["*"]
               }
             ]

@@ -23,7 +23,7 @@
     "format:check": "nx format:check",
     "update": "nx migrate latest",
     "dep-graph": "nx dep-graph --watch",
-    "storybook": "nx run portal:storybook",
+    "storybook": "nx run portal:storybook -s dist/apps/portal",
     "build-storybook": "nx run portal:build-storybook",
     "storybook-ui": "nx run shared-ui:storybook",
     "storybook-ui:build": "nx run shared-ui:build-storybook",
@@ -56,6 +56,7 @@
     "google-map-react": "^2.1.10",
     "history": "^5.0.1",
     "lodash": "^4.17.21",
+    "mapbox-gl": "^2.6.1",
     "mime": "2.4.4",
     "prop-types": "^15.7.2",
     "qs": "^6.10.1",
@@ -93,7 +94,6 @@
     "@nrwl/eslint-plugin-nx": "13.2.3",
     "@nrwl/jest": "13.2.3",
     "@nrwl/linter": "13.2.3",
-    "@nrwl/nx-cloud": "12.5.4",
     "@nrwl/react": "13.2.3",
     "@nrwl/schematics": "^8.12.11",
     "@nrwl/storybook": "13.2.3",
@@ -164,6 +164,7 @@
     "lint-staged": "^11.2.6",
     "prettier": "^2.3.1",
     "remark-preset-prettier": "^1.0.0",
+    "storybook-addon-designs": "^6.2.0",
     "storybook-addon-performance": "^0.16.1",
     "storybook-formik": "^2.2.0",
     "ts-jest": "27.0.5",
@@ -191,7 +192,6 @@
   },
   "packageManager": "yarn@1.22.1",
   "jest": {
-    "automock": false,
     "testEnvironment": "node",
     "setupFiles": [
       "./setupTests.js"
