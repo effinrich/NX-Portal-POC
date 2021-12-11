@@ -4,7 +4,7 @@ import LogoutButton from '.'
 
 export default {
   component: LogoutButton,
-  title: 'LogoutButton'
+  title: 'Auth-0/LogoutButton'
 } as Meta
 
 const Template: Story = args => <LogoutButton {...args} />

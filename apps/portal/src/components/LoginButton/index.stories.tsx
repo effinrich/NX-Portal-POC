@@ -5,7 +5,7 @@ import LoginButton, { LoginButtonProps } from '.'
 
 export default {
   component: LoginButton,
-  title: 'LoginButton'
+  title: 'Auth-0/LoginButton'
   // argTypes: {
   //   onClick: { action: 'clicked' }
   // }

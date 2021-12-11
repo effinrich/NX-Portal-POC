@@ -6,7 +6,7 @@ import { AuthButton } from '.'
 
 export default {
   component: AuthButton,
-  title: 'AuthButton',
+  title: 'Auth-0/AuthButton',
   argTypes: {
     onClick: { action: true }
   }
