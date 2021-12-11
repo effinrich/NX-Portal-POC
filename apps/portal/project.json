@@ -14,7 +14,7 @@
         "main": "apps/portal/src/main.tsx",
         "polyfills": "apps/portal/src/polyfills.ts",
         "tsConfig": "apps/portal/tsconfig.json",
-        "assets": ["apps/portal/src/favicon.ico", "apps/portal/src/assets"],
+        "assets": ["apps/portal/src/favicon.png", "apps/portal/src/assets"],
         "styles": [],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack",
@@ -110,6 +110,5 @@
       "executor": "@jscutlery/semver:version"
     }
   },
-  "tags": ["scope:portal", "type:app"],
-  "implicitDependencies": []
+  "tags": ["scope:portal", "type:app"]
 }

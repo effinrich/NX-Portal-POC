@@ -8,7 +8,8 @@ module.exports = {
     '@storybook/testing-react',
     // '@storybook/addon-storysource',
     '@storybook/addon-essentials',
-    '@storybook/addon-interactions'
+    '@storybook/addon-interactions',
+    'storybook-addon-designs'
   ],
   features: {
     modernInlineRender: true,

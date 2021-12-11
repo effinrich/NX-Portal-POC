@@ -57,6 +57,5 @@
     "**/.project": true,
     "**/.settings": true,
     "**/.factorypath": true
-  },
-  "explorerExclude.backup": null
+  }
 }

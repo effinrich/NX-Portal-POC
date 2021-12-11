@@ -3,7 +3,5 @@
   "version": "0.0.1",
   "license": "MIT",
   "dependencies": {},
-  "devDependencies": {
-    "rewire": "^5.0.0"
-  }
+  "devDependencies": {}
 }
