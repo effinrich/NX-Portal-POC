@@ -23,7 +23,7 @@
     "format:check": "nx format:check",
     "update": "nx migrate latest",
     "dep-graph": "nx dep-graph --watch",
-    "storybook": "nx run portal:storybook -s dist/apps/portal",
+    "storybook": "nx run portal:storybook",
     "build-storybook": "nx run portal:build-storybook",
     "storybook-ui": "nx run shared-ui:storybook",
     "storybook-ui:build": "nx run shared-ui:build-storybook",

@@ -12,11 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { DocsContainer, DocsPage } from '@storybook/addon-docs'
 import { addParameters, StoryContext } from '@storybook/react'
-import { initialize, mswDecorator } from 'msw-storybook-addon'
 import { withPerformance } from 'storybook-addon-performance'
-
-// Initialize MSW
-initialize()
 
 /**
  * Add global context for RTL-LTR switching
@@ -111,4 +107,4 @@ addParameters({
   }
 })
 
-export const decorators = [withChakra, withPerformance, mswDecorator]
+export const decorators = [withChakra, withPerformance]
