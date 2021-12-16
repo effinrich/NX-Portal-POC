@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import ReactMapGL, { Layer, Source } from 'react-map-gl'
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxgl from 'mapbox-gl'
 import styled from 'styled-components'
@@ -12,7 +13,7 @@ const StyledMapboxGL = styled.div`
 `
 
 const StyledMapboxGLContainer = styled.div`
-  height: 400px;
+  height: 50vh;
 `
 
 const StyledMapboxGLSideBar = styled.div`
@@ -26,23 +27,45 @@ const StyledMapboxGLSideBar = styled.div`
   left: 0;
   margin: 12px;
   border-radius: 4px;
+  display: none;
 `
 
 mapboxgl.accessToken =
   'pk.eyJ1IjoidGhlcHVibGljaGVhbHRoY28iLCJhIjoiY2t3eTVrZWlsMGh6ZjJvbnNsbG8xMHdzeSJ9.WiorL-p1uAsoRN7QpBLUJA'
 
+// const layers = [
+//   '0-10',
+//   '10-20',
+//   '20-50',
+//   '50-100',
+//   '100-200',
+//   '200-500',
+//   '500-1000',
+//   '1000+'
+// ]
+// const colors = [
+//   '#FFEDA0',
+//   '#FED976',
+//   '#FEB24C',
+//   '#FD8D3C',
+//   '#FC4E2A',
+//   '#E31A1C',
+//   '#BD0026',
+//   '#800026'
+// ]
+
 export function MapboxGL(props: MapboxGLProps) {
   const mapContainer = useRef(null)
   const map = useRef(null)
-  const [lng, setLng] = useState(-70.9)
-  const [lat, setLat] = useState(42.35)
-  const [zoom, setZoom] = useState(9)
+  const [lng, setLng] = useState(-96)
+  const [lat, setLat] = useState(40)
+  const [zoom, setZoom] = useState(3.5)
 
   useEffect(() => {
     if (map.current) return // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: 'mapbox://styles/thepublichealthco/ckx831qwq1m9s14mtum8t9k7l',
       center: [lng, lat],
       zoom: zoom
     })

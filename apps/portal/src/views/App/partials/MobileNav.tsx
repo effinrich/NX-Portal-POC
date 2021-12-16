@@ -52,9 +52,7 @@ const MobileNav = ({ onOpen, user, ...rest }: MobileProps) => {
           icon={<FiMenu />}
         />
       </Box>
-      <Box w="100%">
-        <Autocomplete />
-      </Box>
+      <Box w="100%">{/* <Autocomplete /> */}</Box>
 
       {/* <Box w="100px" display={{ base: 'flex', md: 'none' }}>
         <Image src={logo} />

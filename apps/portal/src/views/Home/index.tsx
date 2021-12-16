@@ -1,7 +1,7 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import styled from 'styled-components'
 
-import { Card, GoogleMapComponent, Loader } from '../../components'
+import { Card, GoogleMapComponent, Loader, MapboxGL } from '../../components'
 
 /* eslint-disable-next-line */
 export interface HomeProps {
@@ -19,7 +19,8 @@ const Home = (props: HomeProps) => {
   return (
     <StyledHome>
       <Card>
-        <GoogleMapComponent
+        <MapboxGL />
+        {/* <GoogleMapComponent
           lng={-34.397}
           lat={150.644}
           label={''}
@@ -27,7 +28,7 @@ const Home = (props: HomeProps) => {
             throw new Error('Function not implemented.')
           }}
           center={props.coords}
-        />
+        /> */}
       </Card>
     </StyledHome>
   )
