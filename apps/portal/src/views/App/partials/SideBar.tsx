@@ -11,6 +11,8 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 
+import { User } from '../../../types'
+
 import MobileNav from './MobileNav'
 import SideBarContent from './SideBarContent'
 
@@ -19,7 +21,7 @@ export const SideBar = ({
   user
 }: {
   children: ReactNode
-  user: Record<string, unknown>
+  user: User
   isAuthenticated: boolean
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()

@@ -24,7 +24,6 @@ import { Card, Loader, LoginButton, ProtectedRoute } from '../../components'
 import { environment } from '../../environments/environment'
 
 import { SideBar } from './partials/SideBar'
-
 // const Dashboard = lazy(() => import('../Dashboard'))
 const Home = lazy(() => import('../Home'))
 // const Login = lazy(() => import('../Login'))
@@ -152,8 +151,7 @@ export function App() {
     <StyledApp>
       {isAuthenticated ? (
         <SideBar
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          user={user}
+          user={user} // eslint-disable-line @typescript-eslint/no-non-null-assertion
           isAuthenticated
         >
           <Box p="4">

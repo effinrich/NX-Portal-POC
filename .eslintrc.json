@@ -1,6 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": ["cloudbuild.yaml", "**/*"],
+  "ignorePatterns": ["**/*"],
   "parserOptions": {
     "sourceType": "module"
   },
@@ -66,11 +66,7 @@
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "scope:portal",
-                "onlyDependOnLibsWithTags": ["scope:shared"]
-              },
-              {
-                "sourceTag": "scope:shared",
+                "sourceTag": "*",
                 "onlyDependOnLibsWithTags": ["*"]
               }
             ]
