@@ -66,6 +66,7 @@
     "react-query": "^3.33.7",
     "react-router-dom": "5.3.0",
     "react-use": "^17.3.1",
+    "recharts": "^2.1.8",
     "regenerator-runtime": "0.13.7",
     "remove": "^0.1.5",
     "styled-components": "5.3.3",
