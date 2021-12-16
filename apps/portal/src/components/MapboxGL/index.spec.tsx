@@ -1,13 +1,13 @@
 import { render } from '@testing-library/react'
 
-import Home from '.'
+import MapboxGL from '.'
 
 // eslint-disable-next-line react/jsx-no-useless-fragment
-jest.mock('../../components/MapboxGL', () => () => <></>)
+jest.mock('.', () => () => <></>)
 
-describe('Home', () => {
+describe('MapboxGL', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Home coords={{ lat: 0, lng: 0 }} />)
+    const { baseElement } = render(<MapboxGL />)
     expect(baseElement).toBeTruthy()
   })
 })

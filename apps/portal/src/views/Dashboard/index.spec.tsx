@@ -5,6 +5,9 @@ import '../../helpers/__mocks__/matchMedia'
 
 import Dashboard from '.'
 
+// eslint-disable-next-line react/jsx-no-useless-fragment
+jest.mock('../../components/MapboxGL', () => () => <></>)
+
 describe('Dashboard', () => {
   it('should render successfully', () => {
     const { baseElement } = render(

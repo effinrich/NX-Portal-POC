@@ -26,7 +26,6 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
-      "@phc/portal/features": ["libs/portal/features/src/index.ts"],
       "@phc/shared-hooks": ["libs/shared/hooks/src/index.ts"],
       "@phc/shared-ui": ["libs/shared/ui/src/index.ts"],
       "@phc/shared-utils": ["libs/shared/utils/src/index.ts"]

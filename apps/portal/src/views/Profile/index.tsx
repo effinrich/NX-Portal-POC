@@ -17,9 +17,7 @@ import { Loader, ProfileForm, UserProfile } from '../../components'
 /* eslint-disable-next-line */
 export interface ProfileProps {}
 
-const StyledProfile = styled.div`
-  color: black;
-`
+const StyledProfile = styled.div``
 
 const Profile = (props: ProfileProps) => {
   const { user } = useAuth0()

@@ -5,8 +5,6 @@
     "allowJs": true,
     "checkJs": true,
     "outDir": "",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
     "target": "es2015",

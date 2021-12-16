@@ -7,6 +7,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/testing-react',
     // '@storybook/addon-storysource',
+    // 'storybook-addon-designs'
     '@storybook/addon-essentials',
     '@storybook/addon-interactions'
   ],

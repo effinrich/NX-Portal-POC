@@ -11,7 +11,7 @@ export const environment = {
   //Nx vars
   NX_CLOUD_AUTH_TOKEN:
     'MGNhZTA0NWUtOGYxNy00NGJkLTkyMWYtZmEzNGVhYTI5ZjUyfHJlYWQtd3JpdGU=',
-  NX_DAEMON: true,
+  // NX_DAEMON: true,
 
   //Google Maps API vars
   MAPS_API_KEY: 'AIzaSyDpY1vGYmMGVLlAlH-gtRzRq64y_8l02ZQ',

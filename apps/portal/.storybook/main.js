@@ -14,7 +14,13 @@ module.exports = {
   addons: [...rootMain.addons, '@nrwl/react/plugins/storybook'],
   typescript: {
     check: false,
-    checkOptions: {}
+    checkOptions: {},
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      shouldExtractLiteralValuesFromEnum: true,
+      propFilter: prop =>
+        prop.parent ? !/node_modules/.test(prop.parent.fileName) : true
+    }
   },
   webpackFinal: async (config, { configType }) => {
     // apply any global webpack configs that might have been specified in .storybook/main.js

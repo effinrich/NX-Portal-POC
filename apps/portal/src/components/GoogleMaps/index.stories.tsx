@@ -4,7 +4,7 @@ import GoogleMapComponent, { GoogleMapProps } from './index'
 
 export default {
   component: GoogleMapComponent,
-  title: 'GoogleMapComponent'
+  title: 'Maps/GoogleMapComponent'
 } as Meta
 
 const Template: Story<GoogleMapProps> = args => <GoogleMapComponent {...args} />
