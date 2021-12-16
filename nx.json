@@ -8,9 +8,16 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
-    ".eslintrc.json": "*"
+    ".eslintrc.json": "*",
+    "tsconfig.base.json": "*"
   },
   "targetDependencies": {
+    "version": [
+      {
+        "target": "version",
+        "projects": "dependencies"
+      }
+    ],
     "build": [
       {
         "target": "build",

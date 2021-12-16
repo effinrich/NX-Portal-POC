@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# 0.1.0 (2021-12-13)
+
+### Bug Fixes
+
+- redirect from home now just goes to root path / ([#18](https://github.com/phc-health/phc-portal/issues/18)) ([e54e789](https://github.com/phc-health/phc-portal/commit/e54e7898a9524f2085fd6180b274905b47cb6b96))
+
+### Features
+
+- big improvements on mobile nav and general stability ([#20](https://github.com/phc-health/phc-portal/issues/20)) ([ebd1ecd](https://github.com/phc-health/phc-portal/commit/ebd1ecdc49dd6d34966c5a1613a2ba8a6c0ba059))
+- config the workspace ([362162d](https://github.com/phc-health/phc-portal/commit/362162dd037cc7368df6c69c3929ab5f2bb8598e))
+
 # [0.2.0](https://github.com/phc-health/phc-portal/compare/portal-0.1.0...portal-0.2.0) (2021-10-25)
 
 ### Features

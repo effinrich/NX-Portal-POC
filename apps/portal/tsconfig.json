@@ -1,16 +1,26 @@
 {
   "extends": "../../tsconfig.base.json",
-  "files": [],
   "compilerOptions": {
     "jsx": "react-jsx",
-    "composite": true,
-    "types": ["node", "jest"],
     "allowJs": true,
-    "checkJs": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "noImplicitAny": false,
-    "strict": false,
-    "lib": ["dom", "dom.iterable", "esnext"]
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "references": []
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./.storybook/tsconfig.json"
+    }
+  ]
 }

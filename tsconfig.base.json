@@ -1,29 +1,26 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "typeRoots": ["node_modules/@types"],
+    "rootDir": ".",
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "allowJs": true,
     "checkJs": true,
-    "rootDir": ".",
     "sourceMap": true,
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
+    "declaration": false,
     "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "importHelpers": true,
-    "module": "esnext",
+    // "target": "es2015",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    // "lib": ["es2017", "dom"],
     "skipLibCheck": true,
-    "declaration": true,
-    "strict": true,
-    "emitDeclarationOnly": true,
     "skipDefaultLibCheck": true,
-    "types": ["node", "jest", "cypress"],
-    "resolveJsonModule": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
       "@phc/shared-hooks": ["libs/shared/hooks/src/index.ts"],
@@ -31,6 +28,5 @@
       "@phc/shared-utils": ["libs/shared/utils/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "**/node_modules/*", "tmp"],
-  "include": []
+  "exclude": ["node_modules", "tmp"]
 }
