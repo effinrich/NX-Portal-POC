@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { FaMoon, FaSun } from 'react-icons/fa'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import {
   ChakraProvider,
   extendTheme,
@@ -79,14 +79,14 @@ const withChakra = (StoryFn: Function, context: StoryContext) => {
   })
 
   return (
-    <Router>
+    <BrowserRouter>
       <ChakraProvider theme={theme}>
         <div dir={dir} id="story-wrapper">
           <ColorModeToggleBar />
           <StoryFn />
         </div>
       </ChakraProvider>
-    </Router>
+    </BrowserRouter>
   )
 }
 
