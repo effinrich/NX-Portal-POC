@@ -1,49 +1,52 @@
-import React from 'react'
+import { useState } from 'react'
 import { Stack } from '@chakra-ui/react'
-import {
-  AutoComplete,
-  AutoCompleteInput,
-  AutoCompleteItem,
-  AutoCompleteList
-} from '@choc-ui/chakra-autocomplete'
+import { CUIAutoComplete } from 'chakra-ui-autocomplete'
+import styled from 'styled-components'
 
-export const Autocomplete = () => {
-  const countries = [
-    'nigeria',
-    'japan',
-    'india',
-    'united states',
-    'south korea'
-  ]
+const StyledAutocomplete = styled.div`
+  label {
+    display: none;
+  }
+`
+export interface Item {
+  label: string
+  value: string
+}
+
+export interface AutocompleteProps {
+  options: Array<Item>
+}
+
+export const Autocomplete = ({ options }: AutocompleteProps) => {
+  const [pickerItems, setPickerItems] = useState(options)
+  const [selectedItems, setSelectedItems] = useState<Item[]>([])
+
+  const handleCreateItem = (item: Item) => {
+    setPickerItems(curr => [...curr, item])
+    setSelectedItems(curr => [...curr, item])
+  }
+
+  const handleSelectedItemsChange = (selectedItems?: Item[]) => {
+    if (selectedItems) {
+      setSelectedItems(selectedItems)
+    }
+  }
+
   return (
-    <Stack direction="column">
-      <AutoComplete openOnFocus onChange={vals => console.log(vals)}>
-        <AutoCompleteInput placeholder="Search locations..." variant="filled" />
-        {/* {({ tags }) =>
-            tags.map((tag, tid) => (
-              <AutoCompleteTag
-                key={tid}
-                label={tag.label}
-                onRemove={tag.onRemove}
-              />
-            ))
+    <StyledAutocomplete>
+      <Stack direction="column">
+        <CUIAutoComplete
+          label="Choose preferred work locations"
+          placeholder="Type a Country"
+          onCreateItem={handleCreateItem}
+          items={pickerItems}
+          selectedItems={selectedItems}
+          onSelectedItemsChange={changes =>
+            handleSelectedItemsChange(changes.selectedItems)
           }
-        </AutoCompleteInput> */}
-        <AutoCompleteList>
-          {countries.map((country, cid) => (
-            <AutoCompleteItem
-              key={`option-${cid}`}
-              value={country}
-              textTransform="capitalize"
-              _selected={{ bg: 'whiteAlpha.50' }}
-              _focus={{ bg: 'whiteAlpha.100' }}
-            >
-              {country}
-            </AutoCompleteItem>
-          ))}
-        </AutoCompleteList>
-      </AutoComplete>
-    </Stack>
+        />
+      </Stack>
+    </StyledAutocomplete>
   )
 }
 
