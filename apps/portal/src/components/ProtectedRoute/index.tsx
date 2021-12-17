@@ -2,6 +2,8 @@ import * as React from 'react'
 import { Route } from 'react-router-dom'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 
+import { Loader } from '../Loader'
+
 export interface ProtectedRouteProps {
   component: never
 }
@@ -13,7 +15,9 @@ export const ProtectedRoute = ({
 React.PropsWithChildren<any>) => (
   <Route
     render={props => {
-      const Component = withAuthenticationRequired(component, {})
+      const Component = withAuthenticationRequired(component, {
+        onRedirecting: () => <Loader size="xl" />
+      })
       return <Component {...props} />
     }}
     {...args}

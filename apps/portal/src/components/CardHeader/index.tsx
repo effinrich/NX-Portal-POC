@@ -1,18 +1,28 @@
 import * as React from 'react'
-import { Flex, FlexProps, Heading } from '@chakra-ui/react'
+import { Flex, FlexProps, Heading, useColorModeValue } from '@chakra-ui/react'
 
 export interface CardHeaderProps extends FlexProps {
   title: string
   action: React.ReactNode
 }
 
-export const CardHeader = (props: CardHeaderProps) => {
-  const { title, action, ...flexProps } = props
+export const CardHeader = ({
+  title,
+  action,
+  ...flexProps
+}: CardHeaderProps) => {
+  const color = useColorModeValue('gray.800', 'white')
   return (
-    <Flex justifyContent="space-between" alignItems="center" {...flexProps}>
+    <Flex
+      justifyContent="space-between"
+      alignItems="center"
+      {...flexProps}
+      pb={2}
+    >
       <Heading
         size="md"
-        fontWeight="extrabold"
+        color={color}
+        fontWeight="semibold"
         letterSpacing="tight"
         marginEnd="6"
       >
