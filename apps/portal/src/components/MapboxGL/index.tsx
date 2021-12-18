@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
-import ReactMapGL, { Layer, Source } from 'react-map-gl'
-// eslint-disable-next-line import/no-webpack-loader-syntax
+import { useEffect, useRef, useState } from 'react'
+// import ReactMapGL, { Layer, Source } from 'react-map-gl'
+/* eslint-disable import/no-webpack-loader-syntax */
 import mapboxgl from 'mapbox-gl'
 import styled from 'styled-components'
 
@@ -59,7 +59,7 @@ mapboxgl.accessToken = mapboxToken
 //   '#800026'
 // ]
 
-export function MapboxGL(props: MapboxGLProps) {
+export const MapboxGL = (props: MapboxGLProps) => {
   const mapContainer = useRef(null)
   const map = useRef(null)
   const [lng, setLng] = useState(-96)
