@@ -5,6 +5,8 @@ import mapboxgl from 'mapbox-gl'
 import styled from 'styled-components'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
+
+import { environment } from '../../environments/environment'
 /* eslint-disable-next-line */
 export interface MapboxGLProps {}
 
@@ -30,8 +32,11 @@ const StyledMapboxGLSideBar = styled.div`
   display: none;
 `
 
-mapboxgl.accessToken =
-  'pk.eyJ1IjoidGhlcHVibGljaGVhbHRoY28iLCJhIjoiY2t3eTVrZWlsMGh6ZjJvbnNsbG8xMHdzeSJ9.WiorL-p1uAsoRN7QpBLUJA'
+const mapboxToken = process.env.NX_MAPBOX_TOKEN
+  ? process.env.NX_MAPBOX_TOKEN
+  : environment.MAPBOX_TOKEN
+
+mapboxgl.accessToken = mapboxToken
 
 // const layers = [
 //   '0-10',
