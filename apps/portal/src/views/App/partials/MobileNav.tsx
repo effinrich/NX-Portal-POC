@@ -8,24 +8,34 @@ import {
   FlexProps,
   HStack,
   IconButton,
-  Image,
+  // Image,
   Menu,
   MenuButton,
   MenuDivider,
   MenuItem,
   MenuList,
   Text,
-  useColorModeValue,
+  // useColorModeValue,
   VStack
 } from '@chakra-ui/react'
 
-import logo from '../../../assets/logo.png'
 import { Autocomplete, Loader } from '../../../components'
 
 interface MobileProps extends FlexProps {
   onOpen: () => void
   user: Record<string, unknown>
 }
+
+const options = [
+  { value: 'ghana', label: 'Ghana' },
+  { value: 'nigeria', label: 'Nigeria' },
+  { value: 'kenya', label: 'Kenya' },
+  { value: 'southAfrica', label: 'South Africa' },
+  { value: 'unitedStates', label: 'United States' },
+  { value: 'canada', label: 'Canada' },
+  { value: 'germany', label: 'Germany' }
+]
+
 const MobileNav = ({ onOpen, user, ...rest }: MobileProps) => {
   const { logout } = useAuth0()
   const history = useHistory()
@@ -52,7 +62,9 @@ const MobileNav = ({ onOpen, user, ...rest }: MobileProps) => {
           icon={<FiMenu />}
         />
       </Box>
-      <Box w="100%">{/* <Autocomplete /> */}</Box>
+      <Box w="100%">
+        <Autocomplete options={options} />
+      </Box>
 
       {/* <Box w="100px" display={{ base: 'flex', md: 'none' }}>
         <Image src={logo} />
