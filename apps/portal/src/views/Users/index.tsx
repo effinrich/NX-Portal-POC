@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { useQuery } from 'react-query'
-import { withAuthenticationRequired } from '@auth0/auth0-react'
+// import { axiosMock } from '@phc/shared-utils'
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Avatar,
@@ -11,7 +11,6 @@ import {
   InputGroup,
   InputRightElement
 } from '@chakra-ui/react'
-// import { axiosMock } from '@phc/shared-utils'
 import styled from 'styled-components'
 
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
@@ -186,6 +185,4 @@ const Users = (props: UsersProps) => {
   )
 }
 
-export default withAuthenticationRequired(Users, {
-  onRedirecting: () => <Loader size="xl" />
-})
+export default Users

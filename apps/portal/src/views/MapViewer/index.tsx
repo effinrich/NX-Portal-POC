@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react'
+import { useAuth0 } from '@auth0/auth0-react'
 import styled from 'styled-components'
 
 import { GoogleMapComponent, Loader } from '../../components'
@@ -148,6 +148,4 @@ const MapViewer = (props: MapViewProps) => {
   )
 }
 
-export default withAuthenticationRequired(MapViewer, {
-  onRedirecting: () => <Loader size="xl" />
-})
+export default MapViewer

@@ -1,6 +1,5 @@
-import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react'
+import { useAuth0 } from '@auth0/auth0-react'
 import {
-  Button,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -12,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import styled from 'styled-components'
 
-import { Loader, ProfileForm, UserProfile } from '../../components'
+import { ProfileForm, UserProfile } from '../../components'
 
 /* eslint-disable-next-line */
 export interface ProfileProps {}
@@ -41,6 +40,4 @@ const Profile = (props: ProfileProps) => {
   )
 }
 
-export default withAuthenticationRequired(Profile, {
-  onRedirecting: () => <Loader size="xl" />
-})
+export default Profile

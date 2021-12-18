@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { lazy, Suspense, useEffect, useState } from 'react'
+import { useErrorHandler } from 'react-error-boundary'
 import { useMutation } from 'react-query'
 import { Switch } from 'react-router-dom'
+import useUnmountPromise from 'react-use/lib/useUnmountPromise'
 import { useAuth0 } from '@auth0/auth0-react'
 import {
   Alert,
@@ -52,17 +54,17 @@ type Body = {
 //   name: string
 // }
 
-export interface IMapData {
-  result: Record<string, unknown>
-  coords: {
-    lat: number
-    lng: number
-  }
-}
-export interface ICoords {
-  lat: number
-  lng: number
-}
+// export interface IMapData {
+//   result: Record<string, unknown>
+//   coords: {
+//     lat: number
+//     lng: number
+//   }
+// }
+// export interface ICoords {
+//   lat: number
+//   lng: number
+// }
 
 type Response = {
   modelBuf: Record<string, unknown>
@@ -107,8 +109,9 @@ const payload = {
 export function App() {
   const { isLoading, error, isAuthenticated, user, getAccessTokenSilently } =
     useAuth0()
-
-  const [coords, setCoords] = useState<ICoords>()
+  const handleError = useErrorHandler()
+  const mounted = useUnmountPromise()
+  // const [coords, setCoords] = useState<ICoords>()
   const [mapData, setMapData] = useState({})
 
   const { mutate } = useMutation<Response, unknown, any>(newMapQuery => {
@@ -120,6 +123,8 @@ export function App() {
   })
 
   useEffect(() => {
+    const isSubscribed = true
+
     if (isAuthenticated) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const createMapsResults = async () => {
@@ -131,17 +136,21 @@ export function App() {
         mutate(
           { payload, jwt: authToken },
           {
+            onError: error => handleError(error),
             onSuccess: result => {
               setMapData(result.data)
+            },
+            onSettled: (data, error, variables, context) => {
+              // Error or success... doesn't matter!
             }
           }
         )
       }
 
       // return data
-      createMapsResults()
+      mounted(createMapsResults(), handleError)
     }
-  }, [getAccessTokenSilently, isAuthenticated, mutate])
+  }, [getAccessTokenSilently, isAuthenticated, mutate, handleError, mounted])
 
   if (isLoading) {
     return <Loader size="xl" />

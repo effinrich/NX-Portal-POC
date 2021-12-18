@@ -4,7 +4,6 @@ import {
   BsPencilSquare,
   BsSearch
 } from 'react-icons/bs'
-import { withAuthenticationRequired } from '@auth0/auth0-react'
 import {
   Avatar,
   Box,
@@ -13,8 +12,6 @@ import {
   Stack,
   useColorModeValue as mode
 } from '@chakra-ui/react'
-
-import { Loader } from '../../components'
 
 import { data } from './partials/_data'
 import { MobileMenuButton } from './partials/MobileMenuButton'
@@ -159,6 +156,4 @@ const Dashboard = () => {
   )
 }
 
-export default withAuthenticationRequired(Dashboard, {
-  onRedirecting: () => <Loader size="xl" />
-})
+export default Dashboard
