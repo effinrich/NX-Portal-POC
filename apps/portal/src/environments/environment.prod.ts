@@ -4,6 +4,8 @@ export const environment = {
   AUTH0_DOMAIN: 'thepublichealthco.us.auth0.com',
   AUTH0_CLIENT_ID: 'zeI3UCoj1ezL2nXAGFl5VmuK3515nYDj',
   AUTH0_AUDIENCE: 'rest.pluto.thepublichealthco.com',
+  MAPBOX_TOKEN:
+    'pk.eyJ1IjoidGhlcHVibGljaGVhbHRoY28iLCJhIjoiY2t3eTVrZWlsMGh6ZjJvbnNsbG8xMHdzeSJ9.WiorL-p1uAsoRN7QpBLUJA',
 
   //Nx vars
   NX_CLOUD_AUTH_TOKEN:
