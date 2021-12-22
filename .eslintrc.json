@@ -73,7 +73,12 @@
             "depConstraints": [
               {
                 "sourceTag": "type:app",
-                "onlyDependOnLibsWithTags": ["type:util", "type:ui"]
+                "onlyDependOnLibsWithTags": [
+                  "type:ui",
+                  "type:util",
+                  "type:hooks",
+                  "type:data"
+                ]
               },
               {
                 "sourceTag": "type:ui",
