@@ -16,9 +16,28 @@ import { CardContent } from '../CardContent'
 import { CardHeader } from '../CardHeader'
 import { UserAvatar } from '../UserAvatar'
 
-export const UserProfile = ({ user }) => {
+type User = {
+  name?: string
+  picture?: string
+  given_name?: string
+  family_name?: string
+  nickname?: string
+  locale?: string
+  updated_at?: string
+  email?: string
+  email_verified?: boolean
+  sub?: string
+}
+
+export interface UserProfileProps {
+  user: User
+  onModalOpen: () => void
+}
+
+export const UserProfile = ({ user, onModalOpen }: UserProfileProps) => {
+  const colorMode = useColorModeValue('gray.50', 'gray.800')
   return (
-    <Box as="section" py="12" bg={useColorModeValue('gray.200', 'gray.800')}>
+    <Box as="section" py="12" bg={colorMode}>
       <Card>
         <Stack
           direction={{ base: 'column', md: 'row' }}
@@ -32,6 +51,7 @@ export const UserProfile = ({ user }) => {
                 <Button
                   size="sm"
                   variant="outline"
+                  onClick={onModalOpen}
                   leftIcon={
                     <Icon as={GoPencil} color="gray.400" marginStart="-1" />
                   }

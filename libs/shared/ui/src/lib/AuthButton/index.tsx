@@ -8,5 +8,3 @@ export const AuthButton = () => {
 
   return isAuthenticated ? <LogoutButton /> : <LoginButton />
 }
-
-export default AuthButton

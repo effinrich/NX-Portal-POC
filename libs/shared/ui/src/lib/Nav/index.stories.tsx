@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 
-import { Nav } from './index'
+import { Nav } from '.'
 
 export default {
   component: Nav,
@@ -10,4 +10,6 @@ export default {
 const Template: Story = args => <Nav {...args} />
 
 export const Primary = Template.bind({})
-Primary.args = {}
+Primary.args = {
+  component: ''
+}

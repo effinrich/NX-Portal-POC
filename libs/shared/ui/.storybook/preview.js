@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { FaMoon, FaSun } from 'react-icons/fa'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { Auth0Provider } from '@auth0/auth0-react'
 import {
   ChakraProvider,
   extendTheme,
@@ -10,6 +11,7 @@ import {
   useColorMode,
   useColorModeValue
 } from '@chakra-ui/react'
+import { configPHC } from '@phc/shared-utils'
 import { DocsContainer, DocsPage } from '@storybook/addon-docs'
 import { addParameters, StoryContext } from '@storybook/react'
 import { withPerformance } from 'storybook-addon-performance'
@@ -79,14 +81,25 @@ const withChakra = (StoryFn: Function, context: StoryContext) => {
   })
 
   return (
-    <BrowserRouter>
-      <ChakraProvider theme={theme}>
-        <div dir={dir} id="story-wrapper">
-          <ColorModeToggleBar />
-          <StoryFn />
-        </div>
-      </ChakraProvider>
-    </BrowserRouter>
+    <Auth0Provider
+      domain={configPHC.auth0Domain}
+      clientId={configPHC.auth0ClientId}
+      redirectUri={typeof window !== 'undefined' && window.location.origin}
+      audience={configPHC.auth0Audience}
+      scope="read:users,root:read"
+      useRefreshTokens={true}
+      cacheLocation="localstorage"
+      // onRedirectCallback={onRedirectCallback}
+    >
+      <Router>
+        <ChakraProvider theme={theme}>
+          <div dir={dir} id="story-wrapper">
+            <ColorModeToggleBar />
+            <StoryFn />
+          </div>
+        </ChakraProvider>
+      </Router>
+    </Auth0Provider>
   )
 }
 

@@ -1,13 +1,24 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Button } from '@chakra-ui/react'
 
-export const LoginButton = () => {
+export interface LoginButtonProps {
+  /**
+   * Chakra UI style variants
+   */
+  variant?: 'solid' | 'ghost' | 'outline' | 'link'
+  /**
+   * Calls loginWithRedirect for Auth0
+   */
+  onClick?: () => void
+}
+
+export const LoginButton = (props: LoginButtonProps) => {
   const { loginWithRedirect } = useAuth0()
 
   return (
     <Button
-      colorScheme="black"
-      variant="outline"
+      data-testid="login-button"
+      colorScheme="brand"
       onClick={() => loginWithRedirect({ screen_hint: 'login' })}
     >
       Login into your PHC Account

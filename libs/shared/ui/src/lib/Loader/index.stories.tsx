@@ -13,13 +13,3 @@ export const Default = Template.bind({})
 Default.args = {
   size: 'md'
 }
-
-export const Lg = Template.bind({})
-Lg.args = {
-  size: 'lg'
-}
-
-export const Xl = Template.bind({})
-Xl.args = {
-  size: 'xl'
-}
