@@ -7,10 +7,13 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerOverlay,
+  Image,
   useColorModeValue,
   useDisclosure
 } from '@chakra-ui/react'
 import { User } from '@phc/shared-data-assets'
+
+import logo from '../../../assets/logo.png'
 
 import MobileNav from './MobileNav'
 import SideBarContent from './SideBarContent'
@@ -47,7 +50,11 @@ export const SideBar = ({
             <SideBarContent onClose={onClose} />
           </DrawerBody>
           <DrawerCloseButton />
-          <DrawerFooter borderTopWidth="1px"></DrawerFooter>
+          <DrawerFooter borderTopWidth="1px">
+            <Box display={{ base: 'none', md: 'block' }}>
+              <Image src={logo} maxW="105" height="auto" ml="8" mt="2" />
+            </Box>
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
       <MobileNav onOpen={onOpen} user={user} />

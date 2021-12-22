@@ -1,17 +1,16 @@
 import { useState } from 'react'
 import ReactMapGL from 'react-map-gl'
-import { configPHC } from '@phc/shared-utils'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import StyledMapboxGL, { StyledMapboxGLContainer } from './style'
 
 /* eslint-disable-next-line */
-export interface MapboxGLProps {}
+export interface MapboxGLProps {
+  mapboxToken: string
+}
 
-const mapboxToken = configPHC.mapboxToken
-
-export const MapboxGL = (props: MapboxGLProps) => {
+export const MapboxGL = ({ mapboxToken }: MapboxGLProps) => {
   const [viewport, setViewport] = useState({
     latitude: 40,
     longitude: -96,

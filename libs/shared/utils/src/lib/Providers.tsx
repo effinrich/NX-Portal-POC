@@ -8,7 +8,6 @@ import {
   HyperThemeEditor,
   ThemeEditorProvider
 } from '@hypertheme-editor/chakra-ui'
-import { theme } from '@phc/shared-ui'
 import { createBrowserHistory } from 'history'
 
 export const history = createBrowserHistory()
@@ -20,7 +19,7 @@ function onRedirectCallback(appState: AppState) {
 
 const queryClient = new QueryClient()
 
-export const Providers = ({ children, domain, clientId, audience }) => {
+export const Providers = ({ children, domain, clientId, audience, theme }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <Auth0Provider
