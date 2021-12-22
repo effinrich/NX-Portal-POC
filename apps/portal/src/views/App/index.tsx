@@ -30,6 +30,7 @@ const Home = lazy(() => import('../Home'))
 const Profile = lazy(() => import('../Profile'))
 const Users = lazy(() => import('../Users'))
 const Settings = lazy(() => import('../Settings'))
+const Location = lazy(() => import('../Location'))
 
 const StyledApp = styled.div``
 
@@ -95,11 +96,6 @@ export function App() {
     if (isAuthenticated) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const createMapsResults = async () => {
-        // const authToken = await getAccessTokenSilently({
-        //   audience: configPHC.auth0Audience,
-        //   scope: 'read:users,root:read'
-        // })
-
         mutate(
           { payload },
           {
@@ -146,6 +142,7 @@ export function App() {
               <ProtectedRoute path="/profile" component={Profile} />
               <ProtectedRoute path="/users" component={Users} />
               <ProtectedRoute path="/settings" component={Settings} />
+              <ProtectedRoute path="/location/:id" component={Location} />
             </Switch>
           </Suspense>
         </SideBar>

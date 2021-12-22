@@ -10,7 +10,7 @@
     "types": ["node"]
   },
   "files": [],
-  "include": [],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
   "references": [
     {
       "path": "./tsconfig.lib.json"

@@ -11,7 +11,6 @@ import {
   useColorMode,
   useColorModeValue
 } from '@chakra-ui/react'
-import { configPHC } from '@phc/shared-utils'
 import { DocsContainer, DocsPage } from '@storybook/addon-docs'
 import { addParameters, StoryContext } from '@storybook/react'
 import { withPerformance } from 'storybook-addon-performance'
@@ -30,6 +29,14 @@ export const globalTypes = {
     }
   }
 }
+
+const AUTH0_DOMAIN = process.env.NX_AUTH0_DOMAIN && process.env.NX_AUTH0_DOMAIN
+
+const AUTH0_CLIENT_ID =
+  process.env.NX_AUTH0_CLIENT_ID && process.env.NX_AUTH0_CLIENT_ID
+
+const AUTH0_AUDIENCE =
+  process.env.NX_AUTH0_AUDIENCE && process.env.NX_AUTH0_AUDIENCE
 
 const ColorModeToggleBar = () => {
   const { toggleColorMode } = useColorMode()
@@ -82,10 +89,10 @@ const withChakra = (StoryFn: Function, context: StoryContext) => {
 
   return (
     <Auth0Provider
-      domain={configPHC.auth0Domain}
-      clientId={configPHC.auth0ClientId}
+      domain={AUTH0_DOMAIN}
+      clientId={AUTH0_CLIENT_ID}
       redirectUri={typeof window !== 'undefined' && window.location.origin}
-      audience={configPHC.auth0Audience}
+      audience={AUTH0_AUDIENCE}
       scope="read:users,root:read"
       useRefreshTokens={true}
       cacheLocation="localstorage"

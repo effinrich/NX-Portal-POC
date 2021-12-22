@@ -1,15 +1,21 @@
 import { useState } from 'react'
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { configPHC, useAxiosApi } from '@phc/shared-utils'
 
 export interface ResultsProps {
   features?: any
 }
 
+type IResult = {
+  id: string
+  context: Record<string, unknown>[]
+}
+
 export const useAutocompleteInput = (initialValue = '') => {
   const axios = useAxiosApi()
   const [value, setValue] = useState(initialValue)
   const [suggestions, setSuggestions] = useState([])
-  const [selectedResult, setSelectedResult] = useState({})
+  const [selectedResult, setSelectedResult] = useState<IResult>()
 
   const handleChange = async event => {
     setValue(event.target.value)

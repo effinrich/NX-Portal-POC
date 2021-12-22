@@ -1,7 +1,8 @@
 import * as ReactDOM from 'react-dom'
 import loadable from '@loadable/component'
+import { Providers } from '@phc/shared-helpers'
 import { ErrorBoundary, theme } from '@phc/shared-ui'
-import { configPHC, Providers } from '@phc/shared-utils'
+import { configPHC } from '@phc/shared-utils'
 
 const App = loadable(() => import('./views/App'))
 

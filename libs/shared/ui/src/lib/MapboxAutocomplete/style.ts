@@ -16,7 +16,7 @@ export const MapboxAutocompleteInput = styled.input<MapboxAutocompleteInputProps
   border-color: inherit;
   background: inherit;
   padding: 10px 20px;
-  border-radius: 20px;
+  border-radius: 10px;
   position: relative;
   display: grid;
   justify-self: center;
@@ -30,11 +30,29 @@ export const MapboxAutocompleteSuggestionWrapper = styled.div`
   background: white;
   position: absolute;
   width: 100%;
-  padding: 10px 20px;
+  max-width: 950px;
+  z-index: 999999;
   border-radius: 0px 0px 10px 10px;
+  border: 1px solid;
+  border-top: none;
+  border-color: inherit;
+  box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.1),
+    0 1px 2px 0px rgba(0, 0, 0, 0.06);
+
+  /* border-radius: 0px 0px 10px 10px; */
+`
+
+export const MapboxAutocompleteSuggestionOuter = styled.div`
+  cursor: pointer;
+  width: 100%;
+  padding: 10px 20px;
+  &:hover,
+  &:focus {
+    background: #b8d3ff;
+  }
 `
 
 export const MapboxAutocompleteSuggestion = styled.p`
   cursor: pointer;
-  max-width: 400px;
+  width: 100%;
 `

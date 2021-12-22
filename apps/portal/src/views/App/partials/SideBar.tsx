@@ -35,12 +35,14 @@ export const SideBar = ({
         display={{ base: 'none', md: 'block' }}
       />
       <Drawer
+        //  variant="permanent"
         autoFocus={false}
         isOpen={isOpen}
         placement="left"
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
+        preserveScrollBarGap
         isFullHeight
         size="xs"
       >

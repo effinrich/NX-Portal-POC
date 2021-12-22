@@ -1,9 +1,9 @@
 import { FC, ReactElement } from 'react'
 import { extendTheme, ThemeConfig } from '@chakra-ui/react'
+import { Providers } from '@phc/shared-helpers'
 import { render, RenderOptions } from '@testing-library/react'
 
 import { configPHC } from './configPHC'
-import { Providers } from './Providers'
 
 const config: ThemeConfig = {
   initialColorMode: 'light',

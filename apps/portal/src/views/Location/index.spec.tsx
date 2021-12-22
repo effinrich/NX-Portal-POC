@@ -1,6 +1,6 @@
 import { render } from '@phc/shared-utils'
 
-import Location from '.'
+import Location from './index'
 
 // eslint-disable-next-line react/jsx-no-useless-fragment
 jest.mock('../../../../../libs/shared/ui/src/lib/MapboxGL', () => () => <></>)

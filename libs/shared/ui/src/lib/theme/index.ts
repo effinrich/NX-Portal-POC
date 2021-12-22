@@ -38,6 +38,20 @@ export const theme = extendTheme({
         bg: '#F2F2F2'
       }
     }
+  },
+  components: {
+    Drawer: {
+      variants: {
+        permanent: {
+          dialog: {
+            pointerEvents: 'auto'
+          },
+          dialogContainer: {
+            pointerEvents: 'none'
+          }
+        }
+      }
+    }
   }
 })
 

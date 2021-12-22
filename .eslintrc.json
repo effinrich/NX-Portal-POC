@@ -68,7 +68,6 @@
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
           {
-            "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
               {
@@ -77,7 +76,8 @@
                   "type:ui",
                   "type:util",
                   "type:hooks",
-                  "type:data"
+                  "type:data",
+                  "type:helpers"
                 ]
               },
               {
@@ -86,11 +86,22 @@
                   "type:ui",
                   "type:util",
                   "type:hooks",
-                  "type:data"
+                  "type:data",
+                  "type:helpers"
                 ]
               },
               {
                 "sourceTag": "type:util",
+                "onlyDependOnLibsWithTags": [
+                  "type:ui",
+                  "type:util",
+                  "type:hooks",
+                  "type:data",
+                  "type:helpers"
+                ]
+              },
+              {
+                "sourceTag": "type:data",
                 "onlyDependOnLibsWithTags": [
                   "type:ui",
                   "type:util",

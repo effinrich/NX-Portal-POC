@@ -8,7 +8,7 @@ import {
   FlexProps,
   HStack,
   IconButton,
-  // Image,
+  Image,
   Menu,
   MenuButton,
   MenuDivider,
@@ -19,7 +19,9 @@ import {
   VStack
 } from '@chakra-ui/react'
 import { User } from '@phc/shared-data-assets'
-import { Autocomplete, Loader } from '@phc/shared-ui'
+import { Loader, MapboxAutocomplete } from '@phc/shared-ui'
+
+import logo from '../../../assets/logo.png'
 
 interface MobileProps extends FlexProps {
   onOpen: () => void
@@ -62,13 +64,21 @@ const MobileNav = ({ onOpen, user, ...rest }: MobileProps) => {
           icon={<FiMenu />}
         />
       </Box>
+      {/* <Box w="50px" mr={4}>
+        <IconButton
+          onClick={onOpen}
+          variant="outline"
+          aria-label="open menu"
+          icon={<FiMenu />}
+        />
+      </Box> */}
       <Box w="100%">
-        <Autocomplete options={options} />
+        <MapboxAutocomplete />
       </Box>
 
-      {/* <Box w="100px" display={{ base: 'flex', md: 'none' }}>
+      <Box w="100px" display={{ base: 'flex', md: 'none' }}>
         <Image src={logo} />
-      </Box> */}
+      </Box>
 
       <Box w={['80px', 'inherit']}>
         <HStack spacing={{ base: '0', md: '6' }}>
