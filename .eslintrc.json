@@ -9,7 +9,13 @@
     "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
-  "plugins": ["@nrwl/nx", "simple-import-sort", "react-hooks"],
+  "plugins": [
+    "@nrwl/nx",
+    "simple-import-sort",
+    "react-hooks",
+    "testing-library",
+    "jest-dom"
+  ],
   "settings": {
     "mdx/code-blocks": true
   },
@@ -60,14 +66,32 @@
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "@nrwl/nx/enforce-module-boundaries": [
-          "warn",
+          "error",
           {
             "enforceBuildableLibDependency": true,
-            "allow": ["@phc/shared-utils"],
+            "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "sourceTag": "type:app",
+                "onlyDependOnLibsWithTags": ["type:util", "type:ui"]
+              },
+              {
+                "sourceTag": "type:ui",
+                "onlyDependOnLibsWithTags": [
+                  "type:ui",
+                  "type:util",
+                  "type:hooks",
+                  "type:data"
+                ]
+              },
+              {
+                "sourceTag": "type:util",
+                "onlyDependOnLibsWithTags": [
+                  "type:ui",
+                  "type:util",
+                  "type:hooks",
+                  "type:data"
+                ]
               }
             ]
           }

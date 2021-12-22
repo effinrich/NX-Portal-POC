@@ -12,15 +12,13 @@
   },
   "files": [],
   "include": [],
+  "exclude": ["**/*.md", "**/*.mdx"],
   "references": [
     {
       "path": "./tsconfig.app.json"
     },
     {
       "path": "./tsconfig.spec.json"
-    },
-    {
-      "path": "./.storybook/tsconfig.json"
     }
   ]
 }

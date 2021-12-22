@@ -1,10 +1,13 @@
 import React from 'react'
+
 import '@testing-library/jest-dom/extend-expect'
 
 require('jest-fetch-mock').enableMocks()
 
+// eslint-disable-next-line react/jsx-no-useless-fragment
 jest.mock('libs/shared/ui/src/lib/MapboxGL', () => () => <></>)
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 function noOp() {}
 
 if (typeof window.URL.createObjectURL === 'undefined') {
@@ -32,5 +35,5 @@ Object.defineProperty(global.self, 'crypto', {
 })
 
 React.useLayoutEffect = React.useEffect
-window.crypto = { subtle: {} }
+
 global.crypto.subtle = {} // this gets around the 'auth0-spa-js must run on a secure origin' error

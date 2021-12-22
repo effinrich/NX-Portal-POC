@@ -114,5 +114,6 @@
       }
     }
   },
-  "tags": ["scope:portal", "type:app"]
+  "tags": ["scope:portal", "type:app"],
+  "implicitDependencies": []
 }

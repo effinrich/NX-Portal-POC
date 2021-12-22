@@ -3,8 +3,10 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "composite": true
   },
+  "exclude": ["**/*.md", "**/*.mdx"],
   "include": [
     "**/*.test.ts",
     "**/*.spec.ts",
@@ -18,7 +20,9 @@
     "**/*.stories.jsx",
     "**/*.stories.ts",
     "**/*.stories.tsx",
-    "**/*.d.ts"
+    "**/*.d.ts",
+    "src/views/Home/index.spec.tsx.hold",
+    "src/views/Profile/index.spec.tsx.hold"
   ],
   "files": [
     "../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
