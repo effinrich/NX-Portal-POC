@@ -2,16 +2,17 @@ const { getJestProjects } = require('@nrwl/jest')
 
 module.exports = {
   projects: getJestProjects(),
+  moduleDirectories: [],
   // Jest transformations -- this adds support for TypeScript
   // using ts-jest
   transform: {
-    '^.+\\.tsx?$': 'ts-jest'
+    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
+    '^.+\\.[tj]sx?$': 'ts-jest'
   },
   // Runs special logic, such as cleaning up components
   // when using React Testing Library and adds special
   // extended assertions to Jest
   setupFilesAfterEnv: [
-    '@testing-library/react/cleanup-after-each',
     '@testing-library/jest-dom/extend-expect',
     '<rootDir>/setupTests.js'
   ],

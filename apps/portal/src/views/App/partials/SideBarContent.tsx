@@ -14,7 +14,6 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome, path: '/' },
   // { name: 'Trending', icon: FiTrendingUp },
-  // { name: 'Map Viewer', icon: FiCompass },
   { name: 'Users', icon: FiUser, path: '/users' },
   { name: 'Settings', icon: FiSettings, path: '/settings' }
 ]

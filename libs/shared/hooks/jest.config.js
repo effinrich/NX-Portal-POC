@@ -5,5 +5,6 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'babel-jest'
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/shared/hooks'
+  coverageDirectory: '../../../coverage/libs/shared/hooks',
+  testRegex: '(.*|(\\.|/)(test|spec))\\.{ts,tsx,js,jxs}?$'
 }

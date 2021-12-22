@@ -1,6 +1,5 @@
+import { Card, SettingsForm } from '@phc/shared-ui'
 import styled from 'styled-components'
-
-import { Card, SettingsForm } from '../../components'
 /* eslint-disable-next-line */
 export interface SettingsProps {}
 

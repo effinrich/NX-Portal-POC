@@ -2,10 +2,8 @@
 see what Auth0 offers on a paid plan */
 import { Redirect } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { Flex } from '@chakra-ui/react'
+import { Card, LoginButton } from '@phc/shared-ui'
 import styled from 'styled-components'
-
-import { Card, LoginButton } from '../../components'
 
 /* eslint-disable-next-line */
 export interface LoginProps {}

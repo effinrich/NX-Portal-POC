@@ -18,7 +18,7 @@ This file was generated using [@jscutlery/semver](https://github.com/jscutlery/s
 ### Features
 
 - add error boundaries logic ([01dd034](https://github.com/phc-health/phc-portal/commit/01dd0343ae3ccef19702ec1d911d579209efb8f5))
-- add storybook to shared-ui and portal ([b0a63f6](https://github.com/phc-health/phc-portal/commit/b0a63f66752d5ae51f6a98d4c880d22f3d366d1f))
+- add storybook to shared-ui2 and portal ([b0a63f6](https://github.com/phc-health/phc-portal/commit/b0a63f66752d5ae51f6a98d4c880d22f3d366d1f))
 - add theme file for custom colors ([733aa25](https://github.com/phc-health/phc-portal/commit/733aa258d996a532181c2d759dc8b0db2eb9f3cb))
 - build routing structure and logic ([72e87fb](https://github.com/phc-health/phc-portal/commit/72e87fb615b96ace1d218219aeabe539a277ec85))
 - build/move home and login views to portal app ([949a055](https://github.com/phc-health/phc-portal/commit/949a055dc67f17a166400c1f954a340b92b8f36c))

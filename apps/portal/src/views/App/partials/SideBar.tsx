@@ -10,8 +10,7 @@ import {
   useColorModeValue,
   useDisclosure
 } from '@chakra-ui/react'
-
-import { User } from '../../../types'
+import { User } from '@phc/shared-data-assets'
 
 import MobileNav from './MobileNav'
 import SideBarContent from './SideBarContent'

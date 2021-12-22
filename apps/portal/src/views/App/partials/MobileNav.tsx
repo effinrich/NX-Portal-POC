@@ -18,12 +18,12 @@ import {
   // useColorModeValue,
   VStack
 } from '@chakra-ui/react'
-
-import { Autocomplete, Loader } from '../../../components'
+import { User } from '@phc/shared-data-assets'
+import { Autocomplete, Loader } from '@phc/shared-ui'
 
 interface MobileProps extends FlexProps {
   onOpen: () => void
-  user: Record<string, unknown>
+  user: User
 }
 
 const options = [

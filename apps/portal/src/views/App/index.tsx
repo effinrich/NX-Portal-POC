@@ -15,21 +15,18 @@ import {
   Center,
   CloseButton,
   Image,
-  useColorModeValue as mode,
+  useColorModeValue,
   VStack
 } from '@chakra-ui/react'
-import { axios } from '@phc/shared-utils'
+import { Card, Loader, LoginButton, ProtectedRoute } from '@phc/shared-ui'
+import { useAxiosApi } from '@phc/shared-utils'
 import styled from 'styled-components'
 
 import logo from '../../assets/logo.png'
-import { Card, Loader, LoginButton, ProtectedRoute } from '../../components'
-import { environment } from '../../environments/environment'
 
 import { SideBar } from './partials/SideBar'
-// const Dashboard = lazy(() => import('../Dashboard'))
+
 const Home = lazy(() => import('../Home'))
-// const Login = lazy(() => import('../Login'))
-const MapViewer = lazy(() => import('../MapViewer'))
 const Profile = lazy(() => import('../Profile'))
 const Users = lazy(() => import('../Users'))
 const Settings = lazy(() => import('../Settings'))
@@ -45,36 +42,11 @@ type Body = {
   decodedToken: DecodedToken
 }
 
-// type UserProfile = {
-//   body: Body
-// }
-
-// interface Post {
-//   id: number
-//   name: string
-// }
-
-// export interface IMapData {
-//   result: Record<string, unknown>
-//   coords: {
-//     lat: number
-//     lng: number
-//   }
-// }
-// export interface ICoords {
-//   lat: number
-//   lng: number
-// }
-
 type Response = {
   modelBuf: Record<string, unknown>
   paginationResponse: Record<string, unknown>
   data: string[]
 }
-
-const AUTH0_AUDIENCE = process.env.NX_AUTH0_AUDIENCE
-  ? process.env.NX_AUTH0_AUDIENCE
-  : environment.AUTH0_AUDIENCE
 
 const payload = {
   search_criteria: {
@@ -107,34 +79,29 @@ const payload = {
 }
 
 export function App() {
+  const axios = useAxiosApi()
   const { isLoading, error, isAuthenticated, user, getAccessTokenSilently } =
     useAuth0()
+  const colorMode = useColorModeValue('brand.500', 'gray.900')
   const handleError = useErrorHandler()
   const mounted = useUnmountPromise()
-  // const [coords, setCoords] = useState<ICoords>()
   const [mapData, setMapData] = useState({})
 
   const { mutate } = useMutation<Response, unknown, any>(newMapQuery => {
-    return axios.post('/model_bufs', newMapQuery.payload, {
-      headers: {
-        Authorization: `Bearer ${newMapQuery.jwt}`
-      }
-    })
+    return axios.post('/model_bufs', newMapQuery.payload, {})
   })
 
   useEffect(() => {
-    const isSubscribed = true
-
     if (isAuthenticated) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const createMapsResults = async () => {
-        const authToken = await getAccessTokenSilently({
-          audience: `${AUTH0_AUDIENCE}`,
-          scope: 'read:users,root:read'
-        })
+        // const authToken = await getAccessTokenSilently({
+        //   audience: configPHC.auth0Audience,
+        //   scope: 'read:users,root:read'
+        // })
 
         mutate(
-          { payload, jwt: authToken },
+          { payload },
           {
             onError: error => handleError(error),
             onSuccess: result => {
@@ -175,16 +142,10 @@ export function App() {
           </Box>
           <Suspense fallback={<Loader size="xl" />}>
             <Switch>
-              {/* <Route exact path="/login" component={Login} /> */}
-              {/* <ProtectedRoute exact path="/">
-                <Redirect to="/" />
-              </ProtectedRoute> */}
               <ProtectedRoute path="/" component={Home} exact />
               <ProtectedRoute path="/profile" component={Profile} />
-              <ProtectedRoute path="/map-viewer" component={MapViewer} />
               <ProtectedRoute path="/users" component={Users} />
               <ProtectedRoute path="/settings" component={Settings} />
-              {/* <Route render={() => <Redirect to="/login" />} /> */}
             </Switch>
           </Suspense>
         </SideBar>
@@ -192,7 +153,7 @@ export function App() {
         <Box
           w="100%"
           minH="100vh"
-          bg={mode('brand.500', 'gray.900')}
+          bg={colorMode}
           display="flex"
           alignItems="center"
           justifyContent="center"

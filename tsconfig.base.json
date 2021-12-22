@@ -7,7 +7,6 @@
     "allowJs": true,
     "checkJs": true,
     "sourceMap": true,
-    "declaration": false,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -21,6 +20,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@phc/shared-data-assets": ["libs/shared/data-assets/src/index.ts"],
       "@phc/shared-hooks": ["libs/shared/hooks/src/index.ts"],
       "@phc/shared-ui": ["libs/shared/ui/src/index.ts"],
       "@phc/shared-utils": ["libs/shared/utils/src/index.ts"]

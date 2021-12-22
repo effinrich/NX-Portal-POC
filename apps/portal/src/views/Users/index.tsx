@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { useQuery } from 'react-query'
-// import { axiosMock } from '@phc/shared-utils'
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Avatar,
@@ -11,13 +10,10 @@ import {
   InputGroup,
   InputRightElement
 } from '@chakra-ui/react'
-import styled from 'styled-components'
-
+import { Card, Loader } from '@phc/shared-ui'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { axiosMock } from '../../../../../libs/shared/utils/src/lib/axiosMock'
-import { Card, Loader } from '../../components'
-
-// import DataTable from './partials/DataTable'
+import { axiosMock } from '@phc/shared-utils'
+import styled from 'styled-components'
 
 /* eslint-disable-next-line */
 export interface UsersProps {}

@@ -3,8 +3,9 @@
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
     "declaration": true,
-    "types": []
+    "types": ["node"],
+    "composite": true
   },
-  "include": ["**/*.ts", "src/lib/axiosApi.ts"],
-  "exclude": ["**/*.spec.ts"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["**/*.spec.ts", "**/__mocks__"]
 }

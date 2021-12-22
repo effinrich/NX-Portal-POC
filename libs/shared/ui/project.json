@@ -4,6 +4,25 @@
   "projectType": "library",
   "tags": ["scope:shared", "type:ui"],
   "targets": {
+    "build": {
+      "executor": "@nrwl/web:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/ui",
+        "tsConfig": "libs/shared/ui/tsconfig.lib.json",
+        "project": "libs/shared/ui/package.json",
+        "entryFile": "libs/shared/ui/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "assets": [
+          {
+            "glob": "libs/shared/ui/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

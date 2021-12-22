@@ -1,22 +1,16 @@
+import { Card, MapboxGL } from '@phc/shared-ui'
 import styled from 'styled-components'
 
-import { Card, MapboxGL } from '../../components'
-
 /* eslint-disable-next-line */
-export interface HomeProps {
-  coords: {
-    lat: number
-    lng: number
-  }
-}
+export interface HomeProps {}
 
 const StyledHome = styled.div`
   color: black;
 `
 
-const Home = (props: HomeProps) => {
+export function Home(props: HomeProps) {
   return (
-    <StyledHome>
+    <StyledHome data-testid="home">
       <Card>
         <MapboxGL />
       </Card>

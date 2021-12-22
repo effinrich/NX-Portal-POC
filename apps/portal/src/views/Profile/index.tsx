@@ -9,21 +9,22 @@ import {
   ModalOverlay,
   useDisclosure
 } from '@chakra-ui/react'
+import { User } from '@phc/shared-data-assets'
+import { ProfileForm, UserProfile } from '@phc/shared-ui'
 import styled from 'styled-components'
-
-import { ProfileForm, UserProfile } from '../../components'
-
 /* eslint-disable-next-line */
-export interface ProfileProps {}
+export interface ProfileProps {
+  user: User
+}
 
 const StyledProfile = styled.div``
 
 const Profile = (props: ProfileProps) => {
   const { user } = useAuth0()
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onClose, onOpen } = useDisclosure()
 
   return (
-    <StyledProfile>
+    <StyledProfile data-testid="profile">
       <UserProfile user={user} onModalOpen={onOpen} />
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
