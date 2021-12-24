@@ -17,10 +17,10 @@
     "update": "nx migrate latest",
     "dep-graph": "nx dep-graph --watch",
     "storybook": "nx run shared-ui:storybook",
-    "build-storybook": "nx run shared-ui:build-storybook",
+    "build-storybook": "nx run shared-ui:build-storybook --output-dir",
     "help": "nx help",
     "prepare": "node prepare.js",
-    "chromatic": "chromatic --project-token=dd62a5fc0fee --exit-zero-on-changes"
+    "chromatic": "chromatic --exit-zero-on-changes --only-changed"
   },
   "private": true,
   "dependencies": {

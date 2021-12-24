@@ -26,7 +26,7 @@ export const useAutocompleteInput = (initialValue = '') => {
       const results: ResultsProps = await response.data
       setSuggestions(results?.features)
     } catch (error) {
-      console.log('Error fetching data, ', error)
+      console.log('Error fetching data = ', error)
     }
   }
 
