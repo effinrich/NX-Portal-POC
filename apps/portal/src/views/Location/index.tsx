@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useGetLocation } from '@phc/shared-data-assets'
-import { MapboxGL } from '@phc/shared-ui'
+import { Card, MapboxGL } from '@phc/shared-ui'
 import { configPHC } from '@phc/shared-utils'
 import styled from 'styled-components'
 /* eslint-disable-next-line */
@@ -19,16 +19,18 @@ export function Location(props: LocationProps) {
 
   return (
     <StyledLocation>
-      {data && (
-        <MapboxGL
-          isCenterGeo
-          zoom={8}
-          mapboxToken={mapboxToken}
-          latitude={data.features[0].center[1]}
-          longitude={data.features[0].center[0]}
-          mapStyle="mapbox://styles/mapbox/streets-v11"
-        />
-      )}
+      <Card p={0}>
+        {data && (
+          <MapboxGL
+            isCenterGeo
+            zoom={8}
+            mapboxToken={mapboxToken}
+            latitude={data.features[0].center[1]}
+            longitude={data.features[0].center[0]}
+            mapStyle="mapbox://styles/mapbox/streets-v11"
+          />
+        )}
+      </Card>
     </StyledLocation>
   )
 }
