@@ -1,0 +1,28 @@
+import { Auth0Provider } from '@auth0/auth0-react'
+import { render } from '@testing-library/react'
+
+import App from '.'
+
+const AUTH0_DOMAIN = process.env.NX_AUTH0_DOMAIN
+const AUTH0_CLIENT_ID = process.env.NX_AUTH0_CLIENT_ID
+
+// eslint-disable-next-line react/jsx-no-useless-fragment
+jest.mock('../../../../../libs/shared/ui/src/lib/MapboxGL', () => () => <></>)
+
+describe('App', () => {
+  it('should render successfully', () => {
+    const { baseElement } = render(
+      <Auth0Provider domain={`${AUTH0_DOMAIN}`} clientId={`${AUTH0_CLIENT_ID}`}>
+        <App />
+      </Auth0Provider>
+    )
+
+    expect(baseElement).toBeTruthy()
+  })
+
+  // it('should have a greeting as the title', () => {
+  //   const { getByText } = render(<App />)
+
+  //   expect(getByText('Welcome to portal!')).toBeTruthy()
+  // })
+})

@@ -1,0 +1,23 @@
+import { render, screen } from '@phc/shared-utils'
+
+import Profile from '.'
+
+// eslint-disable-next-line react/jsx-no-useless-fragment
+jest.mock('../../../../../libs/shared/ui/src/lib/MapboxGL', () => () => <></>)
+
+const user = {
+  name: 'rich tillman',
+  picture: 'http://url-pic.com',
+  given_name: 'Richard',
+  family_name: 'Tillman',
+  nickname: 'Rich',
+  email: 'rich@phc.health'
+}
+
+describe('Profile', () => {
+  it('should render successfully', () => {
+    render(<Profile user={user} />)
+    const baseElement = screen.findByTestId('profile')
+    expect(baseElement).toBeTruthy()
+  })
+})
