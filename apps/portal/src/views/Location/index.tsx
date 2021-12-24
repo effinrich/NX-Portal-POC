@@ -16,14 +16,17 @@ export function Location(props: LocationProps) {
   const { id } = useParams()
 
   const { data } = useGetLocation(id)
-  console.log('data = ', data && data.features[0].center[0])
 
   return (
     <StyledLocation>
       {data && (
         <MapboxGL
+          isCenterGeo
+          zoom={8}
           mapboxToken={mapboxToken}
-          latitude={data.features[0].center[0]}
+          latitude={data.features[0].center[1]}
+          longitude={data.features[0].center[0]}
+          mapStyle="mapbox://styles/mapbox/streets-v11"
         />
       )}
     </StyledLocation>

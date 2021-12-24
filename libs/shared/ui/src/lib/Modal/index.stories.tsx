@@ -1,3 +1,4 @@
+import { BoxProps } from '@chakra-ui/react'
 import { ComponentMeta, ComponentStory, Meta, Story } from '@storybook/react'
 
 import { Modal } from './index'
@@ -23,9 +24,9 @@ const Base: ComponentStory<typeof Modal> = args => <Modal {...args} />
 //   <CardHeader {...args}>This is the Card Header</CardHeader>
 // )
 
-// const Template: Story<BoxProps> = args => <Card {...args} />
+// const Template: Story<BoxProps> = args => <Modal title="Modal Title" {...args} />
 
-// export const Primary = Template.bind({})
-// Primary.args = {
-//   title: ''
-// }
+export const Primary = Base.bind({})
+Primary.args = {
+  title: ''
+}
