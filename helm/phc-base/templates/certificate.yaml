@@ -1,0 +1,20 @@
+{{- if .Values.certificate.create }}
+{{- if not (.Capabilities.APIVersions.Has "cert-manager.io/v1") }}
+{{- fail "Cert Manager must be installed on cluster if certificate.create is set" }}
+{{- end }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "phc-base.certificateName" . }}
+spec:
+  # isCA: false  # Defaults to false, omitted if false, causes ArgoCD to have spurious diff
+  commonName: {{ required "certificate.commonName is required if certificate.create is set" .Values.certificate.commonName }}
+  secretName: {{ include "phc-base.certificateSecretName" . }}
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: {{ .Values.certificate.issuer }}
+    kind: {{ .Values.certificate.issuerKind }}
+    group: cert-manager.io
+{{- end }}

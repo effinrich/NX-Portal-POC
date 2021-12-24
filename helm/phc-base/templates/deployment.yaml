@@ -1,0 +1,132 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "phc-base.fullname" . }}
+  labels:
+    {{- include "phc-base.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "phc-base.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "phc-base.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "phc-base.serviceAccountName" . }}
+      {{- if .Values.esp.podSecurityContext }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- end }}
+      {{- if (or .Values.esp.enabled .Values.volumes) }}
+      volumes:
+        {{- if .Values.esp.enabled }}
+        # Assume tls.crt and tls.key exist in secret; will be remounted as server.crt and server.key
+        - name: esp-ssl
+          secret:
+            secretName: {{ include "phc-base.certificateSecretName" . }}
+        {{- end }}
+        {{- if .Values.volumes }}
+        {{- toYaml .Values.volumes | nindent 8 }}
+        {{- end }}
+      {{- end }}
+      containers:
+        {{- if .Values.esp.enabled }}
+        - name: esp
+          image: "{{ .Values.esp.image.repository }}:{{ .Values.esp.image.tag }}"
+          args: [
+            "--listener_port={{ .Values.esp.port }}",
+            "--service={{ required "esp.service is required if esp.enabled is set" .Values.esp.service }}",
+            "--rollout_strategy=managed",
+            "--backend=grpc://127.0.0.1:{{ required "esp.targetPort is required if esp.enabled is set" .Values.esp.targetPort }}",
+            "--healthz=/healthz",
+            "--ssl_server_cert_path=/etc/esp/ssl",
+            {{- if .Values.esp.adminPort }}
+            "--admin_port={{ .Values.esp.adminPort }}",
+            {{- end }}
+          ]
+          ports:
+            - containerPort: {{ .Values.esp.port }}
+              name: esp
+            {{- if .Values.esp.adminPort }}
+            - containerPort: {{ .Values.esp.adminPort }}
+              name: esp-admin
+            {{- end }}
+          volumeMounts:
+          - mountPath: /etc/esp/ssl/server.crt
+            name: esp-ssl
+            subPath: tls.crt
+            readOnly: true
+          - mountPath: /etc/esp/ssl/server.key
+            name: esp-ssl
+            subPath: tls.key
+            readOnly: true
+        {{- end }}
+        - name: {{ .Chart.Name }}
+          {{- if .Values.securityContext }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- end }}
+          {{- if .Values.skaffold }}
+          image: "{{.Values.imageKey}}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- else }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- end }}
+          {{- if .Values.env }}
+          env:
+            {{- toYaml .Values.env | nindent 12 }}
+          {{- end }}
+          ports:
+            {{- toYaml .Values.ports | nindent 12 }}
+          {{- if .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
+          {{- end }}
+          {{- if .Values.envFrom }}
+          envFrom:
+            {{- toYaml .Values.envFrom | nindent 12 }}
+          {{- end }}
+          {{- if .Values.startupProbe }}
+          startupProbe:
+            {{- toYaml .Values.startupProbe | nindent 12 }}
+          {{- end }}
+          {{- if .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          {{- end }}
+          {{- if .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          {{- end }}
+          {{- if .Values.resources }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- end }}
+        {{- if .Values.extraContainers }}
+        {{- toYaml .Values.extraContainers | nindent 8 }}
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

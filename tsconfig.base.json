@@ -1,0 +1,48 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "checkJs": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@phc/shared-data-assets": [
+        "libs/shared/data-assets/src/index.ts"
+      ],
+      "@phc/shared-helpers": [
+        "libs/shared/helpers/src/index.ts"
+      ],
+      "@phc/shared-hooks": [
+        "libs/shared/hooks/src/index.ts"
+      ],
+      "@phc/shared-ui": [
+        "libs/shared/ui/src/index.ts"
+      ],
+      "@phc/shared-utils": [
+        "libs/shared/utils/src/index.ts"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
+}
