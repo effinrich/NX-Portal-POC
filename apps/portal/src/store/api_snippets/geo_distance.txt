@@ -1,0 +1,34 @@
+curl --request POST \
+  --url https://rest.pluto.thepublichealthco.com/api/model_bufs \
+  --header 'Content-Type: application/json' \
+  --header 'grpc-metadata-x-api-key: AIzaSyDJFG69ByMZh9W0vYoq86WEHeyj7BC1Z00' \
+  --data '{
+	"search_criteria": {
+		"search_condition": [
+			{
+				"field_condition": [
+					{
+						"field": "centroids",
+						"operation": "GEO_DISTANCE",
+						"value": {
+							"geo_distance_value": {
+								"point": {
+									"lat": 28.542306623,
+									"lon": -81.38671875
+								},
+								"distance": "7km",
+								"distance_type": 0
+							}
+						}
+					}
+				]
+			}
+		],
+		"sorting_criteria": [
+			{
+				"attribute": "id",
+				"order": "DESCENDING"
+			}
+		]
+	}
+}'
