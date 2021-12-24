@@ -196,7 +196,7 @@
       "@commitlint/config-conventional"
     ]
   },
-  "packageManager": "yarn@1.22.1",
+  "packageManager": "yarn@1.22.17",
   "jest": {
     "testEnvironment": "node",
     "setupFiles": [
