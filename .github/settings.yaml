@@ -1,7 +1,7 @@
 repository:
-  name: phc-portal
-  description: Repo for the PHC Portal
-  private: true
+  name: NX-Portal-POC
+  description: Repo for NX-Portal-POC
+  private: false
   has_issues: true
   has_projects: false
   has_wiki: false

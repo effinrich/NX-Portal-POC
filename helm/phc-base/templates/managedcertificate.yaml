@@ -1,9 +1,0 @@
-{{- if .Values.managedCertificate.create }}
-apiVersion: networking.gke.io/v1
-kind: ManagedCertificate
-metadata:
-  name: {{ include "phc-base.managedCertificateName" . }}
-spec:
-  domains:
-  {{- toYaml .Values.managedCertificate.domains | nindent 2 }}
-{{- end }}
