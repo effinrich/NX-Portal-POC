@@ -1,4 +1,4 @@
-# PhcPortal
+# NX Portal POC
 
 This project was generated using [Nx](https://nx.dev).
 
