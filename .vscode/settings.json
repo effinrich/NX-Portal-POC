@@ -4,7 +4,7 @@
     "editor.formatOnSave": true
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "eslint.options": {
     "extensions": [".js", ".jsx", ".ts", ".tsx"]
@@ -19,7 +19,6 @@
   ],
   "workbench.colorCustomizations": {
     "statusBar.noFolderBackground": "#222225",
-    "statusBar.debuggingBackground": "#511f1f",
     "editor.lineHighlightBackground": "#1073cf2d",
     "editorBracketMatch.border": "#575B5F",
     "editor.lineHighlightBorder": "#9fced11f"
