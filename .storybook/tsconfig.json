@@ -1,8 +1,11 @@
 {
   "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
   "exclude": [
     "../**/*.spec.js",
-    "../**/*.test.js"
+    "../**/*.test.js",
     "../**/*.spec.ts",
     "../**/*.test.ts",
     "../**/*.spec.tsx",
@@ -10,5 +13,5 @@
     "../**/*.spec.jsx",
     "../**/*.test.jsx"
   ],
-  "include": ["../**/*", "../apps/portal/jest.config.js"]
+  "include": ["../**/*"]
 }
