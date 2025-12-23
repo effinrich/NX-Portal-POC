@@ -48,5 +48,10 @@
     "**/.settings": true,
     "**/.factorypath": true
   },
-  "explorerExclude.backup": null
+  "explorerExclude.backup": null,
+  "path-intellisense.showHiddenFiles": true,
+  "storyExplorer.storiesGlobs": [
+    "./libs/shared/ui/src/**/*.stories.mdx",
+    "./libs/shared/ui/src/**/*.stories.@(js|jsx|ts|tsx)"
+  ]
 }
