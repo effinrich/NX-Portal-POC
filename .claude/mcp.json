@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "storybook-builder": {
+      "command": "node",
+      "args": ["./mcp-servers/storybook-builder/dist/index.js"],
+      "env": {}
+    }
+  }
+}
